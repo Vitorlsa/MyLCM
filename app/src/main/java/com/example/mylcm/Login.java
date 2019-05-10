@@ -15,7 +15,7 @@ public class Login extends AppCompatActivity {
     Runnable runnable = new Runnable() {
         public void run() {
             rellay1.setVisibility(View.VISIBLE);
-//teste2
+//teste3
         }
     };
 
