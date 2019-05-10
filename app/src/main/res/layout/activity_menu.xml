@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rellay2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Menu"
+            android:textSize="35dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/btn_calendario"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/txt_menu"
+            android:text="Calendário"
+            android:background="@drawable/btn_round"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textAllCaps="false"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btn_remedio"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/btn_calendario"
+            android:background="@color/gradStop"
+            android:layout_marginTop="10dp"
+            android:text="Remédios"
+            android:textAllCaps="false"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btn_paciente"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/btn_remedio"
+            android:background="@color/gradMiddle"
+            android:layout_marginTop="10dp"
+            android:text="Paciente"
+            android:textAllCaps="false"
+            android:textSize="30sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
