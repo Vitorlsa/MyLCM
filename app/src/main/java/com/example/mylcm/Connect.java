@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    String ip = "";
+    String ip = "https://reqres.in/api/users?page=2";
     String jdbc = "net.sourceforge.jtds.jdbc.Driver";
     String db = "";
     String username = "";
