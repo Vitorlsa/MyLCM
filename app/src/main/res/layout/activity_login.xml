@@ -75,7 +75,8 @@
                         android:fontFamily="sans-serif-light"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:background="@drawable/et_bg"/>
+                        android:background="@drawable/et_bg"
+                        android:inputType="text"/>
 
                 </LinearLayout>
 
@@ -126,8 +127,7 @@
                 android:paddingRight="70dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="20sp"
-                android:layout_marginTop="50dp"
-                android:onClick=""/>
+                android:layout_marginTop="50dp"/>
 
         </RelativeLayout>
 
