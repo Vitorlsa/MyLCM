@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mylcm">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,11 +15,11 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".Menu"
+            android:name=".Activities.Menu"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".Activities.Login"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
