@@ -88,12 +88,6 @@ public class Login extends AppCompatActivity {
 
                         if(serverResponse.isValid()) {
 
-                            resposta.setFrom_type(serverResponse.getFrom_type());
-                            resposta.setFrom_value(serverResponse.getFrom_value());
-                            resposta.setResult(serverResponse.getResult());
-                            resposta.setTo_type(serverResponse.getTo_type());
-                            resposta.setValid(serverResponse.isValid());
-
                             progress.dismiss();
                             canLogin();
 
