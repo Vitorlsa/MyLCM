@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
     //Connect connect;
     EditText userID, userPWD;
     Button btnLogin;
-    ServerResponse resposta = new ServerResponse();
+    //ServerResponse resposta = new ServerResponse();
     ProgressDialog progress;
     RelativeLayout rellay1;
     Handler handler = new Handler();
@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity {
 
         RetrofitService service = Connect.createService(RetrofitService.class);
         
-        LonginDTO userSenha = new LoginDTO(login,senha);
+        LoginDTO userSenha = new LoginDTO(login, senha);
         
         Call<ServerResponse> call = service.getCredentials(userSenha);
 
@@ -85,11 +85,10 @@ public class Login extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     ServerResponse serverResponse = response.body();
-
                     //verifica aqui se o corpo da resposta não é nulo
                     if (serverResponse != null) {
 
-                        if(serverResponse.isValid()) {
+                        if(serverResponse.getID() != 0) {
 
                             progress.dismiss();
                             canLogin();

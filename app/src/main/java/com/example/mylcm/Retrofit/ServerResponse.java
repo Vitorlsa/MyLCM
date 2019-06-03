@@ -1,44 +1,22 @@
 package com.example.mylcm.Retrofit;
 
-public class ServerResponse {
+import com.google.gson.annotations.SerializedName;
 
-    private String result;
-    private boolean valid;
-    private String login;
-    private String senha;
+import java.io.Serializable;
 
-    public ServerResponse(){}
+public class ServerResponse implements Serializable {
+    @SerializedName("id")
+    private int Id;
 
-    public String getResult() {
-        return result;
+    public ServerResponse(int id) {
+        Id = id;
     }
 
-    public boolean isValid() {
-        return valid;
+    public int getID() {
+        return Id;
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public void setID(int Id) {
+        this.Id = Id;
     }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
 }

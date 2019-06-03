@@ -10,14 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Connect {
 
     //URL base do endpoint. Deve sempre terminar com /
-    public static final String API_BASE_URL = "http://localhost:8080/";
+    public static final String API_BASE_URL = "http://10.0.2.2:8080/";
 
     public static <S> S createService(Class<S> serviceClass) {
 
         //Instancia do interceptador das requisições
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                 .readTimeout(15, TimeUnit.SECONDS);
 
