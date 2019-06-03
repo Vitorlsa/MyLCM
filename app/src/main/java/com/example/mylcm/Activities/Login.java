@@ -73,8 +73,10 @@ public class Login extends AppCompatActivity {
     public void retrofitLogon(String login, String senha){
 
         RetrofitService service = Connect.createService(RetrofitService.class);
-
-        Call<ServerResponse> call = service.getCredentials(login);
+        
+        LonginDTO userSenha = new LoginDTO(login,senha);
+        
+        Call<ServerResponse> call = service.getCredentials(userSenha);
 
         call.enqueue(new Callback<ServerResponse>() {
             @Override
