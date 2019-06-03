@@ -4,9 +4,8 @@ public class ServerResponse {
 
     private String result;
     private boolean valid;
-    private String from_value;
-    private String to_type;
-    private String from_type;
+    private String login;
+    private String senha;
 
     public ServerResponse(){}
 
@@ -26,27 +25,20 @@ public class ServerResponse {
         this.result = result;
     }
 
-    public String getFrom_value() {
-        return from_value;
+    public String getLogin() {
+        return login;
     }
 
-    public void setFrom_value(String from_value) {
-        this.from_value = from_value;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getTo_type() {
-        return to_type;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setTo_type(String to_type) {
-        this.to_type = to_type;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public String getFrom_type() {
-        return from_type;
-    }
-
-    public void setFrom_type(String from_type) {
-        this.from_type = from_type;
-    }
 }

@@ -1,6 +1,7 @@
 package com.example.mylcm.Retrofit;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -12,7 +13,6 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("api/usuario/logar")
-    Call<ServerResponse> getCredentials(@Field("usuario") String usuario,
-                                    @Field("senha") String senha);
+    Call<ServerResponse> getCredentials(@Body LoginDTO login);
 
 }

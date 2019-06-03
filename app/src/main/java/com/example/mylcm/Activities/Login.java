@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.R;
+import com.example.mylcm.Retrofit.LoginDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.ServerResponse;
 
@@ -69,11 +70,11 @@ public class Login extends AppCompatActivity {
      * Método que chama Retrofit e faz a requisição para
      * Consumir Json no Android
      */
-    public void retrofitLogon(String usuario, String senha){
+    public void retrofitLogon(String login, String senha){
 
         RetrofitService service = Connect.createService(RetrofitService.class);
 
-        Call<ServerResponse> call = service.getCredentials(usuario, senha);
+        Call<ServerResponse> call = service.getCredentials(login);
 
         call.enqueue(new Callback<ServerResponse>() {
             @Override
