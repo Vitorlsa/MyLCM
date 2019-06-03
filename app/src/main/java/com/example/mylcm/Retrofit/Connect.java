@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Connect {
 
     //URL base do endpoint. Deve sempre terminar com /
-    public static final String API_BASE_URL = "https://community-neutrino-currency-conversion.p.mashape.com/";
+    public static final String API_BASE_URL = "http://localhost:8080/";
 
     public static <S> S createService(Class<S> serviceClass) {
 

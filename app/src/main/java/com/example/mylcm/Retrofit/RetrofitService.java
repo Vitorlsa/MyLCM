@@ -8,12 +8,11 @@ import retrofit2.http.POST;
 
 public interface RetrofitService {
 
-    @Headers("X-Mashape-Key: AuuyclCPjcmshv2iOPq190OpzLrMp1FJWwejsnJrdfwOUr4h44")
+    //@Headers("X-Mashape-Key: AuuyclCPjcmshv2iOPq190OpzLrMp1FJWwejsnJrdfwOUr4h44")
 
     @FormUrlEncoded
-    @POST("convert")
-    Call<ServerResponse> getCredentials(@Field("from-type") String usuario,
-                                    @Field("from-value") String password,
-                                    @Field("to-type") String to_type);
+    @POST("api/usuario/logar")
+    Call<ServerResponse> getCredentials(@Field("usuario") String usuario,
+                                    @Field("senha") String senha);
 
 }
