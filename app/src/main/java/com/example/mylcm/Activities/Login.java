@@ -2,6 +2,7 @@ package com.example.mylcm.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,14 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SharedPreferences prefs = getSharedPreferences("log", 0);
+        boolean alreadyLogged = prefs.getBoolean("isLogged", false);
+
+        if(alreadyLogged){
+            startActivity(new Intent(Login.this, Menu.class));
+        }
+        else{}
 
         rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
         handler.postDelayed(runnable, 3500);
@@ -89,6 +98,11 @@ public class Login extends AppCompatActivity {
                     if (serverResponse != null) {
 
                         if(serverResponse.getID() != 0) {
+
+                            SharedPreferences prefs = getSharedPreferences("log", 0);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putBoolean("isLogged", true);
+                            editor.commit();
 
                             progress.dismiss();
                             canLogin();
