@@ -8,5 +8,6 @@
     <color name="gradStart">#FBD786</color>
     <color name="gradMiddle">#FBCE68</color>
     <color name="gradStop">#64f38c</color>
+    <color name="dividerColor">#80CBC4</color>
 
 </resources>

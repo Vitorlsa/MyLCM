@@ -8,7 +8,7 @@ public interface RetrofitService {
 
     //@Headers("X-Mashape-Key: AuuyclCPjcmshv2iOPq190OpzLrMp1FJWwejsnJrdfwOUr4h44")
 
-    @POST("api/usuario/logar")
+    @POST("api/usuario/logarprestador")
     Call<ServerResponse> getCredentials(@Body LoginDTO login);
 
 }

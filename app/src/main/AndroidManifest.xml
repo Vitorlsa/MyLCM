@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Activities.MenuCerto"
-            android:label="@string/title_activity_menu_certo"
+            android:name=".Activities.NavDrawerMenu"
+            android:label="@string/title_activity_nav_drawer_menu"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.Menu"
