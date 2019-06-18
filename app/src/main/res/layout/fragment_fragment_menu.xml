@@ -11,29 +11,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
+        <Spinner
+            android:id="@+id/spn_Beneficiarios"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:text="Button" />
+            android:layout_height="match_parent"></Spinner>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_Calendario"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Button" />
+            android:text="Calendário" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_Medicamentos"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Button" />
+            android:text="Medicamentos" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btn_Beneficiario"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Button" />
+            android:text="Beneficiário" />
+
+        <Button
+            android:id="@+id/btn_Custos"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="Custos" />
 
     </LinearLayout>
 </ScrollView>

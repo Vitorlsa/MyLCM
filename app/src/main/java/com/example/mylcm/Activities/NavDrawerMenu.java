@@ -1,7 +1,10 @@
 package com.example.mylcm.Activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -15,9 +18,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mylcm.Fragments.FragmentMenu;
 import com.example.mylcm.R;
+import com.example.mylcm.Retrofit.LoginDTO;
 
 public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
@@ -50,13 +56,15 @@ public class NavDrawerMenu extends AppCompatActivity
 
     }
 
+    public Boolean exit = false;
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            moveTaskToBack(true);
         }
     }
 
@@ -95,7 +103,12 @@ public class NavDrawerMenu extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
-
+            SharedPreferences prefs = getSharedPreferences("log", 0);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isLogged", false);
+            editor.commit();
+            finish();
+            startActivity(new Intent(NavDrawerMenu.this, Login.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

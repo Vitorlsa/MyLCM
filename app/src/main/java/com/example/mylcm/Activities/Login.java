@@ -138,5 +138,6 @@ public class Login extends AppCompatActivity {
 
     public void canLogin(){
         startActivity(new Intent(Login.this, NavDrawerMenu.class));
+        finish();
     }
 }

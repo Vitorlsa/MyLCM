@@ -3,10 +3,16 @@ package com.example.mylcm.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.mylcm.R;
 
@@ -52,6 +58,11 @@ public class FragmentMenu extends Fragment {
         return fragment;
     }
 
+    Button btnCalendario, btnCustos, btnBeneficiario, btnMedicamentos;
+    Spinner spnBeneficiarios;
+    String names[] = {"Selecionar Beneficiário","Roberto", "Carlos", "José"};
+    ArrayAdapter<String>arrayAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +76,81 @@ public class FragmentMenu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_menu, container, false);
+        View v = inflater.inflate(R.layout.fragment_fragment_menu, container, false);
+
+        btnCalendario = (Button) v.findViewById(R.id.btn_Calendario);
+        btnCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //make your toast here
+                if(spnBeneficiarios.getSelectedItemPosition() == 0){
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Calendário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnBeneficiario = (Button) v.findViewById(R.id.btn_Beneficiario);
+        btnBeneficiario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //make your toast here
+                if(spnBeneficiarios.getSelectedItemPosition() == 0){
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Beneficiário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnCustos = (Button) v.findViewById(R.id.btn_Custos);
+        btnCustos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //make your toast here
+                if(spnBeneficiarios.getSelectedItemPosition() == 0){
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Custos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnMedicamentos = (Button) v.findViewById(R.id.btn_Medicamentos);
+        btnMedicamentos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //make your toast here
+                if(spnBeneficiarios.getSelectedItemPosition() == 0){
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Medicamentos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        spnBeneficiarios = (Spinner) v.findViewById(R.id.spn_Beneficiarios);
+        arrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, names);
+        spnBeneficiarios.setAdapter(arrayAdapter);
+        spnBeneficiarios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(parent.getItemAtPosition(position).toString().equals("Selecionar Beneficiário")){
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Você selecionou " + names[position], Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
