@@ -114,7 +114,7 @@ public class Login extends AppCompatActivity {
 
                     } else {
 
-                        Toast.makeText(getApplicationContext(),"Resposta nula do servidor", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Ops, você não é um Prestador de Serviço", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
