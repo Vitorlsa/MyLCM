@@ -20,25 +20,32 @@
             android:id="@+id/btn_Calendario"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Calendário" />
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/card_android_calendario"/>
 
         <Button
             android:id="@+id/btn_Medicamentos"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Medicamentos" />
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/card_android_medicamentos"/>
 
         <Button
             android:id="@+id/btn_Beneficiario"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Beneficiário" />
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/card_android_beneficiarios"/>
 
         <Button
             android:id="@+id/btn_Custos"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="Custos" />
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/card_android_custos"/>
 
     </LinearLayout>
 </ScrollView>
