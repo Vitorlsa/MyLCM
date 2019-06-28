@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,11 +20,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylcm.Fragments.FragmentMenu;
 import com.example.mylcm.R;
+import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.LoginDTO;
+import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Retrofit.ServerResponse;
+
+import okhttp3.Response;
+import retrofit2.Call;
 
 public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
@@ -38,7 +46,7 @@ public class NavDrawerMenu extends AppCompatActivity
         /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "" + nomeUser, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });*/
@@ -54,6 +62,17 @@ public class NavDrawerMenu extends AppCompatActivity
         ft.replace(R.id.flMenu, new FragmentMenu());
         ft.commit();
 
+        SharedPreferences names = getSharedPreferences("name", 0);
+        String nameUser = names.getString("name", "");
+
+        SharedPreferences emails = getSharedPreferences("email", 0);
+        String emailUser = emails.getString("email", "");
+
+        View header = navigationView.getHeaderView(0);
+        TextView nome = (TextView) header.findViewById(R.id.tvName);
+        TextView email = (TextView) header.findViewById(R.id.tvEmail);
+        nome.setText(nameUser);
+        email.setText(emailUser);
     }
 
     public Boolean exit = false;

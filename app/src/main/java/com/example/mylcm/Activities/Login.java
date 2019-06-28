@@ -26,6 +26,7 @@ import retrofit2.Response;
 public class Login extends AppCompatActivity {
 
     //Connect connect;
+    public static String userName, userEmail;
     EditText userID, userPWD;
     Button btnLogin;
     //ServerResponse resposta = new ServerResponse();
@@ -72,7 +73,6 @@ public class Login extends AppCompatActivity {
                 retrofitLogon(username, password);
             }
         });
-
     }
 
     /**
@@ -83,9 +83,9 @@ public class Login extends AppCompatActivity {
 
         RetrofitService service = Connect.createService(RetrofitService.class);
         
-        LoginDTO userSenha = new LoginDTO(login, senha);
+        final LoginDTO userLog = new LoginDTO(login, senha);
         
-        Call<ServerResponse> call = service.getCredentials(userSenha);
+        Call<ServerResponse> call = service.getCredentials(userLog);
 
         call.enqueue(new Callback<ServerResponse>() {
             @Override
@@ -94,11 +94,30 @@ public class Login extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     ServerResponse serverResponse = response.body();
+
                     //verifica aqui se o corpo da resposta não é nulo
                     if (serverResponse != null) {
 
                         if(serverResponse.getID() != 0) {
 
+                            ServerResponse serverResponseData = response.body();
+                            userName = serverResponseData.getNome();
+                            userEmail = serverResponseData.getEmail();
+
+                            //Salva o nome do usuário em um shared preferences
+                            SharedPreferences nome = getSharedPreferences("name", 0);
+                            SharedPreferences.Editor nome_editor = nome.edit();
+                            nome_editor.putString("name", userName);
+                            nome_editor.commit();
+
+
+                            //Salva o email do usuário em um shared preferences
+                            SharedPreferences email = getSharedPreferences("email", 0);
+                            SharedPreferences.Editor email_editor = email.edit();
+                            email_editor.putString("email", userEmail);
+                            email_editor.commit();
+
+                            //Salva o estado de logado do usuário
                             SharedPreferences prefs = getSharedPreferences("log", 0);
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putBoolean("isLogged", true);
