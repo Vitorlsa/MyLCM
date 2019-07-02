@@ -1,9 +1,9 @@
 package com.example.mylcm.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mylcm.Activities.Beneficiarios;
+import com.example.mylcm.Activities.Calendario;
 import com.example.mylcm.R;
 
 /**
@@ -88,6 +89,7 @@ public class FragmentMenu extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Abrir Calendário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), Calendario.class));
                 }
             }
         });
@@ -101,6 +103,7 @@ public class FragmentMenu extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Abrir Beneficiário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), Beneficiarios.class));
                 }
             }
         });

@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
         boolean alreadyLogged = prefs.getBoolean("isLogged", false);
 
         if(alreadyLogged){
-            startActivity(new Intent(Login.this, NavDrawerMenu.class));
+            canLogin();
         }
         else{}
 

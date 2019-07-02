@@ -14,10 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activities.Medicamentos"></activity>
+        <activity android:name=".Activities.Beneficiarios" />
+        <activity android:name=".Activities.Calendario" />
         <activity
             android:name=".Activities.NavDrawerMenu"
             android:label="@string/title_activity_nav_drawer_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.Login"
             android:label="@string/app_name">
