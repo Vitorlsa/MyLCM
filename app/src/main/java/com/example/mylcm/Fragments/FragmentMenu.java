@@ -84,8 +84,10 @@ public class FragmentMenu extends Fragment {
         btnCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnCalendario.setEnabled(false);
                 //make your toast here
                 if(spnBeneficiarios.getSelectedItemPosition() == 0){
+                    btnCalendario.setEnabled(true);
                     Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Abrir Calendário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
@@ -98,9 +100,11 @@ public class FragmentMenu extends Fragment {
         btnBeneficiario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnBeneficiario.setEnabled(false);
                 //make your toast here
                 if(spnBeneficiarios.getSelectedItemPosition() == 0){
                     Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                    btnBeneficiario.setEnabled(true);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Abrir Beneficiário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), Beneficiarios.class));
@@ -125,11 +129,14 @@ public class FragmentMenu extends Fragment {
         btnMedicamentos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnMedicamentos.setEnabled(false);
                 //make your toast here
                 if(spnBeneficiarios.getSelectedItemPosition() == 0){
                     Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                    btnMedicamentos.setEnabled(true);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Abrir Medicamentos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), Beneficiarios.class));
                 }
             }
         });
@@ -155,6 +162,13 @@ public class FragmentMenu extends Fragment {
         });
 
         return v;
+    }
+
+    public void onResume(){
+        super.onResume();
+
+        btnCalendario.setEnabled(true);
+        btnBeneficiario.setEnabled(true);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

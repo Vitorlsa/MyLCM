@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -31,12 +32,19 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
     //ServerResponse resposta = new ServerResponse();
     ProgressDialog progress;
+    ProgressBar prog;
     RelativeLayout rellay1;
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
         public void run() {
             rellay1.setVisibility(View.VISIBLE);
 
+        }
+    };
+    Runnable runn = new Runnable(){
+        public void run(){
+            rellay1.setVisibility(View.GONE);
+            prog.setVisibility(View.VISIBLE);
         }
     };
 
@@ -55,6 +63,9 @@ public class Login extends AppCompatActivity {
         rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
         handler.postDelayed(runnable, 3500);
 
+        prog = (ProgressBar) findViewById(R.id.progressBar);
+        prog.setVisibility(View.GONE);
+
         //connect = new Connect();
         userID = (EditText) findViewById(R.id.Username);
         userPWD = (EditText) findViewById(R.id.Password);
@@ -63,8 +74,9 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progress = new ProgressDialog(Login.this);
-                progress.setTitle("Logging In");
+                btnLogin.setEnabled(false);
+
+                handler.postDelayed(runn, 350);
 
                 String username = userID.getText().toString();
                 String password = userPWD.getText().toString();
@@ -123,7 +135,7 @@ public class Login extends AppCompatActivity {
                             editor.putBoolean("isLogged", true);
                             editor.commit();
 
-                            progress.dismiss();
+                            //progress.dismiss();
                             canLogin();
 
                         } else{
@@ -143,7 +155,7 @@ public class Login extends AppCompatActivity {
                     ResponseBody errorBody = response.errorBody();
                 }
 
-                progress.dismiss();
+                //progress.dismiss();
             }
 
             @Override
