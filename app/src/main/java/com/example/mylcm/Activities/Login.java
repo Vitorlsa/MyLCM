@@ -27,7 +27,7 @@ import retrofit2.Response;
 public class Login extends AppCompatActivity {
 
     //Connect connect;
-    public static String userName, userEmail;
+    public static String userName, userEmail, userProfPic;
     EditText userID, userPWD;
     Button btnLogin;
     //ServerResponse resposta = new ServerResponse();
@@ -115,6 +115,7 @@ public class Login extends AppCompatActivity {
                             ServerResponse serverResponseData = response.body();
                             userName = serverResponseData.getNome();
                             userEmail = serverResponseData.getEmail();
+                            userProfPic = serverResponseData.getImagem();
 
                             //Salva o nome do usuário em um shared preferences
                             SharedPreferences nome = getSharedPreferences("name", 0);
@@ -128,6 +129,12 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor email_editor = email.edit();
                             email_editor.putString("email", userEmail);
                             email_editor.commit();
+
+                            //Salva a imagem do usuário em um shared preferences
+                            SharedPreferences profPic = getSharedPreferences("profPic", 0);
+                            SharedPreferences.Editor profPic_editor = profPic.edit();
+                            profPic_editor.putString("profPic", userProfPic);
+                            profPic_editor.commit();
 
                             //Salva o estado de logado do usuário
                             SharedPreferences prefs = getSharedPreferences("log", 0);

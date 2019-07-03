@@ -2,12 +2,15 @@ package com.example.mylcm.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +33,7 @@ import com.example.mylcm.Retrofit.LoginDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.ServerResponse;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Response;
 import retrofit2.Call;
 
@@ -68,11 +72,24 @@ public class NavDrawerMenu extends AppCompatActivity
         SharedPreferences emails = getSharedPreferences("email", 0);
         String emailUser = emails.getString("email", "");
 
+        SharedPreferences profPics = getSharedPreferences("profPic", 0);
+        String profPict = profPics.getString("profPic", "");
+
+        String base64profPict = profPict.split(",")[1];
+        byte[] decodedString = Base64.decode(base64profPict, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        //Me faz "enxergar" a header
         View header = navigationView.getHeaderView(0);
+
+        CircleImageView profPic = (CircleImageView) header.findViewById(R.id.profPic);
         TextView nome = (TextView) header.findViewById(R.id.tvName);
         TextView email = (TextView) header.findViewById(R.id.tvEmail);
+        //Insere os dados na header
+        profPic.setImageBitmap(decodedByte);
         nome.setText(nameUser);
         email.setText(emailUser);
+
     }
 
     public Boolean exit = false;
