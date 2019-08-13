@@ -11,4 +11,7 @@ public interface RetrofitService {
     @POST("api/usuario/logarprestador")
     Call<ServerResponse> getCredentials(@Body LoginDTO login);
 
+    @POST("api/prestadordeservico/buscar")
+    Call<ProfileResponse> getData(@Body ProfileDTO id);
+
 }

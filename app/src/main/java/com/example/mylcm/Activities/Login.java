@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity {
 
     //Connect connect;
     public static String userName, userEmail, userProfPic;
+    public static int pid;
     EditText userID, userPWD;
     Button btnLogin;
     //ServerResponse resposta = new ServerResponse();
@@ -116,6 +117,13 @@ public class Login extends AppCompatActivity {
                             userName = serverResponseData.getNome();
                             userEmail = serverResponseData.getEmail();
                             userProfPic = serverResponseData.getImagem();
+                            pid = serverResponseData.getID();
+
+                            //Salva o ID do usuário em um shared preferences
+                            SharedPreferences presID = getSharedPreferences("PID", 0);
+                            SharedPreferences.Editor pid_editor = presID.edit();
+                            pid_editor.putInt("PID", pid);
+                            pid_editor.commit();
 
                             //Salva o nome do usuário em um shared preferences
                             SharedPreferences nome = getSharedPreferences("name", 0);

@@ -1,6 +1,5 @@
 package com.example.mylcm.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,17 +21,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylcm.Fragments.FragmentMenu;
 import com.example.mylcm.Fragments.FragmentProfile;
 import com.example.mylcm.R;
+import com.example.mylcm.Retrofit.Connect;
+import com.example.mylcm.Retrofit.LoginDTO;
+import com.example.mylcm.Retrofit.ProfileDTO;
+import com.example.mylcm.Retrofit.ProfileResponse;
+import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Retrofit.ServerResponse;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
 
     Fragment fragment = null;
+    public static String sex, state;
+    public static int pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +78,11 @@ public class NavDrawerMenu extends AppCompatActivity
         fragmentTransaction.replace(R.id.flMenu, fragment).commit();
 
 
-        //--Pegando o nome, email, e foto de perfil com sharedPrefs.
-        SharedPreferences names = getSharedPreferences("name", 0);
+        //--Pegando o nome, email, foto de perfil e ID do usuário com sharedPrefs.
+        SharedPreferences  presID = getSharedPreferences("PID", 0);
+        pid = presID.getInt("PID", -1);
+
+        SharedPreferences  names = getSharedPreferences("name", 0);
         String nameUser = names.getString("name", "");
 
         SharedPreferences emails = getSharedPreferences("email", 0);
@@ -92,7 +107,6 @@ public class NavDrawerMenu extends AppCompatActivity
         profPic.setImageBitmap(decodedByte);
         nome.setText(nameUser);
         email.setText(emailUser);
-
     }
 
     public Boolean exit = false;
@@ -152,10 +166,7 @@ public class NavDrawerMenu extends AppCompatActivity
 
         } else if (id == R.id.nav_profile) {
 
-            setTitle("Perfil");
-            fragment = new FragmentProfile();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.flMenu, fragment).addToBackStack("SecondFragment").commit();
+            retrofitProfile(pid);
 
         } else if (id == R.id.nav_settings) {
 
@@ -173,6 +184,84 @@ public class NavDrawerMenu extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void retrofitProfile(int pid){
+
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final ProfileDTO presProf = new ProfileDTO(pid);
+
+        Call<ProfileResponse> call = service.getData(presProf);
+
+        call.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+
+                if (response.isSuccessful()) {
+
+                    ProfileResponse profileResponse = response.body();
+
+                    //verifica aqui se o corpo da resposta não é nulo
+                    if (profileResponse != null) {
+
+                        if(profileResponse.getId() != 0) {
+
+                            ProfileResponse profileResponseData = response.body();
+                            sex = profileResponseData.getSex();
+                            state = profileResponseData.getState();
+
+
+                            //Salva o nome do usuário em um shared preferences
+                            SharedPreferences sexo = getSharedPreferences("sex", 0);
+                            SharedPreferences.Editor sex_editor = sexo.edit();
+                            sex_editor.putString("sex", sex);
+                            sex_editor.commit();
+
+                            //Salva o estado do usuário em um shared preferences
+                            SharedPreferences sendStates = getSharedPreferences("state", 0);
+                            SharedPreferences.Editor state_editor = sendStates.edit();
+                            state_editor.putString("state", state);
+                            state_editor.commit();
+
+                            gotoProfile();
+
+                        } else{
+
+                            Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+
+                        Toast.makeText(getApplicationContext(),"Ops, você não é um Prestador de Serviço", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(),"Resposta não foi um sucesso", Toast.LENGTH_SHORT).show();
+                    // segura os erros de requisição
+                    ResponseBody errorBody = response.errorBody();
+                }
+
+                //progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+
+                Toast.makeText(getApplicationContext(),"Erro na chamada ao servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void gotoProfile(){
+
+        setTitle("Perfil");
+        fragment = new FragmentProfile();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.flMenu, fragment).addToBackStack("SecondFragment").commit();
+
     }
 
     @Override

@@ -1,14 +1,387 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.FragmentProfile">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.FragmentProfile"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rellayProfile"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:paddingHorizontal="0dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgProfile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/imgProfile"
+            android:layout_alignTop="@+id/imgProfile"
+            android:src="@drawable/ic_menu_camera"
+            android:layout_alignRight="@+id/imgProfile"/>
+
+        <TextView
+            android:id="@+id/nameProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Name"
+            android:textSize="25dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/imgProfile"/>
+
+        <TextView
+            android:id="@+id/infoProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameProfile"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="15dp"
+            android:text="Informações"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameProfile"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:text="Editar"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:drawableRight="@drawable/ic_create_primary_dark_24dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true">
 
-</FrameLayout>
+        <RelativeLayout
+            android:id="@+id/linlayProfile1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtProfileEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:text="Email"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileEmail"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/txtProfileEmail"
+                android:text="abcdefghij@klmnopq.rstuvwxyz"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileDoB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileEmail"
+                android:text="Data de Nascimento"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileDoB"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileEmail"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileDoB"
+                android:text="16/09/1995"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileDoB"
+                android:text="Sexo"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileSex"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileDoB"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileSex"
+                android:text="Feminino"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileCPF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileSex"
+                android:text="CPF"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileCPF"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileSex"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileCPF"
+                android:text="442.584.668-08"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileCPF"
+                android:text="Telefone"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileTel"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileCPF"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileTel"
+                android:text="(19) 998980033"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileTel"
+                android:text="Estado"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileState"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileTel"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileState"
+                android:text="Rio de Janeiro"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileState"
+                android:text="Cidade"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileCity"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileState"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileCity"
+                android:text="Campinas"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileNHood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileCity"
+                android:text="Bairro"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileNHood"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileCity"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileNHood"
+                android:text="Parque São Quirino"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileZIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileNHood"
+                android:text="CEP"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileZIP"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileNHood"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileZIP"
+                android:text="13088-430"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileStreetAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileZIP"
+                android:text="Rua"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileStreetAddress"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileZIP"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileStreetAddress"
+                android:text="Opala"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileStreetAddress"
+                android:text="Número"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileNumber"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileStreetAddress"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileNumber"
+                android:text="33"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/txtProfileComplement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtProfileNumber"
+                android:text="Complemento"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/edtProfileComplement"
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/edtProfileNumber"
+                android:layout_gravity="end"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="-7dp"
+                android:layout_toRightOf="@+id/txtProfileComplement"
+                android:text="Casa"
+                android:textAlignment="textEnd"
+                android:background="@color/transparent"
+                android:focusable="false"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/txtProfileComplement"
+                android:text="Salvar"
+                android:visibility="gone"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

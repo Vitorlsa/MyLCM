@@ -9,5 +9,6 @@
     <color name="gradMiddle">#FBCE68</color>
     <color name="gradStop">#64f38c</color>
     <color name="dividerColor">#80CBC4</color>
+    <color name="black">#000000</color>
 
 </resources>
