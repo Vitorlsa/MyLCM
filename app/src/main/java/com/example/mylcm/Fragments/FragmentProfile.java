@@ -29,7 +29,7 @@ public class FragmentProfile extends Fragment {
     }
 
     TextView nameProfile;
-    EditText edtProfileEmail, edtProfileSex, edtProfileState;
+    EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB;
     CircleImageView imgProfile;
 
     @Override
@@ -43,6 +43,8 @@ public class FragmentProfile extends Fragment {
         imgProfile = (CircleImageView) v.findViewById(R.id.imgProfile);
         edtProfileSex = (EditText) v.findViewById(R.id.edtProfileSex);
         edtProfileState = (EditText) v.findViewById(R.id.edtProfileState);
+        edtProfileDoB = (EditText) v.findViewById(R.id.edtProfileDoB);
+
 
 
         //--Pegando o nome, email, e foto de perfil com sharedPrefs.
@@ -60,7 +62,14 @@ public class FragmentProfile extends Fragment {
 
         SharedPreferences getStates = this.getActivity().getSharedPreferences("state", 0);
         String state = getStates.getString("state", "");
+
+        SharedPreferences getDates = this.getActivity().getSharedPreferences("date", 0);
+        String date = getDates.getString("date", "");
         //--Finaliza os sharedPrefs.
+
+        //Pego a data em substring e divido ela nos traços
+        date = date.substring(0, 10);
+        String data[] = date.split("-");
 
         //Transformo a string de base64 em bitmap.
         String base64profPict = profPict.split(",")[1];
@@ -72,6 +81,7 @@ public class FragmentProfile extends Fragment {
         imgProfile.setImageBitmap(decodedByte);
         edtProfileSex.setText(sexo);
         edtProfileState.setText(state);
+        edtProfileDoB.setText(data[2]+ "/" + data[1] + "/" + data[0]);
 
         return v;
     }

@@ -33,6 +33,9 @@ import com.example.mylcm.Retrofit.ProfileResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.ServerResponse;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,7 +46,7 @@ public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
 
     Fragment fragment = null;
-    public static String sex, state;
+    public static String sex, state, date;
     public static int pid;
 
     @Override
@@ -210,19 +213,24 @@ public class NavDrawerMenu extends AppCompatActivity
                             ProfileResponse profileResponseData = response.body();
                             sex = profileResponseData.getSex();
                             state = profileResponseData.getState();
+                            date = profileResponseData.getDate();
 
 
-                            //Salva o nome do usuário em um shared preferences
-                            SharedPreferences sexo = getSharedPreferences("sex", 0);
-                            SharedPreferences.Editor sex_editor = sexo.edit();
-                            sex_editor.putString("sex", sex);
-                            sex_editor.commit();
+                            //Salva o sexo do usuário em um shared preferences
+                            Intent intent = new Intent(getBaseContext(), FragmentProfile.class);
+                            intent.putExtra("EXTRA_SESSION_ID", sex);
 
                             //Salva o estado do usuário em um shared preferences
                             SharedPreferences sendStates = getSharedPreferences("state", 0);
                             SharedPreferences.Editor state_editor = sendStates.edit();
                             state_editor.putString("state", state);
                             state_editor.commit();
+
+                            //Salva a data de nascimento do usuário em um shared preferences
+                            SharedPreferences sendDates = getSharedPreferences("date", 0);
+                            SharedPreferences.Editor date_editor = sendDates.edit();
+                            date_editor.putString("date", date);
+                            date_editor.commit();
 
                             gotoProfile();
 
