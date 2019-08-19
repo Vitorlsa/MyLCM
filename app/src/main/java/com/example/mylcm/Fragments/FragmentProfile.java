@@ -67,6 +67,17 @@ public class FragmentProfile extends Fragment {
         String date = getDates.getString("date", "");
         //--Finaliza os sharedPrefs.
 
+        //Muda o sexo de ID pra Masculino, Feminino e Outros
+        if (sexo.equals("1")){
+            sexo = "Masculino";
+        }
+        else if (sexo.equals("2")){
+            sexo = "Feminino";
+        }
+        else {
+            sexo = "Outros";
+        }
+
         //Pego a data em substring e divido ela nos traços
         date = date.substring(0, 10);
         String data[] = date.split("-");
