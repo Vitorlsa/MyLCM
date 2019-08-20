@@ -55,6 +55,7 @@
             android:textColor="@color/black"/>
 
         <TextView
+            android:id="@+id/txtEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameProfile"
@@ -103,10 +104,12 @@
                 android:layout_marginTop="12dp"
                 android:layout_toRightOf="@+id/txtProfileEmail"
                 android:text="abcdefghij@klmnopq.rstuvwxyz"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileDoB"
@@ -128,9 +131,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileDoB"
                 android:text="16/09/1995"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileSex"
@@ -152,9 +157,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileSex"
                 android:text="Feminino"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileCPF"
@@ -176,9 +183,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileCPF"
                 android:text="442.584.668-08"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileTel"
@@ -200,9 +209,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileTel"
                 android:text="(19) 998980033"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileState"
@@ -224,9 +235,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileState"
                 android:text="Rio de Janeiro"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileCity"
@@ -248,9 +261,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileCity"
                 android:text="Campinas"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileNHood"
@@ -272,9 +287,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileNHood"
                 android:text="Parque São Quirino"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileZIP"
@@ -296,9 +313,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileZIP"
                 android:text="13088-430"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileStreetAddress"
@@ -320,9 +339,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileStreetAddress"
                 android:text="Opala"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileNumber"
@@ -344,9 +365,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileNumber"
                 android:text="33"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/txtProfileComplement"
@@ -368,9 +391,11 @@
                 android:layout_marginTop="-7dp"
                 android:layout_toRightOf="@+id/txtProfileComplement"
                 android:text="Casa"
+                android:textColor="@color/black"
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
-                android:focusable="false"/>
+                android:enabled="false"
+                android:inputType="textEmailAddress"/>
 
             <Button
                 android:layout_width="wrap_content"

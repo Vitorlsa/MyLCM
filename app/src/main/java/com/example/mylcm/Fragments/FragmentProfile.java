@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +29,8 @@ public class FragmentProfile extends Fragment {
         // Required empty public constructor
     }
 
-    TextView nameProfile;
-    EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB;
+    TextView nameProfile, txtEditar;
+    EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB, edtProfileCpf, edtProfileTel, edtProfileCity, edtProfileNhood, edtProfileCep, edtProfileStreet, edtProfileNumber, edtProfileComplement;
     CircleImageView imgProfile;
 
     @Override
@@ -38,14 +39,23 @@ public class FragmentProfile extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
+        getActivity().setTitle("Perfil");
+
         nameProfile = (TextView)  v.findViewById(R.id.nameProfile);
         edtProfileEmail = (EditText) v.findViewById(R.id.edtProfileEmail);
         imgProfile = (CircleImageView) v.findViewById(R.id.imgProfile);
         edtProfileSex = (EditText) v.findViewById(R.id.edtProfileSex);
         edtProfileState = (EditText) v.findViewById(R.id.edtProfileState);
         edtProfileDoB = (EditText) v.findViewById(R.id.edtProfileDoB);
-
-
+        edtProfileCpf = (EditText) v.findViewById(R.id.edtProfileCPF);
+        edtProfileTel = (EditText) v.findViewById(R.id.edtProfileTel);
+        edtProfileCity = (EditText) v.findViewById(R.id.edtProfileCity);
+        edtProfileNhood = (EditText) v.findViewById(R.id.edtProfileNHood);
+        edtProfileCep = (EditText) v.findViewById(R.id.edtProfileZIP);
+        edtProfileStreet = (EditText) v.findViewById(R.id.edtProfileStreetAddress);
+        edtProfileNumber = (EditText) v.findViewById(R.id.edtProfileNumber);
+        edtProfileComplement = (EditText) v.findViewById(R.id.edtProfileComplement);
+        txtEditar = (TextView) v.findViewById(R.id.txtEditar);
 
         //--Pegando o nome, email, e foto de perfil com sharedPrefs.
         SharedPreferences names = this.getActivity().getSharedPreferences("name", 0);
@@ -57,14 +67,39 @@ public class FragmentProfile extends Fragment {
         SharedPreferences profPics = this.getActivity().getSharedPreferences("profPic", 0);
         String profPict = profPics.getString("profPic", "");
 
+        SharedPreferences getDates = this.getActivity().getSharedPreferences("date", 0);
+        String date = getDates.getString("date", "");
+
         SharedPreferences getSex = this.getActivity().getSharedPreferences("sex", 0);
         String sexo = getSex.getString("sex", "");
+
+        SharedPreferences getCpfs = this.getActivity().getSharedPreferences("cpf", 0);
+        String cpf = getCpfs.getString("cpf", "");
+
+        SharedPreferences getTel = this.getActivity().getSharedPreferences("tel", 0);
+        String tel = getTel.getString("tel", "");
 
         SharedPreferences getStates = this.getActivity().getSharedPreferences("state", 0);
         String state = getStates.getString("state", "");
 
-        SharedPreferences getDates = this.getActivity().getSharedPreferences("date", 0);
-        String date = getDates.getString("date", "");
+        SharedPreferences getCities = this.getActivity().getSharedPreferences("city", 0);
+        int cidade = getCities.getInt("city", -1);
+        String city = Integer.toString(cidade);
+
+        SharedPreferences getNhood = this.getActivity().getSharedPreferences("nhood", 0);
+        String nhood = getNhood.getString("nhood", "");
+
+        SharedPreferences getCep = this.getActivity().getSharedPreferences("cep", 0);
+        String cep = getCep.getString("cep", "");
+
+        SharedPreferences getStreet = this.getActivity().getSharedPreferences("street", 0);
+        String street = getStreet.getString("street", "");
+
+        SharedPreferences getNumber = this.getActivity().getSharedPreferences("number", 0);
+        String number = getNumber.getString("number", "");
+
+        SharedPreferences getComplement = this.getActivity().getSharedPreferences("complement", 0);
+        String complement = getComplement.getString("complement", "");
         //--Finaliza os sharedPrefs.
 
         //Muda o sexo de ID pra Masculino, Feminino e Outros
@@ -78,6 +113,12 @@ public class FragmentProfile extends Fragment {
             sexo = "Outros";
         }
 
+        //Pego o cpf e adiciono "." e "-"
+        cpf = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11);
+
+        //Pego o cep e adiciono "-"
+        cep = cep.substring(0, 5) + "-" + cep.substring(5, 8);
+
         //Pego a data em substring e divido ela nos traços
         date = date.substring(0, 10);
         String data[] = date.split("-");
@@ -90,9 +131,24 @@ public class FragmentProfile extends Fragment {
         nameProfile.setText(nameUser);
         edtProfileEmail.setText(emailUser);
         imgProfile.setImageBitmap(decodedByte);
-        edtProfileSex.setText(sexo);
-        edtProfileState.setText(state);
         edtProfileDoB.setText(data[2]+ "/" + data[1] + "/" + data[0]);
+        edtProfileSex.setText(sexo);
+        edtProfileCpf.setText(cpf);
+        edtProfileTel.setText(tel);
+        edtProfileState.setText(state);
+        edtProfileCity.setText(city);
+        edtProfileNhood.setText(nhood);
+        edtProfileCep.setText(cep);
+        edtProfileStreet.setText(street);
+        edtProfileNumber.setText(number);
+        edtProfileComplement.setText(complement);
+
+        txtEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtProfileEmail.setEnabled(true);
+            }
+        });
 
         return v;
     }

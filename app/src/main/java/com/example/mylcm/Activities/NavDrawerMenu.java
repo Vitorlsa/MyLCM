@@ -46,8 +46,8 @@ public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
 
     Fragment fragment = null;
-    public static String sex, state, date;
-    public static int pid;
+    public static String sex, state, date, cpf, tel, nhood, cep, street, number, complement;
+    public static int pid, city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,24 +214,74 @@ public class NavDrawerMenu extends AppCompatActivity
                             sex = profileResponseData.getSex();
                             state = profileResponseData.getState();
                             date = profileResponseData.getDate();
+                            cpf = profileResponseData.getCpf();
+                            tel = profileResponseData.getTel();
+                            city = profileResponseData.getCity();
+                            nhood = profileResponseData.getNhood();
+                            cep = profileResponseData.getCep();
+                            street = profileResponseData.getStreet();
+                            number = profileResponseData.getNumber();
+                            complement = profileResponseData.getComplement();
 
 
-                            //Salva o sexo do usuário em um shared preferences
-                            Intent intent = new Intent(getBaseContext(), FragmentProfile.class);
-                            intent.putExtra("EXTRA_SESSION_ID", sex);
 
-                            //Salva o estado do usuário em um shared preferences
-                            SharedPreferences sendStates = getSharedPreferences("state", 0);
-                            SharedPreferences.Editor state_editor = sendStates.edit();
-                            state_editor.putString("state", state);
-                            state_editor.commit();
-
-                            //Salva a data de nascimento do usuário em um shared preferences
+                            //Salva todos os dados do usuário em shared preferences
                             SharedPreferences sendDates = getSharedPreferences("date", 0);
                             SharedPreferences.Editor date_editor = sendDates.edit();
                             date_editor.putString("date", date);
                             date_editor.commit();
 
+                            SharedPreferences sendSex = getSharedPreferences("sex", 0);
+                            SharedPreferences.Editor sex_editor = sendSex.edit();
+                            sex_editor.putString("sex", sex);
+                            sex_editor.commit();
+
+                            SharedPreferences sendCpf = getSharedPreferences("cpf", 0);
+                            SharedPreferences.Editor cpf_editor = sendCpf.edit();
+                            cpf_editor.putString("cpf", cpf);
+                            cpf_editor.commit();
+
+                            SharedPreferences sendTel = getSharedPreferences("tel", 0);
+                            SharedPreferences.Editor tel_editor = sendTel.edit();
+                            tel_editor.putString("tel", tel);
+                            tel_editor.commit();
+
+                            SharedPreferences sendStates = getSharedPreferences("state", 0);
+                            SharedPreferences.Editor state_editor = sendStates.edit();
+                            state_editor.putString("state", state);
+                            state_editor.commit();
+
+                            SharedPreferences sendCities = getSharedPreferences("city", 0);
+                            SharedPreferences.Editor city_editor = sendCities.edit();
+                            city_editor.putInt("city", city);
+                            city_editor.commit();
+
+                            SharedPreferences sendNhood = getSharedPreferences("nhood", 0);
+                            SharedPreferences.Editor nhood_editor = sendNhood.edit();
+                            nhood_editor.putString("nhood", nhood);
+                            nhood_editor.commit();
+
+                            SharedPreferences sendCep = getSharedPreferences("cep", 0);
+                            SharedPreferences.Editor cep_editor = sendCep.edit();
+                            cep_editor.putString("cep", cep);
+                            cep_editor.commit();
+
+                            SharedPreferences sendStreet = getSharedPreferences("street", 0);
+                            SharedPreferences.Editor street_editor = sendStreet.edit();
+                            street_editor.putString("street", street);
+                            street_editor.commit();
+
+                            SharedPreferences sendNumber = getSharedPreferences("number", 0);
+                            SharedPreferences.Editor number_editor = sendNumber.edit();
+                            number_editor.putString("number", number);
+                            number_editor.commit();
+
+                            SharedPreferences sendComplement = getSharedPreferences("complement", 0);
+                            SharedPreferences.Editor complement_editor = sendComplement.edit();
+                            complement_editor.putString("complement", complement);
+                            complement_editor.commit();
+
+                            //Chama o método pra abrir o fragmento
                             gotoProfile();
 
                         } else{
@@ -265,7 +315,6 @@ public class NavDrawerMenu extends AppCompatActivity
 
     public void gotoProfile(){
 
-        setTitle("Perfil");
         fragment = new FragmentProfile();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.flMenu, fragment).addToBackStack("SecondFragment").commit();

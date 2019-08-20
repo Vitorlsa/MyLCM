@@ -48,6 +48,12 @@ public class Login extends AppCompatActivity {
             prog.setVisibility(View.VISIBLE);
         }
     };
+    Runnable derunn = new Runnable(){
+        public void run(){
+            rellay1.setVisibility(View.VISIBLE);
+            prog.setVisibility(View.GONE);
+        }
+    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,11 +162,15 @@ public class Login extends AppCompatActivity {
                         } else{
 
                             Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                            handler.postDelayed(derunn, 350);
+                            btnLogin.setEnabled(true);
                         }
 
                     } else {
 
                         Toast.makeText(getApplicationContext(),"Ops, você não é um Prestador de Serviço", Toast.LENGTH_SHORT).show();
+                        handler.postDelayed(derunn, 350);
+                        btnLogin.setEnabled(true);
                     }
 
                 } else {
@@ -168,6 +178,8 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Resposta não foi um sucesso", Toast.LENGTH_SHORT).show();
                     // segura os erros de requisição
                     ResponseBody errorBody = response.errorBody();
+                    handler.postDelayed(derunn, 350);
+                    btnLogin.setEnabled(true);
                 }
 
                 //progress.dismiss();
@@ -177,6 +189,8 @@ public class Login extends AppCompatActivity {
             public void onFailure(Call<ServerResponse> call, Throwable t) {
 
                 Toast.makeText(getApplicationContext(),"Erro na chamada ao servidor", Toast.LENGTH_SHORT).show();
+                handler.postDelayed(derunn, 350);
+                btnLogin.setEnabled(true);
             }
         });
 
