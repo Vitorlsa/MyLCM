@@ -135,7 +135,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="date"/>
 
             <TextView
                 android:id="@+id/txtProfileSex"
@@ -161,7 +161,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/txtProfileCPF"
@@ -187,7 +187,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/txtProfileTel"
@@ -213,7 +213,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/txtProfileState"
@@ -239,7 +239,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/txtProfileCity"
@@ -265,7 +265,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/txtProfileNHood"
@@ -291,7 +291,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/txtProfileZIP"
@@ -317,7 +317,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/txtProfileStreetAddress"
@@ -343,7 +343,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/txtProfileNumber"
@@ -369,7 +369,7 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/txtProfileComplement"
@@ -395,9 +395,10 @@
                 android:textAlignment="textEnd"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <Button
+                android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"

@@ -4,14 +4,19 @@ package com.example.mylcm.Fragments;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mylcm.Activities.NavDrawerMenu;
@@ -29,9 +34,11 @@ public class FragmentProfile extends Fragment {
         // Required empty public constructor
     }
 
+    Button btnSave;
     TextView nameProfile, txtEditar;
     EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB, edtProfileCpf, edtProfileTel, edtProfileCity, edtProfileNhood, edtProfileCep, edtProfileStreet, edtProfileNumber, edtProfileComplement;
     CircleImageView imgProfile;
+    RelativeLayout rellayProfile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +48,8 @@ public class FragmentProfile extends Fragment {
 
         getActivity().setTitle("Perfil");
 
+
+        rellayProfile = (RelativeLayout) v.findViewById(R.id.rellayProfile);
         nameProfile = (TextView)  v.findViewById(R.id.nameProfile);
         edtProfileEmail = (EditText) v.findViewById(R.id.edtProfileEmail);
         imgProfile = (CircleImageView) v.findViewById(R.id.imgProfile);
@@ -56,6 +65,7 @@ public class FragmentProfile extends Fragment {
         edtProfileNumber = (EditText) v.findViewById(R.id.edtProfileNumber);
         edtProfileComplement = (EditText) v.findViewById(R.id.edtProfileComplement);
         txtEditar = (TextView) v.findViewById(R.id.txtEditar);
+        btnSave = (Button) v.findViewById(R.id.btnSave);
 
         //--Pegando o nome, email, e foto de perfil com sharedPrefs.
         SharedPreferences names = this.getActivity().getSharedPreferences("name", 0);
@@ -146,7 +156,94 @@ public class FragmentProfile extends Fragment {
         txtEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                rellayProfile.setVisibility(View.GONE);
                 edtProfileEmail.setEnabled(true);
+                edtProfileTel.setEnabled(true);
+                edtProfileNhood.setEnabled(true);
+                edtProfileCep.setEnabled(true);
+                edtProfileStreet.setEnabled(true);
+                edtProfileNumber.setEnabled(true);
+                edtProfileComplement.setEnabled(true);
+                btnSave.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        edtProfileEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileEmail.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileEmail.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
+            }
+        });
+
+        edtProfileTel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileTel.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileTel.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
+            }
+        });
+
+        edtProfileNhood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileNhood.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileNhood.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
+            }
+        });
+
+        edtProfileCep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileCep.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileCep.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
+            }
+        });
+
+        edtProfileStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileStreet.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileStreet.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
+            }
+        });
+
+        edtProfileNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileNumber.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileNumber.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
+            }
+        });
+
+        edtProfileComplement.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    edtProfileComplement.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    edtProfileComplement.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
             }
         });
 
