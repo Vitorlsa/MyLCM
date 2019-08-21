@@ -1,16 +1,25 @@
 package com.example.mylcm.Fragments;
 
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +30,8 @@ import android.widget.TextView;
 
 import com.example.mylcm.Activities.NavDrawerMenu;
 import com.example.mylcm.R;
+
+import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -247,6 +258,87 @@ public class FragmentProfile extends Fragment {
             }
         });
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtProfileEmail.setBackgroundColor(getResources().getColor(R.color.transparent));
+                edtProfileTel.setBackgroundColor(getResources().getColor(R.color.transparent));
+                edtProfileNhood.setBackgroundColor(getResources().getColor(R.color.transparent));
+                edtProfileCep.setBackgroundColor(getResources().getColor(R.color.transparent));
+                edtProfileStreet.setBackgroundColor(getResources().getColor(R.color.transparent));
+                edtProfileNumber.setBackgroundColor(getResources().getColor(R.color.transparent));
+                edtProfileComplement.setBackgroundColor(getResources().getColor(R.color.transparent));
+
+                rellayProfile.setVisibility(View.VISIBLE);
+                edtProfileEmail.setEnabled(false);
+                edtProfileTel.setEnabled(false);
+                edtProfileNhood.setEnabled(false);
+                edtProfileCep.setEnabled(false);
+                edtProfileStreet.setEnabled(false);
+                edtProfileNumber.setEnabled(false);
+                edtProfileComplement.setEnabled(false);
+                btnSave.setVisibility(View.GONE);
+            }
+        });
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            2000);
+                }
+                else {
+                    startGallery();
+                }
+            }
+        });
+
         return v;
+    }
+
+    private void startGallery(){
+        Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        cameraIntent.setType("image/*");
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, 1000);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            //super method removed
+            if (resultCode == Activity.RESULT_OK) {
+                if (requestCode == 1000) {
+                    Uri returnUri = data.getData();
+                    final String path = getPathFromURI(returnUri);
+                    if (path != null) {
+                        File f = new File(path);
+                        returnUri = Uri.fromFile(f);
+                    }
+
+                    imgProfile.setImageURI(returnUri);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("FIleSelectorActivity", "File select error", e);
+        }
+    }
+
+    public String getPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(contentUri, proj, null, null, null);
+        if(cursor.moveToFirst()){
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
     }
 }
