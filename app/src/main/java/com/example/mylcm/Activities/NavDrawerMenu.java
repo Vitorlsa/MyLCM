@@ -33,8 +33,10 @@ import com.example.mylcm.Retrofit.ProfileResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.ServerResponse;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
@@ -46,8 +48,9 @@ public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
 
     Fragment fragment = null;
-    public static String sex, state, date, cpf, tel, nhood, cep, street, number, complement;
-    public static int pid, city;
+    public static String login, password, date, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum;
+    public static int pid, city, id, sex;
+    ArrayList<Integer> competencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +214,9 @@ public class NavDrawerMenu extends AppCompatActivity
                         if(profileResponse.getId() != 0) {
 
                             ProfileResponse profileResponseData = response.body();
+                            id = profileResponseData.getId();
+                            login = profileResponseData.getLogin();
+                            password = profileResponseData.getPassword();
                             sex = profileResponseData.getSex();
                             state = profileResponseData.getState();
                             date = profileResponseData.getDate();
@@ -222,6 +228,9 @@ public class NavDrawerMenu extends AppCompatActivity
                             street = profileResponseData.getStreet();
                             number = profileResponseData.getNumber();
                             complement = profileResponseData.getComplement();
+                            comment = profileResponseData.getComment();
+                            curriculum = profileResponseData.getCurriculum();
+                            competencia = profileResponseData.getCompetencias();
 
 
 
@@ -231,9 +240,19 @@ public class NavDrawerMenu extends AppCompatActivity
                             date_editor.putString("date", date);
                             date_editor.commit();
 
+                            SharedPreferences sendLogin = getSharedPreferences("login", 0);
+                            SharedPreferences.Editor login_editor = sendLogin.edit();
+                            login_editor.putString("login", login);
+                            login_editor.commit();
+
+                            SharedPreferences sendPass = getSharedPreferences("password", 0);
+                            SharedPreferences.Editor pass_editor = sendPass.edit();
+                            pass_editor.putString("pass", password);
+                            pass_editor.commit();
+
                             SharedPreferences sendSex = getSharedPreferences("sex", 0);
                             SharedPreferences.Editor sex_editor = sendSex.edit();
-                            sex_editor.putString("sex", sex);
+                            sex_editor.putInt("sex", sex);
                             sex_editor.commit();
 
                             SharedPreferences sendCpf = getSharedPreferences("cpf", 0);
@@ -280,6 +299,18 @@ public class NavDrawerMenu extends AppCompatActivity
                             SharedPreferences.Editor complement_editor = sendComplement.edit();
                             complement_editor.putString("complement", complement);
                             complement_editor.commit();
+
+                            SharedPreferences sendComm = getSharedPreferences("comm", 0);
+                            SharedPreferences.Editor comm_editor = sendComm.edit();
+                            comm_editor.putString("comm", comment);
+                            comm_editor.commit();
+
+                            SharedPreferences sendCurr = getSharedPreferences("curr", 0);
+                            SharedPreferences.Editor curr_editor = sendCurr.edit();
+                            curr_editor.putString("curr", curriculum);
+                            curr_editor.commit();
+
+
 
                             //Chama o método pra abrir o fragmento
                             gotoProfile();

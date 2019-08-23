@@ -10,9 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Connect {
 
     //URL base do endpoint. Deve sempre terminar com /
-    //public static final String API_BASE_URL = "http://10.0.2.2:8080/";
+    public static final String API_BASE_URL = "http://10.0.2.2:8080/";
 
-    public static final String API_BASE_URL = "http://35.198.57.11:8080/";
+    //public static final String API_BASE_URL = "http://35.198.57.11:8080/";
 
     public static <S> S createService(Class<S> serviceClass) {
 

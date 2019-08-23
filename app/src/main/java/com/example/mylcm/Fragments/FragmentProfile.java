@@ -27,13 +27,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylcm.Activities.NavDrawerMenu;
 import com.example.mylcm.R;
+import com.example.mylcm.Retrofit.Connect;
+import com.example.mylcm.Retrofit.EditDTO;
+import com.example.mylcm.Retrofit.RetrofitService;
 
 import java.io.File;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +58,10 @@ public class FragmentProfile extends Fragment {
     EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB, edtProfileCpf, edtProfileTel, edtProfileCity, edtProfileNhood, edtProfileCep, edtProfileStreet, edtProfileNumber, edtProfileComplement;
     CircleImageView imgProfile;
     RelativeLayout rellayProfile;
+    public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum;
+    public static int pid, cidade, sexo;
+    ArrayList<Integer> competencia;
+    Boolean termos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,59 +91,62 @@ public class FragmentProfile extends Fragment {
         btnSave = (Button) v.findViewById(R.id.btnSave);
 
         //--Pegando o nome, email, e foto de perfil com sharedPrefs.
+        SharedPreferences  presID = this.getActivity().getSharedPreferences("PID", 0);
+        pid = presID.getInt("PID", -1);
+
         SharedPreferences names = this.getActivity().getSharedPreferences("name", 0);
-        String nameUser = names.getString("name", "");
+        nameUser = names.getString("name", "");
 
         SharedPreferences emails = this.getActivity().getSharedPreferences("email", 0);
-        String emailUser = emails.getString("email", "");
+        emailUser = emails.getString("email", "");
 
         SharedPreferences profPics = this.getActivity().getSharedPreferences("profPic", 0);
-        String profPict = profPics.getString("profPic", "");
+        profPict = profPics.getString("profPic", "");
 
         SharedPreferences getDates = this.getActivity().getSharedPreferences("date", 0);
-        String date = getDates.getString("date", "");
+        date = getDates.getString("date", "");
 
         SharedPreferences getSex = this.getActivity().getSharedPreferences("sex", 0);
-        String sexo = getSex.getString("sex", "");
+        sexo = getSex.getInt("sex", -1);
 
         SharedPreferences getCpfs = this.getActivity().getSharedPreferences("cpf", 0);
-        String cpf = getCpfs.getString("cpf", "");
+        cpf = getCpfs.getString("cpf", "");
 
         SharedPreferences getTel = this.getActivity().getSharedPreferences("tel", 0);
-        String tel = getTel.getString("tel", "");
+        tel = getTel.getString("tel", "");
 
         SharedPreferences getStates = this.getActivity().getSharedPreferences("state", 0);
-        String state = getStates.getString("state", "");
+        state = getStates.getString("state", "");
 
         SharedPreferences getCities = this.getActivity().getSharedPreferences("city", 0);
-        int cidade = getCities.getInt("city", -1);
+        cidade = getCities.getInt("city", -1);
         String city = Integer.toString(cidade);
 
         SharedPreferences getNhood = this.getActivity().getSharedPreferences("nhood", 0);
-        String nhood = getNhood.getString("nhood", "");
+        nhood = getNhood.getString("nhood", "");
 
         SharedPreferences getCep = this.getActivity().getSharedPreferences("cep", 0);
-        String cep = getCep.getString("cep", "");
+        cep = getCep.getString("cep", "");
 
         SharedPreferences getStreet = this.getActivity().getSharedPreferences("street", 0);
-        String street = getStreet.getString("street", "");
+        street = getStreet.getString("street", "");
 
         SharedPreferences getNumber = this.getActivity().getSharedPreferences("number", 0);
-        String number = getNumber.getString("number", "");
+        number = getNumber.getString("number", "");
 
         SharedPreferences getComplement = this.getActivity().getSharedPreferences("complement", 0);
-        String complement = getComplement.getString("complement", "");
+        complement = getComplement.getString("complement", "");
         //--Finaliza os sharedPrefs.
 
         //Muda o sexo de ID pra Masculino, Feminino e Outros
-        if (sexo.equals("1")){
-            sexo = "Masculino";
+        if (sexo == 1){
+            sex = "Masculino";
         }
-        else if (sexo.equals("2")){
-            sexo = "Feminino";
+        else if (sexo == 2){
+            sex = "Feminino";
         }
         else {
-            sexo = "Outros";
+            sex = "Outros";
         }
 
         //Pego o cpf e adiciono "." e "-"
@@ -153,7 +168,7 @@ public class FragmentProfile extends Fragment {
         edtProfileEmail.setText(emailUser);
         imgProfile.setImageBitmap(decodedByte);
         edtProfileDoB.setText(data[2]+ "/" + data[1] + "/" + data[0]);
-        edtProfileSex.setText(sexo);
+        edtProfileSex.setText(sex);
         edtProfileCpf.setText(cpf);
         edtProfileTel.setText(tel);
         edtProfileState.setText(state);
@@ -261,6 +276,17 @@ public class FragmentProfile extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                emailUser = edtProfileEmail.getText().toString();
+                tel = edtProfileTel.getText().toString();
+                nhood = edtProfileNhood.getText().toString();
+                cep = edtProfileCep.getText().toString();
+                street = edtProfileStreet.getText().toString();
+                number = edtProfileNumber.getText().toString();
+                complement = edtProfileComplement.getText().toString();
+
+                retrofitEdit(pid, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement);
+
                 edtProfileEmail.setBackgroundColor(getResources().getColor(R.color.transparent));
                 edtProfileTel.setBackgroundColor(getResources().getColor(R.color.transparent));
                 edtProfileNhood.setBackgroundColor(getResources().getColor(R.color.transparent));
@@ -340,5 +366,28 @@ public class FragmentProfile extends Fragment {
         }
         cursor.close();
         return res;
+    }
+
+    public void retrofitEdit(final int pid, final String emailUser, final int sexo, final String state, final String date, final String cpf, final String tel, final int cidade, final String nhood, final String cep, final String street, final String number, final String complement){
+
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final EditDTO edit = new EditDTO(pid, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement);
+
+        Call<EditDTO> call = service.setEdit(edit);
+
+        call.enqueue(new Callback<EditDTO>() {
+            @Override
+            public void onResponse(Call<EditDTO> call, Response<EditDTO> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(getActivity().getApplicationContext(),"Dados salvos com sucesso!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(),"Não foi possível salvar suas informações", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

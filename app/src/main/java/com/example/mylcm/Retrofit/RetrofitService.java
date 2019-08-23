@@ -14,7 +14,8 @@ public interface RetrofitService {
     @POST("api/prestadordeservico/buscar")
     Call<ProfileResponse> getData(@Body ProfileDTO id);
 
-    //@POST("api/prestadordeservico/editar")
+    @POST("api/prestadordeservico/editar")
+    Call<EditDTO> setEdit(@Body EditDTO prestador);
 
 
 }

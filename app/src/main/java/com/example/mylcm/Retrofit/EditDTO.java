@@ -2,19 +2,11 @@ package com.example.mylcm.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-public class ProfileResponse {
+public class EditDTO {
     @SerializedName("id")
     private int Id;
-    @SerializedName("login")
-    private String Login;
-    @SerializedName("senha")
-    private String Password;
+    @SerializedName("email")
+    private String Email;
     @SerializedName("sexo")
     private int Sex;
     @SerializedName("estado")
@@ -37,15 +29,21 @@ public class ProfileResponse {
     private String Number;
     @SerializedName("complemento")
     private String Complement;
-    @SerializedName("comentario")
-    private String Comment;
-    @SerializedName("curriculo")
-    private String Curriculum;
-    @SerializedName("competencias")
-    private ArrayList<Integer> Competencias;
 
-    public ProfileResponse(int id) {
+    public EditDTO(int id, String email, int sex, String state, String date, String cpf, String tel, int city, String nhood, String cep, String street, String number, String complement) {
         Id = id;
+        Email = email;
+        Sex = sex;
+        State = state;
+        Date = date;
+        Cpf = cpf;
+        Tel = tel;
+        City = city;
+        Nhood = nhood;
+        Cep = cep;
+        Street = street;
+        Number = number;
+        Complement = complement;
     }
 
     public int getId() {
@@ -53,7 +51,15 @@ public class ProfileResponse {
     }
 
     public void setId(int id) {
-        this.Id = id;
+        Id = id;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public int getSex() {
@@ -61,7 +67,7 @@ public class ProfileResponse {
     }
 
     public void setSex(int sex) {
-        this.Sex = sex;
+        Sex = sex;
     }
 
     public String getState() {
@@ -69,7 +75,7 @@ public class ProfileResponse {
     }
 
     public void setState(String state) {
-        this.State = state;
+        State = state;
     }
 
     public String getDate() {
@@ -77,15 +83,15 @@ public class ProfileResponse {
     }
 
     public void setDate(String date) {
-        this.Date = date;
+        Date = date;
     }
 
     public String getCpf() {
         return Cpf;
     }
 
-    public void setCpf(String Cpf) {
-        this.Cpf = Cpf;
+    public void setCpf(String cpf) {
+        Cpf = cpf;
     }
 
     public String getTel() {
@@ -93,7 +99,7 @@ public class ProfileResponse {
     }
 
     public void setTel(String tel) {
-        this.Tel = tel;
+        Tel = tel;
     }
 
     public int getCity() {
@@ -101,7 +107,7 @@ public class ProfileResponse {
     }
 
     public void setCity(int city) {
-        this.City = city;
+        City = city;
     }
 
     public String getNhood() {
@@ -109,7 +115,7 @@ public class ProfileResponse {
     }
 
     public void setNhood(String nhood) {
-        this.Nhood = nhood;
+        Nhood = nhood;
     }
 
     public String getCep() {
@@ -117,7 +123,7 @@ public class ProfileResponse {
     }
 
     public void setCep(String cep) {
-        this.Cep = cep;
+        Cep = cep;
     }
 
     public String getStreet() {
@@ -125,7 +131,7 @@ public class ProfileResponse {
     }
 
     public void setStreet(String street) {
-        this.Street = street;
+        Street = street;
     }
 
     public String getNumber() {
@@ -133,7 +139,7 @@ public class ProfileResponse {
     }
 
     public void setNumber(String number) {
-        this.Number = number;
+        Number = number;
     }
 
     public String getComplement() {
@@ -141,46 +147,6 @@ public class ProfileResponse {
     }
 
     public void setComplement(String complement) {
-        this.Complement = complement;
-    }
-
-    public String getLogin() {
-        return Login;
-    }
-
-    public void setLogin(String login) {
-        Login = login;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public String getComment() {
-        return Comment;
-    }
-
-    public void setComment(String comment) {
-        Comment = comment;
-    }
-
-    public String getCurriculum() {
-        return Curriculum;
-    }
-
-    public void setCurriculum(String curriculum) {
-        Curriculum = curriculum;
-    }
-
-    public ArrayList<Integer> getCompetencias() {
-        return Competencias;
-    }
-
-    public void setCompetencias(ArrayList<Integer> competencias) {
-        Competencias = competencias;
+        Complement = complement;
     }
 }
