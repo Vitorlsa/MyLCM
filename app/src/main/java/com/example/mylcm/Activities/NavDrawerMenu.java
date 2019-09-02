@@ -164,9 +164,6 @@ public class NavDrawerMenu extends AppCompatActivity
 
         if(id == R.id.nav_home){
 
-            fragment = new FragmentMenu();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.flMenu, fragment).commit();
             setTitle("Menu");
             getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -247,7 +244,7 @@ public class NavDrawerMenu extends AppCompatActivity
 
                             SharedPreferences sendPass = getSharedPreferences("password", 0);
                             SharedPreferences.Editor pass_editor = sendPass.edit();
-                            pass_editor.putString("pass", password);
+                            pass_editor.putString("password", password);
                             pass_editor.commit();
 
                             SharedPreferences sendSex = getSharedPreferences("sex", 0);
@@ -310,7 +307,10 @@ public class NavDrawerMenu extends AppCompatActivity
                             curr_editor.putString("curr", curriculum);
                             curr_editor.commit();
 
-
+                            SharedPreferences sendComp = getSharedPreferences("comp", 0);
+                            SharedPreferences.Editor comp_editor = sendComp.edit();
+                            comp_editor.putString("comp", competencia.toString());
+                            comp_editor.commit();
 
                             //Chama o método pra abrir o fragmento
                             gotoProfile();

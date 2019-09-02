@@ -36,6 +36,7 @@ import com.example.mylcm.Retrofit.EditDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -58,9 +59,9 @@ public class FragmentProfile extends Fragment {
     EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB, edtProfileCpf, edtProfileTel, edtProfileCity, edtProfileNhood, edtProfileCep, edtProfileStreet, edtProfileNumber, edtProfileComplement;
     CircleImageView imgProfile;
     RelativeLayout rellayProfile;
-    public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum;
+    public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, competencia;
     public static int pid, cidade, sexo;
-    ArrayList<Integer> competencia;
+    //ArrayList<Integer> competencia;
     Boolean termos;
 
     @Override
@@ -96,6 +97,12 @@ public class FragmentProfile extends Fragment {
 
         SharedPreferences names = this.getActivity().getSharedPreferences("name", 0);
         nameUser = names.getString("name", "");
+
+        SharedPreferences logins = this.getActivity().getSharedPreferences("login", 0);
+        login = logins.getString("login", "");
+
+        SharedPreferences senha = this.getActivity().getSharedPreferences("password", 0);
+        password = senha.getString("password", "");
 
         SharedPreferences emails = this.getActivity().getSharedPreferences("email", 0);
         emailUser = emails.getString("email", "");
@@ -136,7 +143,18 @@ public class FragmentProfile extends Fragment {
 
         SharedPreferences getComplement = this.getActivity().getSharedPreferences("complement", 0);
         complement = getComplement.getString("complement", "");
+
+        SharedPreferences getCompetencia = this.getActivity().getSharedPreferences("comp", 0);
+        competencia = getCompetencia.getString("comp", "");
+
+        SharedPreferences getComment = this.getActivity().getSharedPreferences("comm", 0);
+        comment = getComment.getString("comm", "");
+
+        SharedPreferences getCurriculum = this.getActivity().getSharedPreferences("curr", 0);
+        curriculum = getCurriculum.getString("curr", "");
         //--Finaliza os sharedPrefs.
+
+        termos = true;
 
         //Muda o sexo de ID pra Masculino, Feminino e Outros
         if (sexo == 1){
@@ -158,6 +176,12 @@ public class FragmentProfile extends Fragment {
         //Pego a data em substring e divido ela nos traços
         date = date.substring(0, 10);
         String data[] = date.split("-");
+
+        //Pego a string da competencia e removo os caracteres especiais, depois insiro num array
+        competencia = competencia.substring(0, 14);
+        competencia = competencia.replace("[", "");
+        competencia = competencia.replace(" ", "");
+        String competencias[] = competencia.split(",");
 
         //Transformo a string de base64 em bitmap.
         String base64profPict = profPict.split(",")[1];
@@ -285,7 +309,7 @@ public class FragmentProfile extends Fragment {
                 number = edtProfileNumber.getText().toString();
                 complement = edtProfileComplement.getText().toString();
 
-                retrofitEdit(pid, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement);
+                retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, competencia, comment, termos, profPict, curriculum);
 
                 edtProfileEmail.setBackgroundColor(getResources().getColor(R.color.transparent));
                 edtProfileTel.setBackgroundColor(getResources().getColor(R.color.transparent));
@@ -368,11 +392,11 @@ public class FragmentProfile extends Fragment {
         return res;
     }
 
-    public void retrofitEdit(final int pid, final String emailUser, final int sexo, final String state, final String date, final String cpf, final String tel, final int cidade, final String nhood, final String cep, final String street, final String number, final String complement){
+    public void retrofitEdit(final int pid, final String nome, final String login, final String senha, final String emailUser, final int sexo, final String state, final String date, final String cpf, final String tel, final int cidade, final String nhood, final String cep, final String street, final String number, final String complement, final String competencias, final String comentario, final Boolean termos, final String imagem, final String pdf){
 
         RetrofitService service = Connect.createService(RetrofitService.class);
 
-        final EditDTO edit = new EditDTO(pid, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement);
+        final EditDTO edit = new EditDTO(pid, nome, login, senha, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, competencias, comentario, termos, "", pdf);
 
         Call<EditDTO> call = service.setEdit(edit);
 

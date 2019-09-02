@@ -2,9 +2,17 @@ package com.example.mylcm.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class EditDTO {
     @SerializedName("id")
     private int Id;
+    @SerializedName("nome")
+    private String Username;
+    @SerializedName("login")
+    private String Login;
+    @SerializedName("senha")
+    private String Password;
     @SerializedName("email")
     private String Email;
     @SerializedName("sexo")
@@ -29,9 +37,22 @@ public class EditDTO {
     private String Number;
     @SerializedName("complemento")
     private String Complement;
+    @SerializedName("competencias")
+    private String Competencia;
+    @SerializedName("comentario")
+    private String Comment;
+    @SerializedName("termos")
+    private Boolean Termos;
+    @SerializedName("imagem")
+    private String Image;
+    @SerializedName("pdf")
+    private String Curriculum;
 
-    public EditDTO(int id, String email, int sex, String state, String date, String cpf, String tel, int city, String nhood, String cep, String street, String number, String complement) {
+    public EditDTO(int id, String username, String login, String password, String email, int sex, String state, String date, String cpf, String tel, int city, String nhood, String cep, String street, String number, String complement, String competencia, String comment, Boolean termos, String image, String curriculum) {
         Id = id;
+        Username = username;
+        Login = login;
+        Password = password;
         Email = email;
         Sex = sex;
         State = state;
@@ -44,6 +65,11 @@ public class EditDTO {
         Street = street;
         Number = number;
         Complement = complement;
+        Competencia = competencia;
+        Comment = comment;
+        Termos = termos;
+        Image = image;
+        Curriculum = curriculum;
     }
 
     public int getId() {
@@ -52,6 +78,30 @@ public class EditDTO {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String login) {
+        Login = login;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
     }
 
     public String getEmail() {
@@ -148,5 +198,45 @@ public class EditDTO {
 
     public void setComplement(String complement) {
         Complement = complement;
+    }
+
+    public String getCompetencia() {
+        return Competencia;
+    }
+
+    public void setCompetencia(String competencia) {
+        Competencia = competencia;
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String comment) {
+        Comment = comment;
+    }
+
+    public Boolean getTermos() {
+        return Termos;
+    }
+
+    public void setTermos(Boolean termos) {
+        Termos = termos;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public String getCurriculum() {
+        return Curriculum;
+    }
+
+    public void setCurriculum(String curriculum) {
+        Curriculum = curriculum;
     }
 }
