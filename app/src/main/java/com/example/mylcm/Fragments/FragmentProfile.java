@@ -34,9 +34,11 @@ import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.EditDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Utils.MaskEditUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -61,7 +63,6 @@ public class FragmentProfile extends Fragment {
     RelativeLayout rellayProfile;
     public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, competencia;
     public static int pid, cidade, sexo;
-    //ArrayList<Integer> competencia;
     Boolean termos;
 
     @Override
@@ -167,21 +168,25 @@ public class FragmentProfile extends Fragment {
             sex = "Outros";
         }
 
-        //Pego o cpf e adiciono "." e "-"
-        cpf = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11);
-
-        //Pego o cep e adiciono "-"
-        cep = cep.substring(0, 5) + "-" + cep.substring(5, 8);
-
         //Pego a data em substring e divido ela nos traços
         date = date.substring(0, 10);
         String data[] = date.split("-");
 
         //Pego a string da competencia e removo os caracteres especiais, depois insiro num array
-        competencia = competencia.substring(0, 14);
         competencia = competencia.replace("[", "");
+        competencia = competencia.replace("]", "");
         competencia = competencia.replace(" ", "");
-        String competencias[] = competencia.split(",");
+        String[] competencias = competencia.split(",");
+        ArrayList<String> compList = new ArrayList<String>(Arrays.asList(competencias));
+        final ArrayList<Integer> compt = new ArrayList<Integer>();
+        for (String val : compList) {
+            try{
+                compt.add(Integer.parseInt(val));
+            } catch(NumberFormatException nfe){
+                Log.w("NumberFormat", "Parsing failed! " + val + " can not be an integer");
+            }
+
+        }
 
         //Transformo a string de base64 em bitmap.
         String base64profPict = profPict.split(",")[1];
@@ -193,11 +198,13 @@ public class FragmentProfile extends Fragment {
         imgProfile.setImageBitmap(decodedByte);
         edtProfileDoB.setText(data[2]+ "/" + data[1] + "/" + data[0]);
         edtProfileSex.setText(sex);
+        edtProfileCpf.addTextChangedListener(MaskEditUtil.mask(edtProfileCpf, MaskEditUtil.FORMAT_CPF));
         edtProfileCpf.setText(cpf);
         edtProfileTel.setText(tel);
         edtProfileState.setText(state);
         edtProfileCity.setText(city);
         edtProfileNhood.setText(nhood);
+        edtProfileCep.addTextChangedListener(MaskEditUtil.mask(edtProfileCep, MaskEditUtil.FORMAT_CEP));
         edtProfileCep.setText(cep);
         edtProfileStreet.setText(street);
         edtProfileNumber.setText(number);
@@ -309,7 +316,7 @@ public class FragmentProfile extends Fragment {
                 number = edtProfileNumber.getText().toString();
                 complement = edtProfileComplement.getText().toString();
 
-                retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, competencia, comment, termos, profPict, curriculum);
+                retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, compt, comment, termos, profPict, curriculum);
 
                 edtProfileEmail.setBackgroundColor(getResources().getColor(R.color.transparent));
                 edtProfileTel.setBackgroundColor(getResources().getColor(R.color.transparent));
@@ -392,11 +399,11 @@ public class FragmentProfile extends Fragment {
         return res;
     }
 
-    public void retrofitEdit(final int pid, final String nome, final String login, final String senha, final String emailUser, final int sexo, final String state, final String date, final String cpf, final String tel, final int cidade, final String nhood, final String cep, final String street, final String number, final String complement, final String competencias, final String comentario, final Boolean termos, final String imagem, final String pdf){
+    public void retrofitEdit(final int pid, final String nome, final String login, final String senha, final String emailUser, final int sexo, final String state, final String date, final String cpf, final String tel, final int cidade, final String nhood, final String cep, final String street, final String number, final String complement, final ArrayList<Integer> compt, final String comentario, final Boolean termos, final String imagem, final String pdf){
 
         RetrofitService service = Connect.createService(RetrofitService.class);
 
-        final EditDTO edit = new EditDTO(pid, nome, login, senha, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, competencias, comentario, termos, "", pdf);
+        final EditDTO edit = new EditDTO(pid, nome, login, senha, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, compt, comentario, termos, imagem, pdf);
 
         Call<EditDTO> call = service.setEdit(edit);
 

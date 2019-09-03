@@ -38,7 +38,7 @@ public class EditDTO {
     @SerializedName("complemento")
     private String Complement;
     @SerializedName("competencias")
-    private String Competencia;
+    private ArrayList<Integer> Competencia;
     @SerializedName("comentario")
     private String Comment;
     @SerializedName("termos")
@@ -48,7 +48,7 @@ public class EditDTO {
     @SerializedName("pdf")
     private String Curriculum;
 
-    public EditDTO(int id, String username, String login, String password, String email, int sex, String state, String date, String cpf, String tel, int city, String nhood, String cep, String street, String number, String complement, String competencia, String comment, Boolean termos, String image, String curriculum) {
+    public EditDTO(int id, String username, String login, String password, String email, int sex, String state, String date, String cpf, String tel, int city, String nhood, String cep, String street, String number, String complement, ArrayList<Integer> competencia, String comment, Boolean termos, String image, String curriculum) {
         Id = id;
         Username = username;
         Login = login;
@@ -200,11 +200,11 @@ public class EditDTO {
         Complement = complement;
     }
 
-    public String getCompetencia() {
+    public ArrayList<Integer> getCompetencia() {
         return Competencia;
     }
 
-    public void setCompetencia(String competencia) {
+    public void setCompetencia(ArrayList<Integer> competencia) {
         Competencia = competencia;
     }
 
