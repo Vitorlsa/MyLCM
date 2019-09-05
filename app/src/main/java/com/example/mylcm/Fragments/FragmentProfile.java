@@ -36,6 +36,7 @@ import com.example.mylcm.Retrofit.EditDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Utils.MaskEditUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,6 +64,7 @@ public class FragmentProfile extends Fragment {
     RelativeLayout rellayProfile;
     public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, competencia;
     public static int pid, cidade, sexo;
+    ArrayList<Integer> compt;
     Boolean termos;
 
     @Override
@@ -178,7 +180,7 @@ public class FragmentProfile extends Fragment {
         competencia = competencia.replace(" ", "");
         String[] competencias = competencia.split(",");
         ArrayList<String> compList = new ArrayList<String>(Arrays.asList(competencias));
-        final ArrayList<Integer> compt = new ArrayList<Integer>();
+        compt = new ArrayList<Integer>();
         for (String val : compList) {
             try{
                 compt.add(Integer.parseInt(val));
@@ -383,7 +385,7 @@ public class FragmentProfile extends Fragment {
                 }
             }
         } catch (Exception e) {
-            Log.e("FIleSelectorActivity", "File select error", e);
+            Log.e("FileSelectorActivity", "File select error", e);
         }
     }
 
@@ -396,6 +398,13 @@ public class FragmentProfile extends Fragment {
             res = cursor.getString(column_index);
         }
         cursor.close();
+        Bitmap bm = BitmapFactory.decodeFile(res);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+        byte[] b = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        String imagemCodada = "data:image/jpeg;base64," + encodedImage;
+        retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, compt, comment, termos, imagemCodada, curriculum);
         return res;
     }
 
@@ -417,7 +426,7 @@ public class FragmentProfile extends Fragment {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getActivity().getApplicationContext(),"Não foi possível salvar suas informações", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(),"Salvo com sucesso!", Toast.LENGTH_SHORT).show();
             }
         });
     }
