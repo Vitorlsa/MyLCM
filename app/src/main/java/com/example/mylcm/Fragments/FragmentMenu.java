@@ -2,6 +2,7 @@ package com.example.mylcm.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,18 @@ import android.widget.Toast;
 
 import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.Activities.Calendario;
+import com.example.mylcm.Activities.Contracts;
 import com.example.mylcm.Activities.NavDrawerMenu;
 import com.example.mylcm.R;
+import com.example.mylcm.Retrofit.Connect;
+import com.example.mylcm.Retrofit.ContractDTO;
+import com.example.mylcm.Retrofit.ContractResponse;
+import com.example.mylcm.Retrofit.RetrofitService;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,10 +72,12 @@ public class FragmentMenu extends Fragment {
         return fragment;
     }
 
-    Button btnCalendario, btnCustos, btnBeneficiario, btnMedicamentos;
+    Button btnCalendario, btnContratos, btnBeneficiario, btnMedicamentos;
     Spinner spnBeneficiarios;
     String names[] = {"Selecionar Beneficiário","Roberto", "Carlos", "José"};
     ArrayAdapter<String>arrayAdapter;
+    public static int pid;
+    public static String NameBenef, NameContract, ReqDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +93,9 @@ public class FragmentMenu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_fragment_menu, container, false);
+
+        SharedPreferences presID = this.getActivity().getSharedPreferences("PID", 0);
+        pid = presID.getInt("PID", -1);
 
         btnCalendario = (Button) v.findViewById(R.id.btn_Calendario);
         btnCalendario.setOnClickListener(new View.OnClickListener() {
@@ -113,15 +129,17 @@ public class FragmentMenu extends Fragment {
             }
         });
 
-        btnCustos = (Button) v.findViewById(R.id.btn_Custos);
-        btnCustos.setOnClickListener(new View.OnClickListener() {
+        btnContratos = (Button) v.findViewById(R.id.btn_Contratos);
+        btnContratos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //make your toast here
                 if(spnBeneficiarios.getSelectedItemPosition() == 0){
                     Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                    btnContratos.setEnabled(true);
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Custos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Contratos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), Contracts.class));
                 }
             }
         });

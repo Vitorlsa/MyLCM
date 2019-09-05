@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ProfileResponse {
+public class ProfileResponse implements Serializable{
     @SerializedName("id")
     private int Id;
     @SerializedName("login")

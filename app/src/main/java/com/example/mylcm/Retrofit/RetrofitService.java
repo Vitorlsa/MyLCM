@@ -17,5 +17,7 @@ public interface RetrofitService {
     @POST("api/prestadordeservico/editar")
     Call<EditDTO> setEdit(@Body EditDTO prestador);
 
+    @POST("api/prestadordeservico/listarsolicitacoesdecontrato")
+    Call<ContractResponse> getContracts(@Body ContractDTO Id);
 
 }
