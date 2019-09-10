@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.Contracts"></activity>
+        <activity
+            android:name=".Activities.Contracts"
+            android:label="Contratos"
+            />
         <activity android:name=".Activities.Medicamentos" />
         <activity android:name=".Activities.Beneficiarios" />
         <activity android:name=".Activities.Calendario" />

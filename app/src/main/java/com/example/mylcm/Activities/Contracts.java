@@ -1,17 +1,21 @@
 package com.example.mylcm.Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.ContractDTO;
-import com.example.mylcm.Retrofit.ContractResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Retrofit.SolicitacaoPendentePrestadorDTO;
 
 import java.util.ArrayList;
 
@@ -23,8 +27,12 @@ import retrofit2.Response;
 public class Contracts extends AppCompatActivity {
 
     ImageButton backBtn;
-    public static int pid;
+    TextView title;
+    ListView contractList;
+    //private ArrayAdapter<String> contrato;
+    public static int pid, qtd;
     public static String NameBenef, NameContract, ReqDate;
+    //ArrayList<String> contractData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +46,14 @@ public class Contracts extends AppCompatActivity {
                 finish();
             }
         });
+        title = (TextView) findViewById(R.id.txtTitle);
+        contractList = (ListView) findViewById(R.id.listContract);
 
         SharedPreferences  presID = getSharedPreferences("PID", 0);
         pid = presID.getInt("PID", -1);
 
         retrofitContract(pid);
+
      }
 
     public void retrofitContract(int pid){
@@ -51,27 +62,37 @@ public class Contracts extends AppCompatActivity {
 
         final ContractDTO contract = new ContractDTO(pid);
 
-        Call<ContractResponse> call = service.getContracts(contract);
+        Call<ArrayList<SolicitacaoPendentePrestadorDTO>> call = service.getContracts(contract);
 
-        call.enqueue(new Callback<ContractResponse>() {
+        call.enqueue(new Callback<ArrayList<SolicitacaoPendentePrestadorDTO>>() {
             @Override
-            public void onResponse(Call<ContractResponse> call, Response<ContractResponse> response) {
+            public void onResponse(Call<ArrayList<SolicitacaoPendentePrestadorDTO>> call, Response<ArrayList<SolicitacaoPendentePrestadorDTO>> response) {
 
                 if (response.isSuccessful()) {
 
-                    ContractResponse contractResponse = response.body();
+                    ArrayList<SolicitacaoPendentePrestadorDTO> contractResponse = response.body();
+                    qtd = response.body().size();
+
+                    ArrayAdapter<String> contrato;
+                    ArrayList<String> dadosContrato = new ArrayList<>();
 
                     //verifica aqui se o corpo da resposta não é nulo
                     if (contractResponse != null) {
 
-                        if(!contractResponse.getContract().equals(0)) {
+                        for(int i = 0; i < qtd; i++){
 
-                            ContractResponse contractResponseData = response.body();
+                            if(contractResponse.get(i).Id != 0) {
 
+                                ArrayList<SolicitacaoPendentePrestadorDTO> contractResponseData = response.body();
+                                NameBenef = contractResponseData.get(i).NomeBeneficiario;
+                                NameContract = contractResponseData.get(i).NomeContratante;
 
-                        } else{
+                                popularListaContrato();
 
-                            Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                            } else{
+
+                                Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                     } else {
@@ -90,11 +111,15 @@ public class Contracts extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ContractResponse> call, Throwable t) {
+            public void onFailure(Call<ArrayList<SolicitacaoPendentePrestadorDTO>> call, Throwable t) {
 
                 Toast.makeText(getApplicationContext(),"Erro na chamada ao servidor", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    public void popularListaContrato(){
 
     }
 }

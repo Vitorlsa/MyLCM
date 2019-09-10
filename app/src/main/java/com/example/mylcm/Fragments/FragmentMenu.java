@@ -18,12 +18,13 @@ import android.widget.Toast;
 import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.Activities.Calendario;
 import com.example.mylcm.Activities.Contracts;
-import com.example.mylcm.Activities.NavDrawerMenu;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.ContractDTO;
-import com.example.mylcm.Retrofit.ContractResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Retrofit.SolicitacaoPendentePrestadorDTO;
+
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -75,8 +76,8 @@ public class FragmentMenu extends Fragment {
     Button btnCalendario, btnContratos, btnBeneficiario, btnMedicamentos;
     Spinner spnBeneficiarios;
     String names[] = {"Selecionar Beneficiário","Roberto", "Carlos", "José"};
-    ArrayAdapter<String>arrayAdapter;
-    public static int pid;
+    ArrayAdapter<String> arrayAdapter;
+    public static int pid, qtd;
     public static String NameBenef, NameContract, ReqDate;
 
     @Override
@@ -120,8 +121,8 @@ public class FragmentMenu extends Fragment {
                 btnBeneficiario.setEnabled(false);
                 //make your toast here
                 if(spnBeneficiarios.getSelectedItemPosition() == 0){
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                     btnBeneficiario.setEnabled(true);
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Abrir Beneficiário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), Beneficiarios.class));
@@ -133,12 +134,13 @@ public class FragmentMenu extends Fragment {
         btnContratos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnContratos.setEnabled(false);
                 //make your toast here
                 if(spnBeneficiarios.getSelectedItemPosition() == 0){
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                     btnContratos.setEnabled(true);
+                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Contratos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Calendário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), Contracts.class));
                 }
             }
@@ -188,6 +190,7 @@ public class FragmentMenu extends Fragment {
 
         btnCalendario.setEnabled(true);
         btnBeneficiario.setEnabled(true);
+        btnContratos.setEnabled(true);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,5 +1,7 @@
 package com.example.mylcm.Retrofit;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -18,6 +20,6 @@ public interface RetrofitService {
     Call<EditDTO> setEdit(@Body EditDTO prestador);
 
     @POST("api/prestadordeservico/listarsolicitacoesdecontrato")
-    Call<ContractResponse> getContracts(@Body ContractDTO Id);
+    Call<ArrayList<SolicitacaoPendentePrestadorDTO>> getContracts(@Body ContractDTO Id);
 
 }
