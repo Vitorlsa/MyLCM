@@ -27,12 +27,12 @@ import retrofit2.Response;
 public class Contracts extends AppCompatActivity {
 
     ImageButton backBtn;
-    TextView title;
+    TextView title, nome;
     ListView contractList;
-    //private ArrayAdapter<String> contrato;
+    private ArrayAdapter<String> contrato;
     public static int pid, qtd;
     public static String NameBenef, NameContract, ReqDate;
-    //ArrayList<String> contractData = new ArrayList<>();
+    ArrayList<String> contractData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class Contracts extends AppCompatActivity {
                     qtd = response.body().size();
 
                     ArrayAdapter<String> contrato;
-                    ArrayList<String> dadosContrato = new ArrayList<>();
+
 
                     //verifica aqui se o corpo da resposta não é nulo
                     if (contractResponse != null) {
@@ -121,5 +121,18 @@ public class Contracts extends AppCompatActivity {
 
     public void popularListaContrato(){
 
+        contractData.add(NameContract + "\n" + NameBenef);
+
+        contrato = new ArrayAdapter<>(this, R.layout.item_contract, R.id.contract_name, contractData);
+        contractList.setAdapter(contrato);
+
+    }
+
+    public void aceitarContrato(boolean aceitar){
+        aceitar = true;
+    }
+
+    public void negarContrato(boolean negar){
+        negar = false;
     }
 }

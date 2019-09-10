@@ -35,7 +35,8 @@
         android:layout_toStartOf="@+id/contract_accept"
         android:layout_toLeftOf="@+id/contract_accept"
         android:text="Hello"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/contract_deny"
@@ -44,7 +45,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
-        android:text="Recusar" />
+        android:text="Recusar"
+        android:onClick="negarContrato"/>
 
     <Button
         android:id="@+id/contract_accept"
@@ -55,6 +57,7 @@
         android:layout_marginTop="10dp"
         android:layout_toStartOf="@+id/contract_deny"
         android:layout_toLeftOf="@+id/contract_deny"
-        android:text="Aceitar" />
+        android:text="Aceitar"
+        android:onClick="aceitarContrato"/>
 
 </RelativeLayout>
