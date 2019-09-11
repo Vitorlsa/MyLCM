@@ -22,4 +22,7 @@ public interface RetrofitService {
     @POST("api/prestadordeservico/listarsolicitacoesdecontrato")
     Call<ArrayList<SolicitacaoPendentePrestadorDTO>> getContracts(@Body ContractDTO Id);
 
+    @POST("api/prestadordeservico/aceitarounaosolicitacao")
+    Call<SolicitacaoDTO> setSolicitacao(@Body SolicitacaoDTO solicitacao);
+
 }

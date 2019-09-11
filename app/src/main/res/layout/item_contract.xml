@@ -20,24 +20,6 @@
         android:text="Hello"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/contract_benef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/contract_name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginRight="134dp"
-        android:layout_toStartOf="@+id/contract_accept"
-        android:layout_toLeftOf="@+id/contract_accept"
-        android:text="Hello"
-        android:textSize="15dp"
-        android:visibility="gone"/>
-
     <Button
         android:id="@+id/contract_deny"
         android:layout_width="wrap_content"
@@ -45,8 +27,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
-        android:text="Recusar"
-        android:onClick="negarContrato"/>
+        android:text="Recusar" />
 
     <Button
         android:id="@+id/contract_accept"
@@ -57,7 +38,22 @@
         android:layout_marginTop="10dp"
         android:layout_toStartOf="@+id/contract_deny"
         android:layout_toLeftOf="@+id/contract_deny"
-        android:text="Aceitar"
-        android:onClick="aceitarContrato"/>
+        android:text="Aceitar" />
+
+    <TextView
+        android:id="@+id/contract_benef"
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contract_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="134dp"
+        android:layout_marginRight="134dp"
+        android:layout_toStartOf="@+id/contract_deny"
+        android:layout_toLeftOf="@+id/contract_deny"
+        android:text="Hello" />
 
 </RelativeLayout>

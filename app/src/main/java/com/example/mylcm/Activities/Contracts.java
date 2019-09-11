@@ -2,10 +2,14 @@ package com.example.mylcm.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,7 +19,10 @@ import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.ContractDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Retrofit.SolicitacaoDTO;
 import com.example.mylcm.Retrofit.SolicitacaoPendentePrestadorDTO;
+import com.example.mylcm.Utils.Solicitacao;
+import com.example.mylcm.Utils.SolicitacaoAdapter;
 
 import java.util.ArrayList;
 
@@ -27,12 +34,15 @@ import retrofit2.Response;
 public class Contracts extends AppCompatActivity {
 
     ImageButton backBtn;
+    Button accept, deny;
     TextView title, nome;
     ListView contractList;
-    private ArrayAdapter<String> contrato;
-    public static int pid, qtd;
+    SwipeRefreshLayout pullRefresh;
+    private SolicitacaoAdapter solicitacao;
+    public static int pid, qtd, idSol, idContract, idBenef, remover;
     public static String NameBenef, NameContract, ReqDate;
-    ArrayList<String> contractData = new ArrayList<>();
+    public boolean yorn;
+    ArrayList<Solicitacao> contractData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,16 @@ public class Contracts extends AppCompatActivity {
         });
         title = (TextView) findViewById(R.id.txtTitle);
         contractList = (ListView) findViewById(R.id.listContract);
+        pullRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
+
+        pullRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                solicitacao.clear();
+                retrofitContract(pid);
+                pullRefresh.setRefreshing(false);
+            }
+        });
 
         SharedPreferences  presID = getSharedPreferences("PID", 0);
         pid = presID.getInt("PID", -1);
@@ -86,6 +106,10 @@ public class Contracts extends AppCompatActivity {
                                 ArrayList<SolicitacaoPendentePrestadorDTO> contractResponseData = response.body();
                                 NameBenef = contractResponseData.get(i).NomeBeneficiario;
                                 NameContract = contractResponseData.get(i).NomeContratante;
+                                idSol = contractResponseData.get(i).Id;
+                                idContract = contractResponseData.get(i).ContratanteId;
+                                idBenef = contractResponseData.get(i).BeneficiarioId;
+                                ReqDate = contractResponseData.get(i).DataSolicitacao;
 
                                 popularListaContrato();
 
@@ -121,18 +145,32 @@ public class Contracts extends AppCompatActivity {
 
     public void popularListaContrato(){
 
-        contractData.add(NameContract + "\n" + NameBenef);
+        contractData.add(new Solicitacao(idSol, idBenef, idContract, NameBenef, NameContract, ReqDate));
 
-        contrato = new ArrayAdapter<>(this, R.layout.item_contract, R.id.contract_name, contractData);
-        contractList.setAdapter(contrato);
+        solicitacao = new SolicitacaoAdapter(this, contractData);
+        contractList.setAdapter(solicitacao);
 
     }
 
-    public void aceitarContrato(boolean aceitar){
-        aceitar = true;
-    }
+    public void retrofitAceitar(int id, boolean aceitou){
+        RetrofitService service = Connect.createService(RetrofitService.class);
 
-    public void negarContrato(boolean negar){
-        negar = false;
+        final SolicitacaoDTO aceitar = new SolicitacaoDTO(id, aceitou);
+
+        Call<SolicitacaoDTO> call = service.setSolicitacao(aceitar);
+
+        call.enqueue(new Callback<SolicitacaoDTO>() {
+            @Override
+            public void onResponse(Call<SolicitacaoDTO> call, Response<SolicitacaoDTO> response) {
+                if (response.isSuccessful()){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SolicitacaoDTO> call, Throwable t) {
+
+            }
+        });
     }
 }

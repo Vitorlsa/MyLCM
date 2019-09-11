@@ -119,14 +119,8 @@ public class FragmentMenu extends Fragment {
             @Override
             public void onClick(View v) {
                 btnBeneficiario.setEnabled(false);
+                startActivity(new Intent(getContext(), Beneficiarios.class));
                 //make your toast here
-                if(spnBeneficiarios.getSelectedItemPosition() == 0){
-                    btnBeneficiario.setEnabled(true);
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Beneficiário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), Beneficiarios.class));
-                }
             }
         });
 
