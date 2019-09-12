@@ -84,6 +84,7 @@ public class Contracts extends AppCompatActivity {
             public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
                 contractModal.setContentView(R.layout.modal_contract);
                 EditText name = (EditText) contractModal.findViewById(R.id.contract_name);
+                name.setText(contractData.get(position).getNomeContratante());
                 Button close = (Button) contractModal.findViewById(R.id.btnClose);
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -133,6 +134,8 @@ public class Contracts extends AppCompatActivity {
 
                                 popularListaContrato();
 
+                                popularModalContrato();
+
                             } else{
 
                                 Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
@@ -169,6 +172,13 @@ public class Contracts extends AppCompatActivity {
 
         solicitacao = new SolicitacaoAdapter(this, contractData);
         contractList.setAdapter(solicitacao);
+
+    }
+
+    public void popularModalContrato(){
+
+        //contractData.add(new Solicitacao(idSol, idBenef, idContract, NameBenef, NameContract, ReqDate));
+
 
     }
 
