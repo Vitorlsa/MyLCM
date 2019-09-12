@@ -27,16 +27,11 @@ import com.example.mylcm.Fragments.FragmentMenu;
 import com.example.mylcm.Fragments.FragmentProfile;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
-import com.example.mylcm.Retrofit.LoginDTO;
-import com.example.mylcm.Retrofit.ProfileDTO;
-import com.example.mylcm.Retrofit.ProfileResponse;
+import com.example.mylcm.Retrofit.Profile.ProfileDTO;
+import com.example.mylcm.Retrofit.Profile.ProfileResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
-import com.example.mylcm.Retrofit.ServerResponse;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;

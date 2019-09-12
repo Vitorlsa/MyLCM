@@ -1,4 +1,4 @@
-package com.example.mylcm.Retrofit;
+package com.example.mylcm.Retrofit.Contract;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public class SolicitacaoDTO implements Serializable {
 
-    @SerializedName("idSolicitacao")
+    @SerializedName("Id")
     private int Id;
-    @SerializedName("aceitou")
+    @SerializedName("Aceitou")
     private boolean Accept;
 
     public SolicitacaoDTO(int id, boolean accept) {

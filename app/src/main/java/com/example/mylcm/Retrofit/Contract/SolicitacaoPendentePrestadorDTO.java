@@ -1,4 +1,4 @@
-package com.example.mylcm.Retrofit;
+package com.example.mylcm.Retrofit.Contract;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,15 +1,16 @@
 package com.example.mylcm.Activities;
 
-import android.content.Intent;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,10 +18,10 @@ import android.widget.Toast;
 
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
-import com.example.mylcm.Retrofit.ContractDTO;
+import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
-import com.example.mylcm.Retrofit.SolicitacaoDTO;
-import com.example.mylcm.Retrofit.SolicitacaoPendentePrestadorDTO;
+import com.example.mylcm.Retrofit.Contract.SolicitacaoDTO;
+import com.example.mylcm.Retrofit.Contract.SolicitacaoPendentePrestadorDTO;
 import com.example.mylcm.Utils.Solicitacao;
 import com.example.mylcm.Utils.SolicitacaoAdapter;
 
@@ -38,6 +39,7 @@ public class Contracts extends AppCompatActivity {
     TextView title, nome;
     ListView contractList;
     SwipeRefreshLayout pullRefresh;
+    Dialog contractModal;
     private SolicitacaoAdapter solicitacao;
     public static int pid, qtd, idSol, idContract, idBenef, remover;
     public static String NameBenef, NameContract, ReqDate;
@@ -56,14 +58,17 @@ public class Contracts extends AppCompatActivity {
                 finish();
             }
         });
-        title = (TextView) findViewById(R.id.txtTitle);
         contractList = (ListView) findViewById(R.id.listContract);
         pullRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
+
+        contractModal = new Dialog(this);
 
         pullRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                solicitacao.clear();
+                if(solicitacao != null){
+                    solicitacao.clear();
+                }
                 retrofitContract(pid);
                 pullRefresh.setRefreshing(false);
             }
@@ -74,6 +79,21 @@ public class Contracts extends AppCompatActivity {
 
         retrofitContract(pid);
 
+        contractList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
+                contractModal.setContentView(R.layout.modal_contract);
+                EditText name = (EditText) contractModal.findViewById(R.id.contract_name);
+                Button close = (Button) contractModal.findViewById(R.id.btnClose);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        contractModal.dismiss();
+                    }
+                });
+                contractModal.show();
+            }
+        });
      }
 
     public void retrofitContract(int pid){

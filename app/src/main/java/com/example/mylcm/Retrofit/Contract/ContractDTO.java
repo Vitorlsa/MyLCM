@@ -1,10 +1,10 @@
-package com.example.mylcm.Retrofit;
+package com.example.mylcm.Retrofit.Contract;
 
-public class ProfileDTO {
+public class ContractDTO {
 
     public int Id;
 
-    public ProfileDTO(int id) {
+    public ContractDTO(int id) {
         Id = id;
     }
 
@@ -15,5 +15,4 @@ public class ProfileDTO {
     public void setId(int id) {
         Id = id;
     }
-
 }

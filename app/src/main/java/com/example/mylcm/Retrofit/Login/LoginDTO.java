@@ -1,4 +1,4 @@
-package com.example.mylcm.Retrofit;
+package com.example.mylcm.Retrofit.Login;
 
 public class LoginDTO {
 

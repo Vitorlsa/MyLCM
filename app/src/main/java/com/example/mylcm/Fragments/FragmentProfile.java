@@ -9,15 +9,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,10 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylcm.Activities.NavDrawerMenu;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
-import com.example.mylcm.Retrofit.EditDTO;
+import com.example.mylcm.Retrofit.Profile.EditDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Utils.MaskEditUtil;
 
@@ -40,7 +35,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;

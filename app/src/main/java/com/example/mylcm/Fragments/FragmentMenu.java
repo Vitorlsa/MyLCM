@@ -19,17 +19,6 @@ import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.Activities.Calendario;
 import com.example.mylcm.Activities.Contracts;
 import com.example.mylcm.R;
-import com.example.mylcm.Retrofit.Connect;
-import com.example.mylcm.Retrofit.ContractDTO;
-import com.example.mylcm.Retrofit.RetrofitService;
-import com.example.mylcm.Retrofit.SolicitacaoPendentePrestadorDTO;
-
-import java.util.ArrayList;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -130,13 +119,7 @@ public class FragmentMenu extends Fragment {
             public void onClick(View v) {
                 btnContratos.setEnabled(false);
                 //make your toast here
-                if(spnBeneficiarios.getSelectedItemPosition() == 0){
-                    btnContratos.setEnabled(true);
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Calendário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), Contracts.class));
-                }
+                startActivity(new Intent(getContext(), Contracts.class));
             }
         });
 

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_vertical">
+    android:layout_gravity="center_vertical"
+    android:descendantFocusability = "blocksDescendants">
 
     <TextView
         android:id="@+id/contract_name"
@@ -10,11 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="148dp"
         android:layout_marginRight="148dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_toStartOf="@+id/contract_deny"
         android:layout_toLeftOf="@+id/contract_deny"
         android:text="Hello"
@@ -27,15 +28,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
         android:text="Recusar" />
 
     <Button
         android:id="@+id/contract_accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="41dp"
-        android:layout_marginRight="41dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="41dp"
         android:layout_toStartOf="@+id/contract_deny"
         android:layout_toLeftOf="@+id/contract_deny"
         android:text="Aceitar" />
@@ -50,10 +52,10 @@
         android:layout_marginStart="26dp"
         android:layout_marginLeft="26dp"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginRight="134dp"
-        android:layout_toStartOf="@+id/contract_deny"
-        android:layout_toLeftOf="@+id/contract_deny"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toStartOf="@+id/contract_accept"
+        android:layout_toLeftOf="@+id/contract_accept"
         android:text="Hello" />
 
 </RelativeLayout>

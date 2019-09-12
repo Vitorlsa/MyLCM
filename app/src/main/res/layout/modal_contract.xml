@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="475dp"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    android:padding="5dp"
+    android:layout_gravity="center">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detalhes Contrato"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Contratante:"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/contract_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sabrina"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:background="@color/transparent"
+        android:enabled="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Beneficiário:"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/contract_benef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vitor Lazaretti de Sá"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:background="@color/transparent"
+        android:enabled="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Data de Início:"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/09/2019"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:background="@color/transparent"
+        android:enabled="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Descrição:"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/contract_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:maxLength="250"
+        android:background="@color/transparent"
+        android:enabled="false"/>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fechar"
+        android:layout_gravity="center"
+        android:background="@color/white"/>
+
+</LinearLayout>

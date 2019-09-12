@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.R;
-import com.example.mylcm.Retrofit.LoginDTO;
+import com.example.mylcm.Retrofit.Login.LoginDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
-import com.example.mylcm.Retrofit.ServerResponse;
+import com.example.mylcm.Retrofit.Login.ServerResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
