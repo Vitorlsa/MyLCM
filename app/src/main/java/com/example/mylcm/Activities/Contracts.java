@@ -83,8 +83,10 @@ public class Contracts extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
                 contractModal.setContentView(R.layout.modal_contract);
-                EditText name = (EditText) contractModal.findViewById(R.id.contract_name);
-                name.setText(contractData.get(position).getNomeContratante());
+                EditText nameCon = (EditText) contractModal.findViewById(R.id.contract_name);
+                nameCon.setText(contractData.get(position).getNomeContratante());
+                EditText nameBen = (EditText) contractModal.findViewById(R.id.contract_benef);
+                nameBen.setText(contractData.get(position).getNomeBeneficiario());
                 Button close = (Button) contractModal.findViewById(R.id.btnClose);
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
