@@ -59,7 +59,7 @@ public class Contracts extends AppCompatActivity {
             }
         });
         contractList = (ListView) findViewById(R.id.listContract);
-        pullRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
+        pullRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefreshContracts);
 
         contractModal = new Dialog(this);
 

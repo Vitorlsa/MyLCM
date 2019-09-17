@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.Activities.Calendario;
 import com.example.mylcm.Activities.Contracts;
+import com.example.mylcm.Activities.Medicamentos;
 import com.example.mylcm.R;
 
 /**
@@ -63,7 +64,6 @@ public class FragmentMenu extends Fragment {
     }
 
     Button btnCalendario, btnContratos, btnBeneficiario, btnMedicamentos;
-    Spinner spnBeneficiarios;
     String names[] = {"Selecionar Beneficiário","Roberto", "Carlos", "José"};
     ArrayAdapter<String> arrayAdapter;
     public static int pid, qtd;
@@ -93,13 +93,7 @@ public class FragmentMenu extends Fragment {
             public void onClick(View v) {
                 btnCalendario.setEnabled(false);
                 //make your toast here
-                if(spnBeneficiarios.getSelectedItemPosition() == 0){
-                    btnCalendario.setEnabled(true);
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Calendário " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), Calendario.class));
-                }
+                startActivity(new Intent(getContext(), Calendario.class));
             }
         });
 
@@ -129,33 +123,7 @@ public class FragmentMenu extends Fragment {
             public void onClick(View v) {
                 btnMedicamentos.setEnabled(false);
                 //make your toast here
-                if(spnBeneficiarios.getSelectedItemPosition() == 0){
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
-                    btnMedicamentos.setEnabled(true);
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Abrir Medicamentos " + spnBeneficiarios.getSelectedItem(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), Beneficiarios.class));
-                }
-            }
-        });
-
-        spnBeneficiarios = (Spinner) v.findViewById(R.id.spn_Beneficiarios);
-        arrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, names);
-        spnBeneficiarios.setAdapter(arrayAdapter);
-        spnBeneficiarios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if(parent.getItemAtPosition(position).toString().equals("Selecionar Beneficiário")){
-                    Toast.makeText(getActivity().getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Você selecionou " + names[position], Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                startActivity(new Intent(getContext(), Medicamentos.class));
             }
         });
 
@@ -168,6 +136,7 @@ public class FragmentMenu extends Fragment {
         btnCalendario.setEnabled(true);
         btnBeneficiario.setEnabled(true);
         btnContratos.setEnabled(true);
+        btnMedicamentos.setEnabled(true);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
