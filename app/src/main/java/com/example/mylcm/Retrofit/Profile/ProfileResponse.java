@@ -39,6 +39,8 @@ public class ProfileResponse implements Serializable{
     private String Complement;
     @SerializedName("comentario")
     private String Comment;
+    @SerializedName("imagem")
+    private String Image;
     @SerializedName("curriculo")
     private String Curriculum;
     @SerializedName("competencias")
@@ -182,5 +184,13 @@ public class ProfileResponse implements Serializable{
 
     public void setCompetencias(ArrayList<Integer> competencias) {
         Competencias = competencias;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }

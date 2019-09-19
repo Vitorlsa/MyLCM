@@ -398,7 +398,8 @@ public class FragmentProfile extends Fragment {
         byte[] b = baos.toByteArray();
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         String imagemCodada = "data:image/jpeg;base64," + encodedImage;
-        retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, compt, comment, termos, imagemCodada, curriculum);
+        String codedImage = imagemCodada.replace("\n", "");
+        retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, compt, comment, termos, codedImage, curriculum);
         return res;
     }
 

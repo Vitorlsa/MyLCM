@@ -122,7 +122,7 @@ public class Login extends AppCompatActivity {
                             ServerResponse serverResponseData = response.body();
                             userName = serverResponseData.getNome();
                             userEmail = serverResponseData.getEmail();
-                            userProfPic = serverResponseData.getImagem();
+                            //userProfPic = serverResponseData.getImagem();
                             pid = serverResponseData.getID();
 
                             //Salva o ID do usuário em um shared preferences

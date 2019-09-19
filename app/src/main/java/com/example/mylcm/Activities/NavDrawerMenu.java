@@ -43,7 +43,7 @@ public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
 
     Fragment fragment = null;
-    public static String login, password, date, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum;
+    public static String login, password, date, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, imagem;
     public static int pid, city, id, sex;
     ArrayList<Integer> competencia;
 
@@ -61,6 +61,7 @@ public class NavDrawerMenu extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //Seleciona no drawer o item "Menu"
@@ -97,6 +98,8 @@ public class NavDrawerMenu extends AppCompatActivity
         String base64profPict = profPict.split(",")[1];
         byte[] decodedString = Base64.decode(base64profPict, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        retrofitProfile(pid);
 
         //Me faz "enxergar" a header
         View header = navigationView.getHeaderView(0);
@@ -223,6 +226,7 @@ public class NavDrawerMenu extends AppCompatActivity
                             comment = profileResponseData.getComment();
                             curriculum = profileResponseData.getCurriculum();
                             competencia = profileResponseData.getCompetencias();
+                            imagem = profileResponseData.getImage();
 
 
 
@@ -296,6 +300,11 @@ public class NavDrawerMenu extends AppCompatActivity
                             SharedPreferences.Editor comm_editor = sendComm.edit();
                             comm_editor.putString("comm", comment);
                             comm_editor.commit();
+
+                            SharedPreferences profPict = getSharedPreferences("profPic", 0);
+                            SharedPreferences.Editor profPict_editor = profPict.edit();
+                            profPict_editor.putString("profPic", imagem);
+                            profPict_editor.commit();
 
                             SharedPreferences sendCurr = getSharedPreferences("curr", 0);
                             SharedPreferences.Editor curr_editor = sendCurr.edit();
