@@ -1,7 +1,6 @@
 package com.example.mylcm.Activities;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
+import com.example.mylcm.Retrofit.Contract.DadosContratosResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoDTO;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoPendentePrestadorDTO;
@@ -42,7 +42,7 @@ public class Contracts extends AppCompatActivity {
     Dialog contractModal;
     private SolicitacaoAdapter solicitacao;
     public static int pid, qtd, idSol, idContract, idBenef, remover;
-    public static String NameBenef, NameContract, ReqDate;
+    public static String NameBenef, NameContract, ReqDate, Comment;
     public boolean yorn;
     ArrayList<Solicitacao> contractData = new ArrayList<>();
 
@@ -83,6 +83,8 @@ public class Contracts extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
                 contractModal.setContentView(R.layout.modal_contract);
+                int idSol = contractData.get(position).getId();
+                retrofitDadosContrato(idSol);
                 EditText nameCon = (EditText) contractModal.findViewById(R.id.contract_name);
                 nameCon.setText(contractData.get(position).getNomeContratante());
                 EditText nameBen = (EditText) contractModal.findViewById(R.id.contract_benef);
@@ -132,11 +134,9 @@ public class Contracts extends AppCompatActivity {
                                 idSol = contractResponseData.get(i).Id;
                                 idContract = contractResponseData.get(i).ContratanteId;
                                 idBenef = contractResponseData.get(i).BeneficiarioId;
-                                ReqDate = contractResponseData.get(i).DataSolicitacao;
+                                //ReqDate = contractResponseData.get(i).DataSolicitacao;
 
                                 popularListaContrato();
-
-                                popularModalContrato();
 
                             } else{
 
@@ -201,6 +201,39 @@ public class Contracts extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SolicitacaoDTO> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void retrofitDadosContrato(int id){
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final ContractDTO dados = new ContractDTO(id);
+
+        Call<DadosContratosResponse> call = service.getDataContract(dados);
+
+        call.enqueue(new Callback<DadosContratosResponse>() {
+            @Override
+            public void onResponse(Call<DadosContratosResponse> call, Response<DadosContratosResponse> response) {
+                if (response.isSuccessful()){
+
+                    DadosContratosResponse dadosContrato = response.body();
+                    Comment = dadosContrato.getComentario();
+                    ReqDate = dadosContrato.getDataFim();
+
+                    EditText reqDate = (EditText) contractModal.findViewById(R.id.start_date);
+                    String dateSol = ReqDate.substring(0, 10);
+                    String date[] = dateSol.split("-");
+                    reqDate.setText(date[2] + "/" + date[1] + "/" + date[0]);
+                    EditText comment = (EditText) contractModal.findViewById(R.id.contract_description);
+                    comment.setText(Comment);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DadosContratosResponse> call, Throwable t) {
 
             }
         });

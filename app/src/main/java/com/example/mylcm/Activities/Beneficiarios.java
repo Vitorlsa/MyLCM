@@ -1,10 +1,13 @@
 package com.example.mylcm.Activities;
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,7 +35,7 @@ public class Beneficiarios extends AppCompatActivity {
 
     ImageButton backBtn;
     ListView listBenef;
-    public static  int pid, qtd;
+    public static  int pid, qtd, benefId;
     public static String NameBenef, NameContract;
     public static String IniDate, EndDate;
     ArrayList<Beneficiario> benefData = new ArrayList<>();
@@ -100,6 +103,7 @@ public class Beneficiarios extends AppCompatActivity {
                                 NameContract = benefResponseData.get(i).NomeContratante;
                                 IniDate = benefResponseData.get(i).DataInicio;
                                 EndDate = benefResponseData.get(i).DataFim;
+                                benefId = benefResponseData.get(i).BeneficiarioId;
 
                                 popularListaBenef();
 
