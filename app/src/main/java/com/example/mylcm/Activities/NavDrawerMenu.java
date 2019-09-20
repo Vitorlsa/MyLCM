@@ -99,8 +99,6 @@ public class NavDrawerMenu extends AppCompatActivity
         byte[] decodedString = Base64.decode(base64profPict, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-        retrofitProfile(pid);
-
         //Me faz "enxergar" a header
         View header = navigationView.getHeaderView(0);
 
