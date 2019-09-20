@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mylcm.Activities.NavDrawerMenu;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.Profile.EditDTO;
@@ -400,6 +402,13 @@ public class FragmentProfile extends Fragment {
         String imagemCodada = "data:image/jpeg;base64," + encodedImage;
         String codedImage = imagemCodada.replace("\n", "");
         retrofitEdit(pid, nameUser, login, password, emailUser, sexo, state, date, cpf, tel, cidade, nhood, cep, street, number, complement, compt, comment, termos, codedImage, curriculum);
+        NavigationView navigationView = (NavigationView) this.getActivity().findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this.getActivity());
+        //Seleciona no drawer o item "Menu"
+        navigationView.setCheckedItem(R.id.nav_home);
+        View header = navigationView.getHeaderView(0);
+        CircleImageView profPic = (CircleImageView) header.findViewById(R.id.profPic);
+        profPic.setImageBitmap(bm);
         return res;
     }
 
