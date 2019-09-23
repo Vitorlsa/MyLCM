@@ -3,6 +3,8 @@ package com.example.mylcm.Utils;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +70,7 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
             @Override
             public void onClick(View view) {
                 benefModal.setContentView(R.layout.modal_benef);
+                benefModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 idBenef = presenteBeneficiario.getBenefId();
                 retrofitBenefData(idBenef);
 
@@ -153,8 +157,10 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
         TextView name = (TextView) benefModal.findViewById(R.id.BenefName);
         name.setText(nome);
 
+        data = data.substring(0, 10);
+        String dataN[] = data.split("-");
         TextView date = (TextView) benefModal.findViewById(R.id.BenefBirth);
-        date.setText(data);
+        date.setText(dataN[2] + "/" + dataN[1] + "/" + dataN[0]);
 
         TextView sex = (TextView) benefModal.findViewById(R.id.BenefSex);
         if(sexo == 1){
@@ -168,7 +174,8 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
         TextView tel = (TextView) benefModal.findViewById(R.id.BenefTel);
         tel.setText(telefone);
 
-        TextView zip = (TextView) benefModal.findViewById(R.id.BenefZip);
+        EditText zip = (EditText) benefModal.findViewById(R.id.BenefZip);
+        zip.addTextChangedListener(MaskEditUtil.mask(zip, MaskEditUtil.FORMAT_CEP));
         zip.setText(cep);
 
         TextView state = (TextView) benefModal.findViewById(R.id.BenefState);
@@ -191,7 +198,7 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
 
         Spinner condition = (Spinner) benefModal.findViewById(R.id.SpnBenefCondition);
         List<String> spnConditionArray = new ArrayList<String>();
-        ArrayAdapter contidionAdapter = new ArrayAdapter(sContext, android.R.layout.simple_spinner_item, spnConditionArray);
+        ArrayAdapter contidionAdapter = new ArrayAdapter(sContext, R.layout.spinner_condition_item, spnConditionArray);
         int qtd;
         qtd = condicoes.size();
         for (int i = 0; i < qtd; i++){

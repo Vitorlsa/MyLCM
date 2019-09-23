@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
-    android:layout_height="wrap_content"
+    android:layout_height="600dp"
     android:layout_gravity="center"
-    android:background="@color/grey"
+    android:background="@drawable/modal_contract_bg"
     android:orientation="vertical"
     android:padding="5dp">
 
@@ -19,14 +19,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Informações do Beneficiário"
+                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Nome Completo:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="50dp"/>
 
             <TextView
                 android:id="@+id/BenefName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <TextView
@@ -34,153 +46,175 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Data de Nascimento:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Sexo:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefSex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Telefone:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="CEP:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/BenefZip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:focusable="false"
+                android:background="@color/transparent"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Estado:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Cidade:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Bairro:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefNHood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Rua:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefStreet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Número:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Complemento:"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/BenefComplement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Condições:"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
 
             <Spinner
                 android:id="@+id/SpnBenefCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </Spinner>
 
             <Button
@@ -189,8 +223,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="Fechar"
-                android:textSize="20dp"
-                android:background="@color/white"
+                android:textColor="@color/design_default_color_primary_dark"
+                android:background="@drawable/btn_round"
                 android:layout_gravity="center"/>
 
         </LinearLayout>

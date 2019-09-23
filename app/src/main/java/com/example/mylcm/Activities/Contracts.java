@@ -2,6 +2,8 @@ package com.example.mylcm.Activities;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +87,7 @@ public class Contracts extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
                 contractModal.setContentView(R.layout.modal_contract);
+                contractModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int idSol = contractData.get(position).getId();
                 retrofitDadosContrato(idSol);
                 EditText nameCon = (EditText) contractModal.findViewById(R.id.contract_name);
