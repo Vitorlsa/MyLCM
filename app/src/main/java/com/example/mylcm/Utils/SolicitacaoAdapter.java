@@ -12,10 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylcm.Activities.Contracts;
+import com.example.mylcm.Activities.Medicamentos;
 import com.example.mylcm.R;
 
 import java.util.ArrayList;

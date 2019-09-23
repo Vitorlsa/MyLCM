@@ -26,6 +26,8 @@ import com.example.mylcm.Utils.Solicitacao;
 import com.example.mylcm.Utils.SolicitacaoAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -42,7 +44,7 @@ public class Contracts extends AppCompatActivity {
     Dialog contractModal;
     private SolicitacaoAdapter solicitacao;
     public static int pid, qtd, idSol, idContract, idBenef, remover;
-    public static String NameBenef, NameContract, ReqDate, Comment;
+    public static String NameBenef, NameContract, ReqDate, Comment, dateSol, date[];
     public boolean yorn;
     ArrayList<Solicitacao> contractData = new ArrayList<>();
 
@@ -223,9 +225,14 @@ public class Contracts extends AppCompatActivity {
                     ReqDate = dadosContrato.getDataFim();
 
                     EditText reqDate = (EditText) contractModal.findViewById(R.id.start_date);
-                    String dateSol = ReqDate.substring(0, 10);
-                    String date[] = dateSol.split("-");
-                    reqDate.setText(date[2] + "/" + date[1] + "/" + date[0]);
+                    if(ReqDate == null){
+                        Date currentTime = Calendar.getInstance().getTime();
+                        reqDate.setText(currentTime.toString());
+                    } else{
+                        dateSol = ReqDate.substring(0, 10);
+                        date = dateSol.split("-");
+                        reqDate.setText(date[2] + "/" + date[1] + "/" + date[0]);
+                    }
                     EditText comment = (EditText) contractModal.findViewById(R.id.contract_description);
                     comment.setText(Comment);
 

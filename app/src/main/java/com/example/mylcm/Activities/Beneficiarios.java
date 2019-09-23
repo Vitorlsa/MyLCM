@@ -1,6 +1,7 @@
 package com.example.mylcm.Activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -137,7 +138,7 @@ public class Beneficiarios extends AppCompatActivity {
 
     public void popularListaBenef(){
 
-        benefData.add(new Beneficiario(NameBenef, NameContract));
+        benefData.add(new Beneficiario(NameBenef, NameContract, benefId));
 
         benefs = new BenefAdapter(this, benefData);
         listBenef.setAdapter(benefs);

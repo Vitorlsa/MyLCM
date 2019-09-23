@@ -1,5 +1,6 @@
 package com.example.mylcm.Retrofit;
 
+import com.example.mylcm.Retrofit.Benef.DadosBenefResponse;
 import com.example.mylcm.Retrofit.Contract.BenefDTO;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.Contract.DadosContratosResponse;
@@ -42,7 +43,7 @@ public interface RetrofitService {
     @POST("api/contratante/buscardadossolicitacaocontratanteprestador")
     Call<DadosContratosResponse> getDataContract(@Body ContractDTO idSol);
 
-    //@POST("api/beneficiario/buscarporid")
-    //Call<> getDataBenef(@Body ContractDTO idBenef);
+    @POST("api/beneficiario/buscarporid")
+    Call<DadosBenefResponse> getDataBenef(@Body ContractDTO idBenef);
 
 }

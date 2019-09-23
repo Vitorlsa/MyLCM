@@ -32,6 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Data de Nascimento:"
                 android:textSize="20dp" />
 
@@ -45,6 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Sexo:"
                 android:textSize="20dp" />
 
@@ -58,6 +60,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Telefone:"
                 android:textSize="20dp" />
 
@@ -71,6 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="CEP:"
                 android:textSize="20dp" />
 
@@ -84,6 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Estado:"
                 android:textSize="20dp" />
 
@@ -97,6 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Cidade:"
                 android:textSize="20dp" />
 
@@ -110,6 +116,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Bairro:"
                 android:textSize="20dp" />
 
@@ -123,6 +130,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Rua:"
                 android:textSize="20dp" />
 
@@ -136,6 +144,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Número:"
                 android:textSize="20dp" />
 
@@ -149,10 +158,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Complemento:"
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/BenefComplement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -161,6 +172,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Condições:"
                 android:textSize="20dp"/>
 
@@ -175,6 +187,7 @@
                 android:id="@+id/BenefClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:text="Fechar"
                 android:textSize="20dp"
                 android:background="@color/white"

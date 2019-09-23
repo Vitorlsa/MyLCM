@@ -41,7 +41,7 @@
             android:layout_height="200dp"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="5dp"
-            android:background="@drawable/card_android_custos"/>
+            android:background="@drawable/card_android_contratos"/>
 
     </LinearLayout>
 </ScrollView>
