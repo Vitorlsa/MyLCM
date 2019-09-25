@@ -27,6 +27,7 @@ import com.example.mylcm.Fragments.FragmentMenu;
 import com.example.mylcm.Fragments.FragmentProfile;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
+import com.example.mylcm.Retrofit.Profile.CityResponse;
 import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
@@ -43,8 +44,8 @@ public class NavDrawerMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentMenu.OnFragmentInteractionListener {
 
     Fragment fragment = null;
-    public static String login, password, date, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, imagem;
-    public static int pid, city, id, sex;
+    public static String login, password, date, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, imagem, cidade;
+    public static int pid, cityId, id, sex;
     ArrayList<Integer> competencia;
 
     @Override
@@ -215,7 +216,7 @@ public class NavDrawerMenu extends AppCompatActivity
                             date = profileResponseData.getDate();
                             cpf = profileResponseData.getCpf();
                             tel = profileResponseData.getTel();
-                            city = profileResponseData.getCity();
+                            cityId = profileResponseData.getCity();
                             nhood = profileResponseData.getNhood();
                             cep = profileResponseData.getCep();
                             street = profileResponseData.getStreet();
@@ -264,9 +265,9 @@ public class NavDrawerMenu extends AppCompatActivity
                             state_editor.putString("state", state);
                             state_editor.commit();
 
-                            SharedPreferences sendCities = getSharedPreferences("city", 0);
+                            SharedPreferences sendCities = getSharedPreferences("cityId", 0);
                             SharedPreferences.Editor city_editor = sendCities.edit();
-                            city_editor.putInt("city", city);
+                            city_editor.putInt("cityId", cityId);
                             city_editor.commit();
 
                             SharedPreferences sendNhood = getSharedPreferences("nhood", 0);
@@ -314,6 +315,8 @@ public class NavDrawerMenu extends AppCompatActivity
                             comp_editor.putString("comp", competencia.toString());
                             comp_editor.commit();
 
+                            retrofitCidade(cityId);
+
                             //Chama o método pra abrir o fragmento
                             gotoProfile();
 
@@ -344,6 +347,60 @@ public class NavDrawerMenu extends AppCompatActivity
             }
         });
 
+    }
+
+    public void retrofitCidade(int cidadeId){
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final ProfileDTO city = new ProfileDTO(cidadeId);
+
+        Call<String> call = service.getCityName(city);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+
+                    String cityResponse = response.body();
+
+                    //verifica aqui se o corpo da resposta não é nulo
+                    if (cityResponse != null) {
+
+                        if(cityResponse != null) {
+
+                            String cityResponseData = response.body();
+                            cidade = cityResponseData;
+
+
+                            SharedPreferences sendCities = getSharedPreferences("cityName", 0);
+                            SharedPreferences.Editor city_editor = sendCities.edit();
+                            city_editor.putString("cityName", cidade);
+                            city_editor.commit();
+
+
+                        } else{
+
+                            Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+
+                        Toast.makeText(getApplicationContext(),"Ops, você não é um Prestador de Serviço", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(),"Resposta não foi um sucesso", Toast.LENGTH_SHORT).show();
+                    // segura os erros de requisição
+                    ResponseBody errorBody = response.errorBody();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void gotoProfile(){

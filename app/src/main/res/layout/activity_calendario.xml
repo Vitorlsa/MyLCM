@@ -34,7 +34,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Contratos"
+        android:text="Calendário"
         android:textColor="@color/white"
         android:textSize="25dp" />
 

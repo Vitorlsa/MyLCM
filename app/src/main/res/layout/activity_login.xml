@@ -135,6 +135,26 @@
                 android:textSize="20sp"
                 android:layout_marginTop="50dp"/>
 
+            <TextView
+                android:id="@+id/txtCadastrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cadastrar"
+                android:textColor="@color/white"
+                android:layout_below="@id/btnLogin"
+                android:layout_marginTop="75dp"
+                android:layout_marginLeft="35dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Esqueci a senha"
+                android:textColor="@color/white"
+                android:layout_below="@id/btnLogin"
+                android:layout_toRightOf="@id/txtCadastrar"
+                android:layout_marginTop="75dp"
+                android:layout_marginLeft="120dp"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

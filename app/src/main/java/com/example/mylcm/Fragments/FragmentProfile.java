@@ -58,7 +58,7 @@ public class FragmentProfile extends Fragment {
     EditText edtProfileEmail, edtProfileSex, edtProfileState, edtProfileDoB, edtProfileCpf, edtProfileTel, edtProfileCity, edtProfileNhood, edtProfileCep, edtProfileStreet, edtProfileNumber, edtProfileComplement;
     CircleImageView imgProfile;
     RelativeLayout rellayProfile;
-    public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, nhood, cep, street, number, complement, comment, curriculum, competencia;
+    public static String nameUser, login, password, emailUser, profPict, date, sex, cpf, tel, state, cityName, nhood, cep, street, number, complement, comment, curriculum, competencia;
     public static int pid, cidade, sexo;
     ArrayList<Integer> compt;
     Boolean termos;
@@ -124,9 +124,11 @@ public class FragmentProfile extends Fragment {
         SharedPreferences getStates = this.getActivity().getSharedPreferences("state", 0);
         state = getStates.getString("state", "");
 
-        SharedPreferences getCities = this.getActivity().getSharedPreferences("city", 0);
-        cidade = getCities.getInt("city", -1);
-        String city = Integer.toString(cidade);
+        SharedPreferences getCities = this.getActivity().getSharedPreferences("cityId", 0);
+        cidade = getCities.getInt("cityId", -1);
+
+        SharedPreferences getCityName = this.getActivity().getSharedPreferences("cityName", 0);
+        cityName = getCityName.getString("cityName", "");
 
         SharedPreferences getNhood = this.getActivity().getSharedPreferences("nhood", 0);
         nhood = getNhood.getString("nhood", "");
@@ -200,7 +202,7 @@ public class FragmentProfile extends Fragment {
         edtProfileCpf.setText(cpf);
         edtProfileTel.setText(tel);
         edtProfileState.setText(state);
-        edtProfileCity.setText(city);
+        edtProfileCity.setText(cityName);
         edtProfileNhood.setText(nhood);
         edtProfileCep.addTextChangedListener(MaskEditUtil.mask(edtProfileCep, MaskEditUtil.FORMAT_CEP));
         edtProfileCep.setText(cep);

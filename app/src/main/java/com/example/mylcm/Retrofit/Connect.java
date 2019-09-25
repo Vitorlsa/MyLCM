@@ -6,13 +6,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Connect {
 
     //URL base do endpoint. Deve sempre terminar com /
-    //public static final String API_BASE_URL = "http://10.0.2.2:8080/";
+    public static final String API_BASE_URL = "http://10.0.2.2:8080/";
 
-    public static final String API_BASE_URL = "http://35.199.102.59:8080/";
+    //public static final String API_BASE_URL = "http://35.199.102.59:8080/";
 
     public static <S> S createService(Class<S> serviceClass) {
 
@@ -29,6 +30,7 @@ public class Connect {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .client(httpClient.build())
                 .build();
 

@@ -1,5 +1,6 @@
 package com.example.mylcm.Retrofit;
 
+import com.example.mylcm.Retrofit.Benef.BenefMedDTO;
 import com.example.mylcm.Retrofit.Benef.DadosBenefResponse;
 import com.example.mylcm.Retrofit.Contract.BenefDTO;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
@@ -8,6 +9,7 @@ import com.example.mylcm.Retrofit.Contract.SolicitacaoDTO;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoPendentePrestadorDTO;
 import com.example.mylcm.Retrofit.Login.LoginDTO;
 import com.example.mylcm.Retrofit.Login.ServerResponse;
+import com.example.mylcm.Retrofit.Profile.CityResponse;
 import com.example.mylcm.Retrofit.Profile.EditDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileResponse;
@@ -45,5 +47,11 @@ public interface RetrofitService {
 
     @POST("api/beneficiario/buscarporid")
     Call<DadosBenefResponse> getDataBenef(@Body ContractDTO idBenef);
+
+    @POST("api/usuario/nomecidade")
+    Call<String> getCityName(@Body ProfileDTO idCidade);
+
+    @POST("api/beneficiario/listarmedicamento")
+    Call<ArrayList<BenefMedDTO>> getMedicamento(@Body ContractDTO idBenef);
 
 }
