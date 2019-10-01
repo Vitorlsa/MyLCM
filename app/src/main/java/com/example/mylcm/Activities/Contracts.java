@@ -24,8 +24,8 @@ import com.example.mylcm.Retrofit.Contract.DadosContratosResponse;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoDTO;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoPendentePrestadorDTO;
-import com.example.mylcm.Utils.Solicitacao;
-import com.example.mylcm.Utils.SolicitacaoAdapter;
+import com.example.mylcm.Utils.Classes_Adapters.Solicitacao;
+import com.example.mylcm.Utils.Adapters.SolicitacaoAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,7 +40,7 @@ public class Contracts extends AppCompatActivity {
 
     ImageButton backBtn;
     Button accept, deny;
-    TextView title, nome;
+    TextView title, nome, info;
     ListView contractList;
     SwipeRefreshLayout pullRefresh;
     Dialog contractModal;
@@ -64,6 +64,9 @@ public class Contracts extends AppCompatActivity {
         });
         contractList = (ListView) findViewById(R.id.listContract);
         pullRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefreshContracts);
+        info = (TextView) findViewById(R.id.txtInfo);
+
+        contractList.setEmptyView(info);
 
         contractModal = new Dialog(this);
 

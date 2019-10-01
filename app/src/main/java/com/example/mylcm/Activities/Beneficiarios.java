@@ -1,14 +1,10 @@
 package com.example.mylcm.Activities;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,17 +13,12 @@ import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.Contract.BenefDTO;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
-import com.example.mylcm.Retrofit.Login.LoginDTO;
-import com.example.mylcm.Retrofit.Login.ServerResponse;
-import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
-import com.example.mylcm.Utils.BenefAdapter;
-import com.example.mylcm.Utils.Beneficiario;
+import com.example.mylcm.Utils.Adapters.BenefAdapter;
+import com.example.mylcm.Utils.Classes_Adapters.Beneficiario;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

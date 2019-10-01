@@ -29,8 +29,8 @@ public class Connect {
         //Instância do retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .client(httpClient.build())
                 .build();
 

@@ -1,4 +1,4 @@
-package com.example.mylcm.Utils;
+package com.example.mylcm.Utils.Classes_Adapters;
 
 
 public class Solicitacao {

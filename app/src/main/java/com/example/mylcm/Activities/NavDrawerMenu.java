@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -317,9 +318,6 @@ public class NavDrawerMenu extends AppCompatActivity
 
                             retrofitCidade(cityId);
 
-                            //Chama o método pra abrir o fragmento
-                            gotoProfile();
-
                         } else{
 
                             Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
@@ -359,6 +357,7 @@ public class NavDrawerMenu extends AppCompatActivity
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+                Log.i("Response", response.body().toString());
                 if (response.isSuccessful()) {
 
                     String cityResponse = response.body();
@@ -377,6 +376,8 @@ public class NavDrawerMenu extends AppCompatActivity
                             city_editor.putString("cityName", cidade);
                             city_editor.commit();
 
+                            //Chama o método pra abrir o fragmento
+                            gotoProfile();
 
                         } else{
 

@@ -1,4 +1,4 @@
-package com.example.mylcm.Utils;
+package com.example.mylcm.Utils.Adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Benef.DadosBenefResponse;
 import com.example.mylcm.Retrofit.Connect;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
+import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
+import com.example.mylcm.Utils.Classes_Adapters.Beneficiario;
+import com.example.mylcm.Utils.MaskEditUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +41,9 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
     private Context sContext;
     private List<Beneficiario> benefData = new ArrayList<>();
     private Dialog benefModal;
-    private int idBenef;
+    private int idBenef, sexo;
+    String nomeBenef, dataNascimento, telefone, cep, estado, rua, bairro, numero, complemento;
+    ArrayList<Integer> condicoes = new ArrayList<>();
 
     public BenefAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Beneficiario> list){
         super(context, 0, list);
@@ -110,20 +116,20 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
                         if(benefResponse.getId() != 0) {
 
                             DadosBenefResponse benefResponseData = response.body();
-                            String nomeBenef = benefResponseData.getNome();
-                            String dataNascimento = benefResponseData.getDataNascimento();
-                            int sexo = benefResponseData.getSexo();
-                            String telefone = benefResponseData.getTelefone();
-                            String cep = benefResponseData.getCep();
-                            String estado = benefResponseData.getEstado();
+                            nomeBenef = benefResponseData.getNome();
+                            dataNascimento = benefResponseData.getDataNascimento();
+                            sexo = benefResponseData.getSexo();
+                            telefone = benefResponseData.getTelefone();
+                            cep = benefResponseData.getCep();
+                            estado = benefResponseData.getEstado();
                             int cidade = benefResponseData.getCidade();
-                            String bairro = benefResponseData.getBairro();
-                            String rua = benefResponseData.getRua();
-                            String numero = benefResponseData.getNumero();
-                            String complemento = benefResponseData.getComplemento();
-                            ArrayList<Integer> condicoes = benefResponseData.getCondicoesClinicas();
+                            retrofitCidade(cidade);
+                            bairro = benefResponseData.getBairro();
+                            rua = benefResponseData.getRua();
+                            numero = benefResponseData.getNumero();
+                            complemento = benefResponseData.getComplemento();
+                            condicoes = benefResponseData.getCondicoesClinicas();
 
-                            popularModalBenef(nomeBenef, dataNascimento, sexo, telefone, cep, estado, cidade, bairro, rua, numero, complemento, condicoes);
 
                         } else{
 
@@ -152,7 +158,7 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
         });
     }
 
-    public void popularModalBenef(String nome, String data, int sexo, String telefone, String cep, String estado, int cidade, String bairro, String rua, String numero, String complemento, ArrayList<Integer> condicoes){
+    public void popularModalBenef(String nome, String data, int sexo, String telefone, String cep, String estado, String cityModal, String bairro, String rua, String numero, String complemento, ArrayList<Integer> condicoes){
 
         TextView name = (TextView) benefModal.findViewById(R.id.BenefName);
         name.setText(nome);
@@ -182,7 +188,7 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
         state.setText(estado);
 
         TextView city = (TextView) benefModal.findViewById(R.id.BenefCity);
-        city.setText(Integer.toString(cidade));
+        city.setText(cityModal);
 
         TextView nhood = (TextView) benefModal.findViewById(R.id.BenefNHood);
         nhood.setText(bairro);
@@ -224,5 +230,61 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
         }
         condition.setAdapter(contidionAdapter);
 
+    }
+
+    public void retrofitCidade(int cidadeId){
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final ProfileDTO city = new ProfileDTO(cidadeId);
+
+        Call<String> call = service.getCityName(city);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.i("Response", response.body().toString());
+                if (response.isSuccessful()) {
+
+                    String cityResponse = response.body();
+
+                    //verifica aqui se o corpo da resposta não é nulo
+                    if (cityResponse != null) {
+
+                        if(cityResponse != null) {
+
+                            String cityResponseData = response.body();
+                            String city = cityResponseData;
+
+                            popularModalBenef(nomeBenef, dataNascimento, sexo, telefone, cep, estado, city, bairro, rua, numero, complemento, condicoes);
+                            //popularCidadeModal(city);
+
+                        } else{
+
+                            Toast.makeText(sContext.getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+
+                        Toast.makeText(sContext.getApplicationContext(),"Ops, você não é um Prestador de Serviço", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+
+                    Toast.makeText(sContext.getApplicationContext(),"Resposta não foi um sucesso", Toast.LENGTH_SHORT).show();
+                    // segura os erros de requisição
+                    ResponseBody errorBody = response.errorBody();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(sContext.getApplicationContext(),"Salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void popularCidadeModal(String cityModal){
+        TextView city = (TextView) benefModal.findViewById(R.id.BenefCity);
+        city.setText(cityModal);
     }
 }
