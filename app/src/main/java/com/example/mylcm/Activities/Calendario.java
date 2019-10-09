@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mylcm.R;
@@ -16,6 +18,7 @@ import com.example.mylcm.Retrofit.Tasks.TasksDTO;
 import com.example.mylcm.Retrofit.Tasks.TasksResponse;
 import com.example.mylcm.Utils.Classes_Adapters.Solicitacao;
 import com.example.mylcm.Utils.Adapters.SolicitacaoAdapter;
+import com.example.mylcm.Utils.StringWithTag;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -38,8 +41,10 @@ public class Calendario extends AppCompatActivity {
     public String diadehoje;
     ListView taskList;
     ArrayList<Solicitacao> contractData = new ArrayList<>();
+    ArrayList<StringWithTag> taskBenef = new ArrayList<>();
     private SolicitacaoAdapter solicitacao;
     public int cid = 0, qtd;
+    public Spinner spnTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,11 @@ public class Calendario extends AppCompatActivity {
                 finish();
             }
         });
+
+        spnTasks = (Spinner) findViewById(R.id.spnTasks);
+        taskBenef.add(new StringWithTag("Selecione um Beneficiário", 0));
+        ArrayAdapter<StringWithTag> taskBenefAdapter = new ArrayAdapter<StringWithTag>(this, android.R.layout.simple_spinner_item, taskBenef);
+        spnTasks.setAdapter(taskBenefAdapter);
 
         taskList = (ListView) findViewById(R.id.taskList);
         tasks = (MaterialCalendarView) findViewById(R.id.materialCalendar);

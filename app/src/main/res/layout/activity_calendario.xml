@@ -38,11 +38,17 @@
         android:textColor="@color/white"
         android:textSize="25dp" />
 
+    <Spinner
+        android:id="@+id/spnTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar2"/>
+
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/materialCalendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar2"
+        android:layout_below="@id/spnTasks"
         app:mcv_calendarMode="week"
         app:mcv_selectionColor="@color/colorPrimary" />
 
