@@ -66,8 +66,6 @@ public class Contracts extends AppCompatActivity {
         pullRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefreshContracts);
         info = (TextView) findViewById(R.id.txtInfo);
 
-        contractList.setEmptyView(info);
-
         contractModal = new Dialog(this);
 
         pullRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -13,7 +13,7 @@ public class Connect {
     //URL base do endpoint. Deve sempre terminar com /
     public static final String API_BASE_URL = "http://10.0.2.2:8080/";
 
-    //public static final String API_BASE_URL = "http://35.199.102.59:8080/";
+    //public static final String API_BASE_URL = "http://35.222.85.4:8080/";
 
     public static <S> S createService(Class<S> serviceClass) {
 

@@ -3,6 +3,7 @@ package com.example.mylcm.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylcm.Retrofit.Connect;
@@ -28,6 +30,7 @@ public class Login extends AppCompatActivity {
 
     //Connect connect;
     public static String userName, userEmail, userProfPic;
+    TextView cadastrar, esqueci;
     public static int pid;
     EditText userID, userPWD;
     Button btnLogin;
@@ -66,6 +69,29 @@ public class Login extends AppCompatActivity {
             canLogin();
         }
         else{}
+        cadastrar = (TextView) findViewById(R.id.txtCadastrar);
+        cadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://35.222.85.4/cadastro";
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        esqueci = (TextView) findViewById(R.id.txtEsqueciSenha);
+        esqueci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://35.222.85.4/login";
+
+                Intent i =  new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
         rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
         handler.postDelayed(runnable, 3500);

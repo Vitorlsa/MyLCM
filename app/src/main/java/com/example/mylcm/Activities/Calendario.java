@@ -39,7 +39,7 @@ public class Calendario extends AppCompatActivity {
     ListView taskList;
     ArrayList<Solicitacao> contractData = new ArrayList<>();
     private SolicitacaoAdapter solicitacao;
-    public int pid, qtd;
+    public int cid = 0, qtd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +59,6 @@ public class Calendario extends AppCompatActivity {
 
         tasks.setDateSelected(CalendarDay.today(), true);
 
-        SharedPreferences presID = getSharedPreferences("PID", 0);
-        pid = presID.getInt("PID", -1);
-
         final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         hoje = Calendar.getInstance().getTime();
@@ -76,7 +73,7 @@ public class Calendario extends AppCompatActivity {
 
                 diadehoje = diadehoje.substring(12, 21);
 
-                retrofitTasks(pid, diadehoje);
+                retrofitTasks(cid, diadehoje);
 
                 /*contractData.add(new Solicitacao(1, 2, 3, diadehoje, "", ""));
 

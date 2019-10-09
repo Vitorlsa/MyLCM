@@ -3,6 +3,7 @@ package com.example.mylcm.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -62,6 +64,7 @@ public class FragmentProfile extends Fragment {
     public static int pid, cidade, sexo;
     ArrayList<Integer> compt;
     Boolean termos;
+    public ProgressDialog loading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -411,6 +414,7 @@ public class FragmentProfile extends Fragment {
         View header = navigationView.getHeaderView(0);
         CircleImageView profPic = (CircleImageView) header.findViewById(R.id.profPic);
         profPic.setImageBitmap(bm);
+        showProgress();
         return res;
     }
 
@@ -426,14 +430,28 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onResponse(Call<EditDTO> call, Response<EditDTO> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(getActivity().getApplicationContext(),"Dados salvos com sucesso!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity().getApplicationContext(),"Dados salvos com sucesso!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(),"Salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                cancelProgress();
             }
         });
+    }
+
+    public void showProgress(){
+        loading = new ProgressDialog(this.getContext());
+        loading.setIndeterminate(true);
+        loading.setMessage("Carregando. Por favor aguarde...");
+        loading.show();
+    }
+
+    public void cancelProgress(){
+        if(loading!=null){
+            loading.dismiss();
+        }
     }
 }

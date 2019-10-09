@@ -12,10 +12,10 @@ public class TasksResponse implements Serializable {
     public int ContratoId;
     @SerializedName("titulo")
     public String Titulo;
-    @SerializedName("dataInicio")
-    public String DataInicio;
-    @SerializedName("dataFim")
-    public String DataFim;
+    @SerializedName("data")
+    public String Data;
+    @SerializedName("dataString")
+    public String DataString;
     @SerializedName("horaInicio")
     public String HoraInicio;
     @SerializedName("horaFim")
@@ -24,17 +24,20 @@ public class TasksResponse implements Serializable {
     public String CorHexa;
     @SerializedName("comentario")
     public String Comentario;
+    @SerializedName("tarefaRealizada")
+    public boolean TarefaRealizada;
 
-    public TasksResponse(int id, int contratoId, String titulo, String dataInicio, String dataFim, String horaInicio, String horaFim, String corHexa, String comentario) {
+    public TasksResponse(int id, int contratoId, String titulo, String data, String dataString, String horaInicio, String horaFim, String corHexa, String comentario, boolean tarefaRealizada) {
         Id = id;
         ContratoId = contratoId;
         Titulo = titulo;
-        DataInicio = dataInicio;
-        DataFim = dataFim;
+        Data = data;
+        DataString = dataString;
         HoraInicio = horaInicio;
         HoraFim = horaFim;
         CorHexa = corHexa;
         Comentario = comentario;
+        TarefaRealizada = tarefaRealizada;
     }
 
     public int getId() {
@@ -61,20 +64,20 @@ public class TasksResponse implements Serializable {
         Titulo = titulo;
     }
 
-    public String getDataInicio() {
-        return DataInicio;
+    public String getData() {
+        return Data;
     }
 
-    public void setDataInicio(String dataInicio) {
-        DataInicio = dataInicio;
+    public void setData(String data) {
+        Data = data;
     }
 
-    public String getDataFim() {
-        return DataFim;
+    public String getDataString() {
+        return DataString;
     }
 
-    public void setDataFim(String dataFim) {
-        DataFim = dataFim;
+    public void setDataString(String dataString) {
+        DataString = dataString;
     }
 
     public String getHoraInicio() {
@@ -107,5 +110,13 @@ public class TasksResponse implements Serializable {
 
     public void setComentario(String comentario) {
         Comentario = comentario;
+    }
+
+    public boolean isTarefaRealizada() {
+        return TarefaRealizada;
+    }
+
+    public void setTarefaRealizada(boolean tarefaRealizada) {
+        TarefaRealizada = tarefaRealizada;
     }
 }
