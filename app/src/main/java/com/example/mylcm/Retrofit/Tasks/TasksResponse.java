@@ -14,8 +14,6 @@ public class TasksResponse implements Serializable {
     public String Titulo;
     @SerializedName("data")
     public String Data;
-    @SerializedName("dataString")
-    public String DataString;
     @SerializedName("horaInicio")
     public String HoraInicio;
     @SerializedName("horaFim")
@@ -24,20 +22,31 @@ public class TasksResponse implements Serializable {
     public String CorHexa;
     @SerializedName("comentario")
     public String Comentario;
+    @SerializedName("dataString")
+    public String DataString;
     @SerializedName("tarefaRealizada")
     public boolean TarefaRealizada;
+    @SerializedName("quantidadeMedicamento")
+    public int QuantidadeMedicamento;
+    @SerializedName("nomeMedicamento")
+    public String NomeMedicamento;
+    @SerializedName("beneficiarioMendicamentoId")
+    public int BeneficiarioMedicamentoId;
 
-    public TasksResponse(int id, int contratoId, String titulo, String data, String dataString, String horaInicio, String horaFim, String corHexa, String comentario, boolean tarefaRealizada) {
+    public TasksResponse(int id, int contratoId, String titulo, String data, String horaInicio, String horaFim, String corHexa, String comentario, String dataString, boolean tarefaRealizada, int quantidadeMedicamento, String nomeMedicamento, int beneficiarioMedicamentoId) {
         Id = id;
         ContratoId = contratoId;
         Titulo = titulo;
         Data = data;
-        DataString = dataString;
         HoraInicio = horaInicio;
         HoraFim = horaFim;
         CorHexa = corHexa;
         Comentario = comentario;
+        DataString = dataString;
         TarefaRealizada = tarefaRealizada;
+        QuantidadeMedicamento = quantidadeMedicamento;
+        NomeMedicamento = nomeMedicamento;
+        BeneficiarioMedicamentoId = beneficiarioMedicamentoId;
     }
 
     public int getId() {
@@ -118,5 +127,29 @@ public class TasksResponse implements Serializable {
 
     public void setTarefaRealizada(boolean tarefaRealizada) {
         TarefaRealizada = tarefaRealizada;
+    }
+
+    public int getQuantidadeMedicamento() {
+        return QuantidadeMedicamento;
+    }
+
+    public void setQuantidadeMedicamento(int quantidadeMedicamento) {
+        QuantidadeMedicamento = quantidadeMedicamento;
+    }
+
+    public String getNomeMedicamento() {
+        return NomeMedicamento;
+    }
+
+    public void setNomeMedicamento(String nomeMedicamento) {
+        NomeMedicamento = nomeMedicamento;
+    }
+
+    public int getBeneficiarioMedicamentoId() {
+        return BeneficiarioMedicamentoId;
+    }
+
+    public void setBeneficiarioMedicamentoId(int beneficiarioMedicamentoId) {
+        BeneficiarioMedicamentoId = beneficiarioMedicamentoId;
     }
 }

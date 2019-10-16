@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Connect;
+import com.example.mylcm.Retrofit.Contract.BenefDTO;
+import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.Tasks.TasksDTO;
 import com.example.mylcm.Retrofit.Tasks.TasksResponse;
@@ -38,12 +41,13 @@ public class Calendario extends AppCompatActivity {
     MaterialCalendarView tasks;
     Date hoje;
     CalendarDay dia;
-    public String diadehoje;
+    public Object tag;
+    public String diadehoje, NameBenef;
     ListView taskList;
     ArrayList<Solicitacao> contractData = new ArrayList<>();
-    ArrayList<StringWithTag> taskBenef = new ArrayList<>();
+    ArrayList<StringWithTag> benefNames = new ArrayList<>();
     private SolicitacaoAdapter solicitacao;
-    public int cid = 0, qtd;
+    public int pid, qtd, contratId, idContrat;
     public Spinner spnTasks;
 
     @Override
@@ -59,9 +63,12 @@ public class Calendario extends AppCompatActivity {
             }
         });
 
+        SharedPreferences presID = getSharedPreferences("PID", 0);
+        pid = presID.getInt("PID", -1);
+
         spnTasks = (Spinner) findViewById(R.id.spnTasks);
-        taskBenef.add(new StringWithTag("Selecione um Beneficiário", 0));
-        ArrayAdapter<StringWithTag> taskBenefAdapter = new ArrayAdapter<StringWithTag>(this, android.R.layout.simple_spinner_item, taskBenef);
+        benefNames.add(new StringWithTag("Selecione um Beneficiário", 0));
+        ArrayAdapter<StringWithTag> taskBenefAdapter = new ArrayAdapter<StringWithTag>(this, android.R.layout.simple_spinner_item, benefNames);
         spnTasks.setAdapter(taskBenefAdapter);
 
         taskList = (ListView) findViewById(R.id.taskList);
@@ -73,6 +80,27 @@ public class Calendario extends AppCompatActivity {
 
         hoje = Calendar.getInstance().getTime();
 
+        retrofitBenefNames(pid);
+
+        spnTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                StringWithTag s = (StringWithTag) adapterView.getItemAtPosition(pos);
+                tag = s.tag;
+                idContrat = Integer.parseInt(tag.toString());
+                dia = tasks.getSelectedDate();
+
+                diadehoje = dia.toString();
+
+                diadehoje = diadehoje.substring(12, 22);
+                retrofitTasks(idContrat, diadehoje);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         tasks.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -81,25 +109,22 @@ public class Calendario extends AppCompatActivity {
 
                 diadehoje = dia.toString();
 
-                diadehoje = diadehoje.substring(12, 21);
-
-                retrofitTasks(cid, diadehoje);
-
-                /*contractData.add(new Solicitacao(1, 2, 3, diadehoje, "", ""));
-
-                solicitacao = new SolicitacaoAdapter(getApplicationContext(), contractData);
-
-                taskList.setAdapter(solicitacao);*/
-
+                diadehoje = diadehoje.substring(12, 22);
+                if(idContrat == 0){
+                    Toast.makeText(getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    retrofitTasks(idContrat, diadehoje);
+                }
             }
         });
 
     }
 
-    public void retrofitTasks(int pid, String dia){
+    public void retrofitTasks(int cid, String dia){
         RetrofitService service = Connect.createService(RetrofitService.class);
 
-        final TasksDTO tasks = new TasksDTO(pid, dia);
+        final TasksDTO tasks = new TasksDTO(cid, dia);
 
         Call<ArrayList<TasksResponse>> call = service.getTasks(tasks);
 
@@ -147,5 +172,68 @@ public class Calendario extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Erro na chamada ao servidor", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void retrofitBenefNames(int pid){
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final ContractDTO benef = new ContractDTO(pid);
+
+        Call<ArrayList<BenefDTO>> call = service.getBenef(benef);
+
+        call.enqueue(new Callback<ArrayList<BenefDTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BenefDTO>> call, Response<ArrayList<BenefDTO>> response) {
+
+                if (response.isSuccessful()) {
+
+                    ArrayList<BenefDTO> benefResponse = response.body();
+                    qtd = response.body().size();
+
+                    //verifica aqui se o corpo da resposta não é nulo
+                    if (benefResponse != null) {
+
+                        for(int i = 0; i < qtd; i++){
+
+                            if(benefResponse.get(i).Id != 0) {
+
+                                ArrayList<BenefDTO> benefResponseData = response.body();
+                                NameBenef = benefResponseData.get(i).NomeBeneficiario;
+                                contratId = benefResponseData.get(i).Id;
+
+                                popularSpinnerBenef();
+
+                            } else{
+
+                                Toast.makeText(getApplicationContext(),"Insira Usuário e Senha válidos", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                    } else {
+
+                        Toast.makeText(getApplicationContext(),"Ops, você não é um Prestador de Serviço", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(),"Resposta não foi um sucesso", Toast.LENGTH_SHORT).show();
+
+                }
+
+                //progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BenefDTO>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Erro na chamada ao servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void popularSpinnerBenef(){
+        benefNames.add(new StringWithTag(NameBenef, contratId));
+        ArrayAdapter<StringWithTag> benefNamesAdapter = new ArrayAdapter<StringWithTag>(this, android.R.layout.simple_spinner_item, benefNames);
+        spnTasks.setAdapter(benefNamesAdapter);
     }
 }
