@@ -32,8 +32,16 @@ public class TasksResponse implements Serializable {
     public String NomeMedicamento;
     @SerializedName("beneficiarioMendicamentoId")
     public int BeneficiarioMedicamentoId;
+    @SerializedName("dataInicio")
+    public String DataInicio;
+    @SerializedName("dataFim")
+    public String DataFim;
+    @SerializedName("todosOsDias")
+    public boolean TodosOsDias;
+    @SerializedName("comentarioTarefaRealizada")
+    public String ComentarioTarefaRealizada;
 
-    public TasksResponse(int id, int contratoId, String titulo, String data, String horaInicio, String horaFim, String corHexa, String comentario, String dataString, boolean tarefaRealizada, int quantidadeMedicamento, String nomeMedicamento, int beneficiarioMedicamentoId) {
+    public TasksResponse(int id, int contratoId, String titulo, String data, String horaInicio, String horaFim, String corHexa, String comentario, String dataString, boolean tarefaRealizada, int quantidadeMedicamento, String nomeMedicamento, int beneficiarioMedicamentoId, String dataInicio, String dataFim, boolean todosOsDias, String comentarioTarefaRealizada) {
         Id = id;
         ContratoId = contratoId;
         Titulo = titulo;
@@ -47,6 +55,10 @@ public class TasksResponse implements Serializable {
         QuantidadeMedicamento = quantidadeMedicamento;
         NomeMedicamento = nomeMedicamento;
         BeneficiarioMedicamentoId = beneficiarioMedicamentoId;
+        DataInicio = dataInicio;
+        DataFim = dataFim;
+        TodosOsDias = todosOsDias;
+        ComentarioTarefaRealizada = comentarioTarefaRealizada;
     }
 
     public int getId() {
@@ -151,5 +163,37 @@ public class TasksResponse implements Serializable {
 
     public void setBeneficiarioMedicamentoId(int beneficiarioMedicamentoId) {
         BeneficiarioMedicamentoId = beneficiarioMedicamentoId;
+    }
+
+    public String getDataInicio() {
+        return DataInicio;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        DataInicio = dataInicio;
+    }
+
+    public String getDataFim() {
+        return DataFim;
+    }
+
+    public void setDataFim(String dataFim) {
+        DataFim = dataFim;
+    }
+
+    public boolean isTodosOsDias() {
+        return TodosOsDias;
+    }
+
+    public void setTodosOsDias(boolean todosOsDias) {
+        TodosOsDias = todosOsDias;
+    }
+
+    public String getComentarioTarefaRealizada() {
+        return ComentarioTarefaRealizada;
+    }
+
+    public void setComentarioTarefaRealizada(String comentarioTarefaRealizada) {
+        ComentarioTarefaRealizada = comentarioTarefaRealizada;
     }
 }

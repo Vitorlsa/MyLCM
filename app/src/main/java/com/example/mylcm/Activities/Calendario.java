@@ -19,16 +19,20 @@ import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.Tasks.TasksDTO;
 import com.example.mylcm.Retrofit.Tasks.TasksResponse;
+import com.example.mylcm.Utils.Adapters.TasksAdapter;
 import com.example.mylcm.Utils.Classes_Adapters.Solicitacao;
 import com.example.mylcm.Utils.Adapters.SolicitacaoAdapter;
+import com.example.mylcm.Utils.Classes_Adapters.Tasks;
 import com.example.mylcm.Utils.StringWithTag;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -42,12 +46,13 @@ public class Calendario extends AppCompatActivity {
     Date hoje;
     CalendarDay dia;
     public Object tag;
-    public String diadehoje, NameBenef;
+    public String diadehoje, NameBenef, Title, TaskComment, MedName;
     ListView taskList;
-    ArrayList<Solicitacao> contractData = new ArrayList<>();
+    ArrayList<Tasks> taskData = new ArrayList<>();
     ArrayList<StringWithTag> benefNames = new ArrayList<>();
-    private SolicitacaoAdapter solicitacao;
-    public int pid, qtd, contratId, idContrat;
+    private TasksAdapter tasksAdapter;
+    public int pid, qtd, contratId, idContrat, MedQtd;
+    public Time tStart, tEnd;
     public Spinner spnTasks;
 
     @Override
@@ -93,7 +98,21 @@ public class Calendario extends AppCompatActivity {
                 diadehoje = dia.toString();
 
                 diadehoje = diadehoje.substring(12, 22);
-                retrofitTasks(idContrat, diadehoje);
+                if(idContrat == 0){
+                    Toast.makeText(getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                }
+
+                if(idContrat != 0){
+                    if(tasksAdapter == null){
+                        retrofitTasks(idContrat, diadehoje);
+                    }
+                    else {
+                        taskData.clear();
+                        tasksAdapter.notifyDataSetChanged();
+                        taskList.setAdapter(tasksAdapter);
+                        retrofitTasks(idContrat, diadehoje);
+                    }
+                }
             }
 
             @Override
@@ -110,11 +129,17 @@ public class Calendario extends AppCompatActivity {
                 diadehoje = dia.toString();
 
                 diadehoje = diadehoje.substring(12, 22);
-                if(idContrat == 0){
-                    Toast.makeText(getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    retrofitTasks(idContrat, diadehoje);
+
+                if(idContrat != 0){
+                    if(tasksAdapter != null){
+                        taskData.clear();
+                        tasksAdapter.notifyDataSetChanged();
+                        taskList.setAdapter(tasksAdapter);
+                        retrofitTasks(idContrat, diadehoje);
+                    }
+                    else{
+                        retrofitTasks(idContrat, diadehoje);
+                    }
                 }
             }
         });
@@ -145,6 +170,17 @@ public class Calendario extends AppCompatActivity {
                             if(tasksResponse.get(i).Id != 0) {
 
                                 ArrayList<TasksResponse> tasksResponseData = response.body();
+                                Title = tasksResponseData.get(i).Titulo;
+                                String TimeStart = tasksResponseData.get(i).HoraInicio;
+                                String TimeEnd = tasksResponseData.get(i).HoraFim;
+                                TaskComment = tasksResponseData.get(i).Comentario;
+                                MedQtd = tasksResponseData.get(i).QuantidadeMedicamento;
+                                MedName = tasksResponseData.get(i).NomeMedicamento;
+
+                                tStart = Time.valueOf(TimeStart);
+                                tEnd = Time.valueOf(TimeEnd);
+
+                                ajustarListTasks();
 
                             } else{
 
@@ -235,5 +271,25 @@ public class Calendario extends AppCompatActivity {
         benefNames.add(new StringWithTag(NameBenef, contratId));
         ArrayAdapter<StringWithTag> benefNamesAdapter = new ArrayAdapter<StringWithTag>(this, android.R.layout.simple_spinner_item, benefNames);
         spnTasks.setAdapter(benefNamesAdapter);
+    }
+
+    public void ajustarListTasks(){
+        taskData.add(new Tasks(Title, tStart, tEnd, TaskComment, MedQtd, MedName));
+        if(taskData.size() == 1) {
+            popularListTasks();
+        }
+        else if(taskData.size() > 1) {
+            for(int i = 0; i < taskData.size()-1; i++){
+                if(taskData.get(i).getTimeStart().after(taskData.get(i+1).getTimeStart())){
+                    Collections.swap(taskData, i, i+1);
+                }
+            }
+            popularListTasks();
+        }
+    }
+
+    public void popularListTasks(){
+        tasksAdapter = new TasksAdapter(this, taskData);
+        taskList.setAdapter(tasksAdapter);
     }
 }
