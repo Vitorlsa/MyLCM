@@ -126,9 +126,7 @@ public class Calendario extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 dia = tasks.getSelectedDate();
 
-                diadehoje = dia.toString();
-
-                diadehoje = diadehoje.substring(12, 22);
+                diadehoje = String.valueOf(dia.getYear()) + "-" + String.valueOf(dia.getMonth()) + "-" + String.valueOf(dia.getDay());
 
                 if(idContrat != 0){
                     if(tasksAdapter != null){

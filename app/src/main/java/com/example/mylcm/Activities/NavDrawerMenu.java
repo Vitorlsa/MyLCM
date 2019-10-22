@@ -169,9 +169,7 @@ public class NavDrawerMenu extends AppCompatActivity
 
             retrofitProfile(pid);
 
-        } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_share) {
+        }  else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
             SharedPreferences prefs = getSharedPreferences("log", 0);

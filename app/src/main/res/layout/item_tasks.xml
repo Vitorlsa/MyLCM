@@ -29,6 +29,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="25dp"
+        android:textColor="@color/white"
         android:background="@android:color/holo_red_light"
         android:text="Não Feito" />
 
@@ -41,6 +42,7 @@
         android:layout_marginRight="41dp"
         android:layout_toStartOf="@+id/tasksNotDone"
         android:layout_toLeftOf="@+id/tasksNotDone"
+        android:textColor="@color/white"
         android:background="@android:color/holo_green_light"
         android:text="Feito" />
 
