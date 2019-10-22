@@ -46,7 +46,7 @@ public class Calendario extends AppCompatActivity {
     Date hoje;
     CalendarDay dia;
     public Object tag;
-    public String diadehoje, NameBenef, Title, TaskComment, MedName;
+    public String diadehoje, NameBenef, Title, TaskComment, MedName, HexaColor;
     ListView taskList;
     ArrayList<Tasks> taskData = new ArrayList<>();
     ArrayList<StringWithTag> benefNames = new ArrayList<>();
@@ -174,6 +174,7 @@ public class Calendario extends AppCompatActivity {
                                 TaskComment = tasksResponseData.get(i).Comentario;
                                 MedQtd = tasksResponseData.get(i).QuantidadeMedicamento;
                                 MedName = tasksResponseData.get(i).NomeMedicamento;
+                                HexaColor = tasksResponseData.get(i).CorHexa;
 
                                 tStart = Time.valueOf(TimeStart);
                                 tEnd = Time.valueOf(TimeEnd);
@@ -272,7 +273,7 @@ public class Calendario extends AppCompatActivity {
     }
 
     public void ajustarListTasks(){
-        taskData.add(new Tasks(Title, tStart, tEnd, TaskComment, MedQtd, MedName));
+        taskData.add(new Tasks(Title, tStart, tEnd, TaskComment, MedQtd, MedName, HexaColor));
         if(taskData.size() == 1) {
             popularListTasks();
         }

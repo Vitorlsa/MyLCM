@@ -10,14 +10,16 @@ public class Tasks {
     private String TaskComment;
     private int MedQtd;
     private String MedName;
+    private String HexaColor;
 
-    public Tasks(String title, Time timeStart, Time timeEnd, String taskComment, int medQtd, String medName) {
+    public Tasks(String title, Time timeStart, Time timeEnd, String taskComment, int medQtd, String medName, String hexaColor) {
         Title = title;
         TimeStart = timeStart;
         TimeEnd = timeEnd;
         TaskComment = taskComment;
         MedQtd = medQtd;
         MedName = medName;
+        HexaColor = hexaColor;
     }
 
     public String getTitle() {
@@ -66,5 +68,13 @@ public class Tasks {
 
     public void setMedName(String medName) {
         MedName = medName;
+    }
+
+    public String getHexaColor() {
+        return HexaColor;
+    }
+
+    public void setHexaColor(String hexaColor) {
+        HexaColor = hexaColor;
     }
 }

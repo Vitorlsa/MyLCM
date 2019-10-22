@@ -9,16 +9,17 @@
         android:id="@+id/tasksTitle"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginRight="-1dp"
         android:layout_toStartOf="@+id/tasksDone"
         android:layout_toLeftOf="@+id/tasksDone"
+        android:layout_toEndOf="@+id/taskColor"
+        android:layout_toRightOf="@+id/taskColor"
         android:text="Hello"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <Button
@@ -45,5 +46,26 @@
         android:textColor="@color/white"
         android:background="@android:color/holo_green_light"
         android:text="Feito" />
+
+
+    <EditText
+        android:id="@+id/taskColor"
+        android:layout_width="7dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:focusable="false"
+        android:clickable="false"
+        android:enabled="false"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/taskTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="5dp"/>
 
 </RelativeLayout>
