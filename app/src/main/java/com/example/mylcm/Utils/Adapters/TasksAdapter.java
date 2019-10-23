@@ -1,8 +1,10 @@
 package com.example.mylcm.Utils.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,10 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
 
     private Context sContext;
     private List<Tasks> taskData = new ArrayList<>();
+    private Dialog tasksModal;
+    private boolean yorn;
+    private int tarefaId, tarefaRealizadaId;
+    private String comentario, data, hora, HexaColor;
 
     public TasksAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Tasks> list){
         super(context, 0, list);
@@ -41,23 +47,60 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         if(listItem == null)
             listItem = LayoutInflater.from(sContext).inflate(R.layout.item_tasks, parent,false);
 
-
         final Tasks presenteTask = taskData.get(position);
 
         TextView taskTitle = (TextView) listItem.findViewById(R.id.tasksTitle);
         taskTitle.setText(presenteTask.getTitle());
 
         EditText taskColor = (EditText) listItem.findViewById(R.id.taskColor);
-
-        try{
-            taskColor.setBackgroundColor(Color.parseColor(presenteTask.getHexaColor()));
+        if(presenteTask.getHexaColor().isEmpty()){
+            HexaColor = "#FFFFFF";
         }
-        catch (StringIndexOutOfBoundsException e){
-            //Log.d("Meupau", "ERRO CARAIO" + e);
+        else{
+            HexaColor = presenteTask.getHexaColor();
+            taskColor.setBackgroundColor(Color.parseColor(HexaColor));
         }
 
         TextView taskTime = (TextView) listItem.findViewById(R.id.taskTime);
         taskTime.setText(presenteTask.getTimeStart().toString().substring(0,5));
+
+        tasksModal = new Dialog(sContext);
+
+        Button done = (Button) listItem.findViewById(R.id.tasksDone);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tasksModal.setContentView(R.layout.modal_tasksdone);
+                tasksModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                yorn = true;
+                tarefaId = presenteTask.getTaskId();
+                data = presenteTask.getDataTask();
+                hora = String.valueOf(presenteTask.getTimeStart());
+                tarefaRealizadaId = 1;
+
+                tasksModal.show();
+
+            }
+        });
+
+        Button notDone = (Button) listItem.findViewById(R.id.tasksNotDone);
+        notDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tasksModal.setContentView(R.layout.modal_tasksdone);
+                tasksModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                yorn = false;
+                tarefaId = presenteTask.getTaskId();
+                data = presenteTask.getDataTask();
+                hora = String.valueOf(presenteTask.getTimeStart());
+                tarefaRealizadaId = 1;
+
+                tasksModal.show();
+
+
+
+            }
+        });
 
         return listItem;
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -18,6 +19,7 @@ import com.example.mylcm.Retrofit.Contract.BenefDTO;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
 import com.example.mylcm.Retrofit.Tasks.TasksDTO;
+import com.example.mylcm.Retrofit.Tasks.TasksDoneDTO;
 import com.example.mylcm.Retrofit.Tasks.TasksResponse;
 import com.example.mylcm.Utils.Adapters.TasksAdapter;
 import com.example.mylcm.Utils.Classes_Adapters.Solicitacao;
@@ -46,12 +48,12 @@ public class Calendario extends AppCompatActivity {
     Date hoje;
     CalendarDay dia;
     public Object tag;
-    public String diadehoje, NameBenef, Title, TaskComment, MedName, HexaColor;
+    public String diadehoje, NameBenef, Title, TaskComment, MedName, HexaColor, dataTask;
     ListView taskList;
     ArrayList<Tasks> taskData = new ArrayList<>();
     ArrayList<StringWithTag> benefNames = new ArrayList<>();
     private TasksAdapter tasksAdapter;
-    public int pid, qtd, contratId, idContrat, MedQtd;
+    public int pid, qtd, contratId, idContrat, MedQtd, taskId;
     public Time tStart, tEnd;
     public Spinner spnTasks;
 
@@ -141,7 +143,6 @@ public class Calendario extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void retrofitTasks(int cid, String dia){
@@ -168,6 +169,7 @@ public class Calendario extends AppCompatActivity {
                             if(tasksResponse.get(i).Id != 0) {
 
                                 ArrayList<TasksResponse> tasksResponseData = response.body();
+                                taskId = tasksResponseData.get(i).Id;
                                 Title = tasksResponseData.get(i).Titulo;
                                 String TimeStart = tasksResponseData.get(i).HoraInicio;
                                 String TimeEnd = tasksResponseData.get(i).HoraFim;
@@ -175,6 +177,9 @@ public class Calendario extends AppCompatActivity {
                                 MedQtd = tasksResponseData.get(i).QuantidadeMedicamento;
                                 MedName = tasksResponseData.get(i).NomeMedicamento;
                                 HexaColor = tasksResponseData.get(i).CorHexa;
+                                dataTask = tasksResponseData.get(i).Data;
+
+                                dataTask = dataTask.substring(0, 9);
 
                                 tStart = Time.valueOf(TimeStart);
                                 tEnd = Time.valueOf(TimeEnd);
@@ -266,6 +271,28 @@ public class Calendario extends AppCompatActivity {
         });
     }
 
+    public void retrofitDoneTasks(int tarefaId, String Comentario, String Data, String Hora, boolean Realizada, int tarefaRealizadaId){
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final TasksDoneDTO done = new TasksDoneDTO(tarefaId, Comentario, Data, Hora, Realizada, tarefaRealizadaId);
+
+        Call<TasksDoneDTO> call = service.setTasksDone(done);
+
+        call.enqueue(new Callback<TasksDoneDTO>() {
+            @Override
+            public void onResponse(Call<TasksDoneDTO> call, Response<TasksDoneDTO> response) {
+                if (response.isSuccessful()){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TasksDoneDTO> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void popularSpinnerBenef(){
         benefNames.add(new StringWithTag(NameBenef, contratId));
         ArrayAdapter<StringWithTag> benefNamesAdapter = new ArrayAdapter<StringWithTag>(this, android.R.layout.simple_spinner_item, benefNames);
@@ -273,7 +300,7 @@ public class Calendario extends AppCompatActivity {
     }
 
     public void ajustarListTasks(){
-        taskData.add(new Tasks(Title, tStart, tEnd, TaskComment, MedQtd, MedName, HexaColor));
+        taskData.add(new Tasks(taskId, Title, tStart, tEnd, TaskComment, MedQtd, MedName, HexaColor, dataTask));
         if(taskData.size() == 1) {
             popularListTasks();
         }

@@ -4,6 +4,7 @@ import java.sql.Time;
 
 public class Tasks {
 
+    private int TaskId;
     private String Title;
     private Time TimeStart;
     private Time TimeEnd;
@@ -11,8 +12,10 @@ public class Tasks {
     private int MedQtd;
     private String MedName;
     private String HexaColor;
+    private String DataTask;
 
-    public Tasks(String title, Time timeStart, Time timeEnd, String taskComment, int medQtd, String medName, String hexaColor) {
+    public Tasks(int taskId, String title, Time timeStart, Time timeEnd, String taskComment, int medQtd, String medName, String hexaColor, String dataTask) {
+        TaskId = taskId;
         Title = title;
         TimeStart = timeStart;
         TimeEnd = timeEnd;
@@ -20,6 +23,15 @@ public class Tasks {
         MedQtd = medQtd;
         MedName = medName;
         HexaColor = hexaColor;
+        DataTask = dataTask;
+    }
+
+    public int getTaskId() {
+        return TaskId;
+    }
+
+    public void setTaskId(int taskId) {
+        TaskId = taskId;
     }
 
     public String getTitle() {
@@ -76,5 +88,13 @@ public class Tasks {
 
     public void setHexaColor(String hexaColor) {
         HexaColor = hexaColor;
+    }
+
+    public String getDataTask() {
+        return DataTask;
+    }
+
+    public void setDataTask(String dataTask) {
+        DataTask = dataTask;
     }
 }

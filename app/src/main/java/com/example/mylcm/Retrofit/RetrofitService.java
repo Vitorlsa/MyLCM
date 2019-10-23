@@ -13,6 +13,7 @@ import com.example.mylcm.Retrofit.Profile.EditDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileResponse;
 import com.example.mylcm.Retrofit.Tasks.TasksDTO;
+import com.example.mylcm.Retrofit.Tasks.TasksDoneDTO;
 import com.example.mylcm.Retrofit.Tasks.TasksResponse;
 
 import java.util.ArrayList;
@@ -58,4 +59,6 @@ public interface RetrofitService {
     @POST("api/tarefa/listartodastarefasprestadorpordia")
     Call<ArrayList<TasksResponse>> getTasks(@Body TasksDTO tasks);
 
+    @POST("api/tarefa/realizartarefa")
+    Call<TasksDoneDTO> setTasksDone(@Body TasksDoneDTO tasksDone);
 }
