@@ -101,7 +101,7 @@ public class Calendario extends AppCompatActivity {
 
                 diadehoje = diadehoje.substring(12, 22);
                 if(idContrat == 0){
-                    Toast.makeText(getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Por favor selecione um Beneficiário", Toast.LENGTH_SHORT).show();
                 }
 
                 if(idContrat != 0){
