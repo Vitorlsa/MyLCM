@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mylcm.Activities.Calendario;
 import com.example.mylcm.R;
 import com.example.mylcm.Utils.Classes_Adapters.Tasks;
 
@@ -77,9 +78,25 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
                 tarefaRealizadaId = 1;
+                final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
+
+                Button enviar = tasksModal.findViewById(R.id.btnSend);
+                enviar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        comentario = comentarios.getEditableText().toString();
+                        if(comentario.equals("")){
+                            Toast.makeText(sContext,"Por favor digite um comentário", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Calendario calendario = new Calendario();
+                            calendario.retrofitDoneTasks(tarefaId, comentario, data, hora, yorn, tarefaRealizadaId);
+                            tasksModal.dismiss();
+                        }
+                    }
+                });
 
                 tasksModal.show();
-
             }
         });
 
@@ -94,11 +111,25 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
                 tarefaRealizadaId = 1;
+                final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
+
+                Button enviar = tasksModal.findViewById(R.id.btnSend);
+                enviar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        comentario = comentarios.getEditableText().toString();
+                        if(comentario.equals("")){
+                            Toast.makeText(sContext,"Por favor digite um comentário", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Calendario calendario = new Calendario();
+                            calendario.retrofitDoneTasks(tarefaId, comentario, data, hora, yorn, tarefaRealizadaId);
+                            tasksModal.dismiss();
+                        }
+                    }
+                });
 
                 tasksModal.show();
-
-
-
             }
         });
 

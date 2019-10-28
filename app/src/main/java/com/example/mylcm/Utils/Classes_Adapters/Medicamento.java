@@ -5,11 +5,13 @@ public class Medicamento {
     private String NomeMedicamento;
     private String Posologia;
     private int Quantidade;
+    private String UnidadeMedida;
 
-    public Medicamento(String nomeMedicamento, String posologia, int quantidade) {
+    public Medicamento(String nomeMedicamento, String posologia, int quantidade, String unidadeMedida) {
         NomeMedicamento = nomeMedicamento;
         Posologia = posologia;
         Quantidade = quantidade;
+        UnidadeMedida = unidadeMedida;
     }
 
     public String getNomeMedicamento() {
@@ -34,5 +36,13 @@ public class Medicamento {
 
     public void setQuantidade(int quantidade) {
         Quantidade = quantidade;
+    }
+
+    public String getUnidadeMedida() {
+        return UnidadeMedida;
+    }
+
+    public void setUnidadeMedida(String unidadeMedida) {
+        UnidadeMedida = unidadeMedida;
     }
 }

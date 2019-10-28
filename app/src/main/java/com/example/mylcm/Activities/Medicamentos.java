@@ -1,11 +1,16 @@
 package com.example.mylcm.Activities;
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -32,8 +37,9 @@ public class Medicamentos extends AppCompatActivity {
     ImageButton backBtn;
     Spinner spnBenefs;
     ListView listMed;
+    Dialog modalMeds;
     public static int qtd, pid, benefId, qtdMed;
-    public static String NameBenef, NameMed, Dosage;
+    public static String NameBenef, NameMed, Dosage, UnidadeMedida;
     ArrayList<StringWithTag> benefNames = new ArrayList<>();
     ArrayList<Medicamento> medData = new ArrayList<>();
     private MedAdapter medAdapter;
@@ -53,6 +59,8 @@ public class Medicamentos extends AppCompatActivity {
 
         spnBenefs = (Spinner) findViewById(R.id.spnBenef);
         listMed = (ListView) findViewById(R.id.medList);
+
+        modalMeds = new Dialog(this);
 
         SharedPreferences presID = getSharedPreferences("PID", 0);
         pid = presID.getInt("PID", -1);
@@ -91,6 +99,34 @@ public class Medicamentos extends AppCompatActivity {
 
             }
         });
+
+        listMed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
+                modalMeds.setContentView(R.layout.modal_med);
+                modalMeds.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                EditText nomeMed = (EditText) modalMeds.findViewById(R.id.mod_MedName);
+                nomeMed.setText(medData.get(position).getNomeMedicamento());
+                EditText posologia = (EditText) modalMeds.findViewById(R.id.mod_MedPos);
+                posologia.setText(medData.get(position).getPosologia());
+                EditText uniMed = (EditText) modalMeds.findViewById(R.id.mod_MedUni);
+                uniMed.setText(medData.get(position).getUnidadeMedida());
+                EditText quantidade = (EditText) modalMeds.findViewById(R.id.mod_MedQtd);
+                quantidade.setText(String.valueOf(medData.get(position).getQuantidade()));
+
+                Button close = (Button) modalMeds.findViewById(R.id.btnClose);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        modalMeds.dismiss();
+                    }
+                });
+
+                modalMeds.show();
+            }
+        });
+
+
     }
 
     public void retrofitBenefNames(int pid){
@@ -177,6 +213,7 @@ public class Medicamentos extends AppCompatActivity {
                                 NameMed = medResponseData.get(i).NomeMedicamento;
                                 Dosage = medResponseData.get(i).Posologia;
                                 qtdMed = medResponseData.get(i).Quantidade;
+                                UnidadeMedida = medResponseData.get(i).UnidadeMedida;
 
                                 popularListaMed();
 
@@ -216,7 +253,7 @@ public class Medicamentos extends AppCompatActivity {
     }
 
     public void popularListaMed(){
-        medData.add(new Medicamento(NameMed, Dosage, qtdMed));
+        medData.add(new Medicamento(NameMed, Dosage, qtdMed, UnidadeMedida));
         medAdapter = new MedAdapter(this, medData);
         listMed.setAdapter(medAdapter);
     }

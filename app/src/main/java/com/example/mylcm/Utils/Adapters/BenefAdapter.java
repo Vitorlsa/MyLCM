@@ -1,8 +1,10 @@
 package com.example.mylcm.Utils.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +95,33 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
                 benefModal.show();
             }
         });
+
+        ImageButton cancel = (ImageButton) listItem.findViewById(R.id.btnCancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               final AlertDialog.Builder builder = new AlertDialog.Builder(sContext, R.style.AlertDialogTheme);
+               builder.setTitle("Tem certeza que gostaria de cancelar o contrato?");
+               builder.setMessage("O cancelamento de contrato acarretará em total desvinculamento com o Beneficiário em questão. Gostaria mesmo de continuar?");
+               builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                       dialogInterface.dismiss();
+                   }
+               });
+               builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                       dialogInterface.dismiss();
+                   }
+               });
+
+               final AlertDialog dialog = builder.create();
+
+               dialog.show();
+            }
+        });
+
         return listItem;
     }
 

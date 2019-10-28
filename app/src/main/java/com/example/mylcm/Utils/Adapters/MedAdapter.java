@@ -45,10 +45,6 @@ public class MedAdapter extends ArrayAdapter<Medicamento> {
         TextView qtdMed = (TextView) listItem.findViewById(R.id.qtd_med);
         qtdMed.setText(String.valueOf(presenteMedicamento.getQuantidade()));
 
-        TextView dosagemMed = (TextView) listItem.findViewById(R.id.dosagem_med);
-        dosagemMed.setText(presenteMedicamento.getPosologia());
-
-
         return listItem;
     }
 }

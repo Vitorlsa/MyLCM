@@ -3,36 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:descendantFocusability = "blocksDescendants">
+    android:descendantFocusability = "blocksDescendants"
+    android:minHeight="?android:attr/listPreferredItemHeightLarge">
+
+    <TextView
+        android:id="@+id/nomemed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/nome_med"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/qtd_med"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp"
         android:text="Nome"
-        android:textSize="20sp" />
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/qtdmed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantidade"
+        android:textSize="20dp"
+        android:layout_marginLeft="210dp"
+        android:layout_toRightOf="@id/nomemed"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/qtd_med"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:text="Quantidade"
-        android:textSize="20dp"/>
-
-    <TextView
-        android:id="@+id/dosagem_med"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/qtd_med"
-        android:text="Dosagem"
-        android:textSize="20dp"/>
+        android:text="000"
+        android:textSize="20dp"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/nome_med" />
 
 
 </RelativeLayout>

@@ -1,6 +1,9 @@
 package com.example.mylcm.Activities;
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -46,6 +50,7 @@ public class Calendario extends AppCompatActivity {
     ImageButton backBtn;
     MaterialCalendarView tasks;
     Date hoje;
+    Dialog modalTasks;
     CalendarDay dia;
     public Object tag;
     public String diadehoje, NameBenef, Title, TaskComment, MedName, HexaColor, dataTask;
@@ -80,6 +85,8 @@ public class Calendario extends AppCompatActivity {
 
         taskList = (ListView) findViewById(R.id.taskList);
         tasks = (MaterialCalendarView) findViewById(R.id.materialCalendar);
+
+        modalTasks = new Dialog(this);
 
         tasks.setDateSelected(CalendarDay.today(), true);
 
@@ -143,6 +150,62 @@ public class Calendario extends AppCompatActivity {
                 }
             }
         });
+
+
+        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
+                if(taskData.get(position).getHexaColor().equals("#fcba03")){
+                    modalTasks.setContentView(R.layout.modal_tasks_med);
+                    modalTasks.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    EditText taskTitle = (EditText) modalTasks.findViewById(R.id.mod_TasksTitleMed);
+                    taskTitle.setText(taskData.get(position).getTitle());
+                    EditText medName = (EditText) modalTasks.findViewById(R.id.mod_TasksMedName);
+                    medName.setText(taskData.get(position).getMedName());
+                    EditText medQtd = (EditText) modalTasks.findViewById(R.id.mod_TasksMedQtd);
+                    String qtdMed = String.valueOf(taskData.get(position).getMedQtd());
+                    medQtd.setText(qtdMed);
+                    EditText timeStart = (EditText) modalTasks.findViewById(R.id.mod_TimeStartMed);
+                    timeStart.setText(taskData.get(position).getTimeStart().toString());
+                    EditText timeEnd = (EditText) modalTasks.findViewById(R.id.mod_TimeEndMed);
+                    timeEnd.setText(taskData.get(position).getTimeEnd().toString());
+                    EditText descript = (EditText) modalTasks.findViewById(R.id.mod_TasksDescriptionMed);
+                    descript.setText(taskData.get(position).getTaskComment());
+
+                    Button close = (Button) modalTasks.findViewById(R.id.btnClose);
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            modalTasks.dismiss();
+                        }
+                    });
+
+                    modalTasks.show();
+                }
+                else{
+                    modalTasks.setContentView(R.layout.modal_tasks);
+                    modalTasks.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    EditText taskTitle = (EditText) modalTasks.findViewById(R.id.mod_TasksTitle);
+                    taskTitle.setText(taskData.get(position).getTitle());
+                    EditText timeStart = (EditText) modalTasks.findViewById(R.id.mod_TimeStart);
+                    timeStart.setText(taskData.get(position).getTimeStart().toString());
+                    EditText timeEnd = (EditText) modalTasks.findViewById(R.id.mod_TimeEnd);
+                    timeEnd.setText(taskData.get(position).getTimeEnd().toString());
+                    EditText descript = (EditText) modalTasks.findViewById(R.id.mod_TasksDescription);
+                    descript.setText(taskData.get(position).getTaskComment());
+
+                    Button close = (Button) modalTasks.findViewById(R.id.btnClose);
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            modalTasks.dismiss();
+                        }
+                    });
+
+                    modalTasks.show();
+                }
+            }
+        });
     }
 
     public void retrofitTasks(int cid, String dia){
@@ -179,7 +242,7 @@ public class Calendario extends AppCompatActivity {
                                 HexaColor = tasksResponseData.get(i).CorHexa;
                                 dataTask = tasksResponseData.get(i).Data;
 
-                                dataTask = dataTask.substring(0, 9);
+                                dataTask = dataTask.substring(0, 10);
 
                                 tStart = Time.valueOf(TimeStart);
                                 tEnd = Time.valueOf(TimeEnd);

@@ -53,13 +53,13 @@
         app:mcv_selectionColor="@color/colorPrimary" />
 
     <TextView
-        android:id="@+id/txtInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="Clique em um item para mais informações."
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/materialCalendar"/>
+    android:id="@+id/txtInfo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="7dp"
+    android:text="Clique em um item para mais informações."
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/materialCalendar"/>
 
     <LinearLayout
         android:id="@+id/linlayTasks"

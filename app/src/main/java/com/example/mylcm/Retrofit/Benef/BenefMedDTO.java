@@ -14,12 +14,15 @@ public class BenefMedDTO implements Serializable {
     public String NomeMedicamento;
     @SerializedName("posologia")
     public String Posologia;
+    @SerializedName("unidadeMedidaNome")
+    public String UnidadeMedida;
 
-    public BenefMedDTO(int id, int quantidade, String nomeMedicamento, String posologia) {
+    public BenefMedDTO(int id, int quantidade, String nomeMedicamento, String posologia, String unidadeMedida) {
         Id = id;
         Quantidade = quantidade;
         NomeMedicamento = nomeMedicamento;
         Posologia = posologia;
+        UnidadeMedida = unidadeMedida;
     }
 
     public int getId() {
@@ -52,5 +55,13 @@ public class BenefMedDTO implements Serializable {
 
     public void setPosologia(String posologia) {
         Posologia = posologia;
+    }
+
+    public String getUnidadeMedida() {
+        return UnidadeMedida;
+    }
+
+    public void setUnidadeMedida(String unidadeMedida) {
+        UnidadeMedida = unidadeMedida;
     }
 }
