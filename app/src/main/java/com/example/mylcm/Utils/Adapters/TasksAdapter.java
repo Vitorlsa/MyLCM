@@ -1,10 +1,12 @@
 package com.example.mylcm.Utils.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,6 +69,7 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         taskTime.setText(presenteTask.getTimeStart().toString().substring(0,5));
 
         tasksModal = new Dialog(sContext);
+        final Calendario calendario = new Calendario();
 
         Button done = (Button) listItem.findViewById(R.id.tasksDone);
         done.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +81,6 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                 tarefaId = presenteTask.getTaskId();
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
-                tarefaRealizadaId = 0;
                 final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
 
                 Button enviar = tasksModal.findViewById(R.id.btnSend);
@@ -85,13 +88,14 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                     @Override
                     public void onClick(View view) {
                         comentario = comentarios.getEditableText().toString();
-                        if(comentario.equals("")){
-                            Toast.makeText(sContext,"Por favor digite um comentário.", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Calendario calendario = new Calendario();
+                        if(!comentario.equals("")){
                             calendario.retrofitDoneTasks(tarefaId, comentario, data, hora, yorn, tarefaRealizadaId);
                         }
+                        else{
+                            Toast.makeText(sContext,"Por favor digite um comentário.", Toast.LENGTH_SHORT).show();
+                        }
+
+
                     }
                 });
 
@@ -109,7 +113,6 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                 tarefaId = presenteTask.getTaskId();
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
-                tarefaRealizadaId = 0;
                 final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
 
                 Button enviar = tasksModal.findViewById(R.id.btnSend);
@@ -133,9 +136,5 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         });
 
         return listItem;
-    }
-
-    public void dismissModal(){
-        tasksModal.dismiss();
     }
 }
