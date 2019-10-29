@@ -36,11 +36,20 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
     private boolean yorn;
     private int tarefaId, tarefaRealizadaId;
     private String comentario, data, hora, HexaColor;
+    EditText comentarios;
+    Calendario calendario;
 
     public TasksAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Tasks> list){
         super(context, 0, list);
         sContext = context;
         taskData = list;
+        tasksModal = new Dialog(sContext);
+        tasksModal.setCancelable(false);
+        tasksModal.setContentView(R.layout.modal_tasksdone);
+        tasksModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
+        calendario = new Calendario();
+
     }
 
     @NonNull
@@ -68,34 +77,27 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         TextView taskTime = (TextView) listItem.findViewById(R.id.taskTime);
         taskTime.setText(presenteTask.getTimeStart().toString().substring(0,5));
 
-        tasksModal = new Dialog(sContext);
-        final Calendario calendario = new Calendario();
-
         Button done = (Button) listItem.findViewById(R.id.tasksDone);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tasksModal.setContentView(R.layout.modal_tasksdone);
-                tasksModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                comentarios.setText("");
                 yorn = true;
                 tarefaId = presenteTask.getTaskId();
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
-                final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
 
-                Button enviar = tasksModal.findViewById(R.id.btnSend);
-                enviar.setOnClickListener(new View.OnClickListener() {
+                tasksModal.findViewById(R.id.btnSend).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         comentario = comentarios.getEditableText().toString();
                         if(!comentario.equals("")){
+                            tasksModal.dismiss();
                             calendario.retrofitDoneTasks(tarefaId, comentario, data, hora, yorn, tarefaRealizadaId);
                         }
                         else{
                             Toast.makeText(sContext,"Por favor digite um comentário.", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
 
@@ -107,16 +109,13 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         notDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tasksModal.setContentView(R.layout.modal_tasksdone);
-                tasksModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                comentarios.setText("");
                 yorn = false;
                 tarefaId = presenteTask.getTaskId();
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
-                final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
 
-                Button enviar = tasksModal.findViewById(R.id.btnSend);
-                enviar.setOnClickListener(new View.OnClickListener() {
+                tasksModal.findViewById(R.id.btnSend).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         comentario = comentarios.getEditableText().toString();
@@ -124,9 +123,8 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                             Toast.makeText(sContext,"Por favor digite um comentário.", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Calendario calendario = new Calendario();
-                            calendario.retrofitDoneTasks(tarefaId, comentario, data, hora, yorn, tarefaRealizadaId);
                             tasksModal.dismiss();
+                            calendario.retrofitDoneTasks(tarefaId, comentarios.getText().toString(), data, hora, yorn, tarefaRealizadaId);
                         }
                     }
                 });
