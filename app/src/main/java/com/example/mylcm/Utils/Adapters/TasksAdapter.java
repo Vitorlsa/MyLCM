@@ -77,7 +77,7 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                 tarefaId = presenteTask.getTaskId();
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
-                tarefaRealizadaId = 1;
+                tarefaRealizadaId = 0;
                 final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
 
                 Button enviar = tasksModal.findViewById(R.id.btnSend);
@@ -86,12 +86,11 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                     public void onClick(View view) {
                         comentario = comentarios.getEditableText().toString();
                         if(comentario.equals("")){
-                            Toast.makeText(sContext,"Por favor digite um comentário", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(sContext,"Por favor digite um comentário.", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Calendario calendario = new Calendario();
                             calendario.retrofitDoneTasks(tarefaId, comentario, data, hora, yorn, tarefaRealizadaId);
-                            tasksModal.dismiss();
                         }
                     }
                 });
@@ -110,7 +109,7 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                 tarefaId = presenteTask.getTaskId();
                 data = presenteTask.getDataTask();
                 hora = String.valueOf(presenteTask.getTimeStart());
-                tarefaRealizadaId = 1;
+                tarefaRealizadaId = 0;
                 final EditText comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
 
                 Button enviar = tasksModal.findViewById(R.id.btnSend);
@@ -119,7 +118,7 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
                     public void onClick(View view) {
                         comentario = comentarios.getEditableText().toString();
                         if(comentario.equals("")){
-                            Toast.makeText(sContext,"Por favor digite um comentário", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(sContext,"Por favor digite um comentário.", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Calendario calendario = new Calendario();
@@ -134,5 +133,9 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         });
 
         return listItem;
+    }
+
+    public void dismissModal(){
+        tasksModal.dismiss();
     }
 }
