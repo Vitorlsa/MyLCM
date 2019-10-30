@@ -7,7 +7,7 @@
     android:minHeight="?android:attr/listPreferredItemHeightLarge">
 
     <TextView
-        android:id="@+id/nomemed"
+        android:id="@+id/nomemedic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome"
@@ -16,33 +16,34 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id="@+id/nome_med"
+        android:id="@+id/nome_medic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome"
+        android:text="Pedro Alcantara"
         android:textSize="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        />
 
     <TextView
-        android:id="@+id/qtdmed"
+        android:id="@+id/telMedic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantidade"
+        android:text="Telefone"
         android:textSize="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id="@+id/qtd_med"
+        android:id="@+id/tel_Medic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="000"
+        android:text="(19)998980033"
         android:textSize="20dp"
-        android:layout_marginTop="40dp"
         android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"/>
 
 
 </RelativeLayout>

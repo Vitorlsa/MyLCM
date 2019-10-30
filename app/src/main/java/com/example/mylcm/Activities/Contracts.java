@@ -88,6 +88,7 @@ public class Contracts extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> convertView, View parent, int position, long id) {
                 contractModal.setContentView(R.layout.modal_contract);
+                contractModal.setCancelable(false);
                 contractModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int idSol = contractData.get(position).getId();
                 retrofitDadosContrato(idSol);

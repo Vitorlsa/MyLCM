@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,11 +75,12 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
         nameBenef.setText(presenteBeneficiario.getNomeBeneficiario());
 
 
-        Button more = (Button) listItem.findViewById(R.id.btnMore);
+        final Button more = (Button) listItem.findViewById(R.id.btnMore);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 benefModal.setContentView(R.layout.modal_benef);
+                benefModal.setCancelable(false);
                 benefModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 idBenef = presenteBeneficiario.getBenefId();
                 retrofitBenefData(idBenef);
@@ -89,10 +91,11 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
                     @Override
                     public void onClick(View view) {
                         benefModal.dismiss();
+                        more.setEnabled(true);
                     }
                 });
 
-                benefModal.show();
+                more.setEnabled(false);
             }
         });
 
@@ -259,7 +262,7 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
             }
         }
         condition.setAdapter(contidionAdapter);
-
+        benefModal.show();
     }
 
     public void retrofitCidade(int cidadeId){

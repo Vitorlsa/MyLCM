@@ -19,6 +19,7 @@ import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.Activities.Calendario;
 import com.example.mylcm.Activities.Contracts;
 import com.example.mylcm.Activities.Medicamentos;
+import com.example.mylcm.Activities.Medicos;
 import com.example.mylcm.R;
 
 /**
@@ -63,7 +64,7 @@ public class FragmentMenu extends Fragment {
         return fragment;
     }
 
-    Button btnCalendario, btnContratos, btnBeneficiario, btnMedicamentos;
+    Button btnCalendario, btnContratos, btnBeneficiario, btnMedicamentos, btnMedicos;
     String names[] = {"Selecionar Beneficiário","Roberto", "Carlos", "José"};
     ArrayAdapter<String> arrayAdapter;
     public static int pid, qtd;
@@ -124,6 +125,15 @@ public class FragmentMenu extends Fragment {
                 btnMedicamentos.setEnabled(false);
                 //make your toast here
                 startActivity(new Intent(getContext(), Medicamentos.class));
+            }
+        });
+
+        btnMedicos = (Button) v.findViewById(R.id.btn_Medicos);
+        btnMedicos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnMedicos.setEnabled(false);
+                startActivity(new Intent(getContext(), Medicos.class));
             }
         });
 

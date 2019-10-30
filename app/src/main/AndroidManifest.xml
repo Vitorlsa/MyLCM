@@ -23,6 +23,7 @@
         <activity android:name=".Activities.Medicamentos" />
         <activity android:name=".Activities.Beneficiarios" />
         <activity android:name=".Activities.Calendario" />
+        <activity android:name=".Activities.Medicos"/>
         <activity
             android:name=".Activities.NavDrawerMenu"
             android:label="@string/title_activity_nav_drawer_menu"

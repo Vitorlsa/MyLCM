@@ -9,6 +9,7 @@ import com.example.mylcm.Retrofit.Contract.SolicitacaoDTO;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoPendentePrestadorDTO;
 import com.example.mylcm.Retrofit.Login.LoginDTO;
 import com.example.mylcm.Retrofit.Login.ServerResponse;
+import com.example.mylcm.Retrofit.Medicos.MedicosBenefDTO;
 import com.example.mylcm.Retrofit.Profile.EditDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileResponse;
@@ -61,4 +62,7 @@ public interface RetrofitService {
 
     @POST("api/tarefa/realizartarefa")
     Call<TasksDoneDTO> setTasksDone(@Body TasksDoneDTO tasksDone);
+
+    @POST("api/beneficiario/listarmedico")
+    Call<ArrayList<MedicosBenefDTO>> getMedicos(@Body ContractDTO idBenef);
 }

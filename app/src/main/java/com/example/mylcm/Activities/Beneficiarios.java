@@ -130,7 +130,6 @@ public class Beneficiarios extends AppCompatActivity {
     public void popularListaBenef(){
 
         benefData.add(new Beneficiario(NameBenef, NameContract, benefId));
-
         benefs = new BenefAdapter(this, benefData);
         listBenef.setAdapter(benefs);
 
