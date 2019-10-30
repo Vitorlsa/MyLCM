@@ -40,8 +40,10 @@ public class TasksResponse implements Serializable {
     public boolean TodosOsDias;
     @SerializedName("comentarioTarefaRealizada")
     public String ComentarioTarefaRealizada;
+    @SerializedName("tarefaRealizadaId")
+    public int TarefaRealizadaId;
 
-    public TasksResponse(int id, int contratoId, String titulo, String data, String horaInicio, String horaFim, String corHexa, String comentario, String dataString, boolean tarefaRealizada, int quantidadeMedicamento, String nomeMedicamento, int beneficiarioMedicamentoId, String dataInicio, String dataFim, boolean todosOsDias, String comentarioTarefaRealizada) {
+    public TasksResponse(int id, int contratoId, String titulo, String data, String horaInicio, String horaFim, String corHexa, String comentario, String dataString, boolean tarefaRealizada, int quantidadeMedicamento, String nomeMedicamento, int beneficiarioMedicamentoId, String dataInicio, String dataFim, boolean todosOsDias, String comentarioTarefaRealizada, int tarefaRealizadaId) {
         Id = id;
         ContratoId = contratoId;
         Titulo = titulo;
@@ -59,6 +61,7 @@ public class TasksResponse implements Serializable {
         DataFim = dataFim;
         TodosOsDias = todosOsDias;
         ComentarioTarefaRealizada = comentarioTarefaRealizada;
+        TarefaRealizadaId = tarefaRealizadaId;
     }
 
     public int getId() {
@@ -195,5 +198,13 @@ public class TasksResponse implements Serializable {
 
     public void setComentarioTarefaRealizada(String comentarioTarefaRealizada) {
         ComentarioTarefaRealizada = comentarioTarefaRealizada;
+    }
+
+    public int getTarefaRealizadaId() {
+        return TarefaRealizadaId;
+    }
+
+    public void setTarefaRealizadaId(int tarefaRealizadaId) {
+        TarefaRealizadaId = tarefaRealizadaId;
     }
 }

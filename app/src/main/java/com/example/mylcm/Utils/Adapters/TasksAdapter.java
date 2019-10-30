@@ -3,6 +3,7 @@ package com.example.mylcm.Utils.Adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
     private List<Tasks> taskData = new ArrayList<>();
     private Dialog tasksModal;
     private boolean yorn;
-    private int tarefaId, tarefaRealizadaId;
+    private int tarefaId, tarefaRealizadaId, pos;
     private String comentario, data, hora, HexaColor;
     EditText comentarios;
     Calendario calendario;
@@ -44,7 +46,7 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
         sContext = context;
         taskData = list;
         tasksModal = new Dialog(sContext);
-        tasksModal.setCancelable(false);
+        tasksModal.setCancelable(true);
         tasksModal.setContentView(R.layout.modal_tasksdone);
         tasksModal.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         comentarios = (EditText) tasksModal.findViewById(R.id.edtComentario);
@@ -61,6 +63,34 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
             listItem = LayoutInflater.from(sContext).inflate(R.layout.item_tasks, parent,false);
 
         final Tasks presenteTask = taskData.get(position);
+
+        if(presenteTask.getTaskDoneId() != 0 && presenteTask.isTarefaRealizada()){
+            ImageButton image = (ImageButton) listItem.findViewById(R.id.imgDonenotDone);
+            image.setImageResource(R.drawable.ic_done_black_24dp);
+
+            listItem.setBackgroundResource(R.color.grey);
+
+            Button done = (Button) listItem.findViewById(R.id.tasksDone);
+            done.setEnabled(false);
+
+            Button notDone = (Button) listItem.findViewById(R.id.tasksNotDone);
+            notDone.setEnabled(false);
+
+            notifyDataSetChanged();
+        } else if(presenteTask.getTaskDoneId() !=0 && !presenteTask.isTarefaRealizada()){
+            ImageButton image = (ImageButton) listItem.findViewById(R.id.imgDonenotDone);
+            image.setImageResource(R.drawable.ic_close_black_24dp);
+
+            listItem.setBackgroundResource(R.color.grey);
+
+            Button done = (Button) listItem.findViewById(R.id.tasksDone);
+            done.setEnabled(false);
+
+            Button notDone = (Button) listItem.findViewById(R.id.tasksNotDone);
+            notDone.setEnabled(false);
+
+            notifyDataSetChanged();
+        }
 
         TextView taskTitle = (TextView) listItem.findViewById(R.id.tasksTitle);
         taskTitle.setText(presenteTask.getTitle());

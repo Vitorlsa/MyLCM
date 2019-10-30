@@ -13,8 +13,10 @@ public class Tasks {
     private String MedName;
     private String HexaColor;
     private String DataTask;
+    private int TaskDoneId;
+    private boolean TarefaRealizada;
 
-    public Tasks(int taskId, String title, Time timeStart, Time timeEnd, String taskComment, int medQtd, String medName, String hexaColor, String dataTask) {
+    public Tasks(int taskId, String title, Time timeStart, Time timeEnd, String taskComment, int medQtd, String medName, String hexaColor, String dataTask, int taskDoneId, boolean tarefaRealizada) {
         TaskId = taskId;
         Title = title;
         TimeStart = timeStart;
@@ -24,6 +26,8 @@ public class Tasks {
         MedName = medName;
         HexaColor = hexaColor;
         DataTask = dataTask;
+        TaskDoneId = taskDoneId;
+        TarefaRealizada = tarefaRealizada;
     }
 
     public int getTaskId() {
@@ -96,5 +100,21 @@ public class Tasks {
 
     public void setDataTask(String dataTask) {
         DataTask = dataTask;
+    }
+
+    public int getTaskDoneId() {
+        return TaskDoneId;
+    }
+
+    public void setTaskDoneId(int taskDoneId) {
+        TaskDoneId = taskDoneId;
+    }
+
+    public boolean isTarefaRealizada() {
+        return TarefaRealizada;
+    }
+
+    public void setTarefaRealizada(boolean tarefaRealizada) {
+        TarefaRealizada = tarefaRealizada;
     }
 }

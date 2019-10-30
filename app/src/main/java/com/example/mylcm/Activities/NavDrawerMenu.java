@@ -169,7 +169,15 @@ public class NavDrawerMenu extends AppCompatActivity
 
             retrofitProfile(pid);
 
-        }  else if (id == R.id.nav_share) {
+        }
+        else if(id == R.id.nav_help){
+            String url = "http://lcmchatbot.mybluemix.net";
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
             SharedPreferences prefs = getSharedPreferences("log", 0);

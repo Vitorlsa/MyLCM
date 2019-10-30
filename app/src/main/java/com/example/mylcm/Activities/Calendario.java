@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -58,7 +59,8 @@ public class Calendario extends AppCompatActivity {
     ArrayList<Tasks> taskData = new ArrayList<>();
     ArrayList<StringWithTag> benefNames = new ArrayList<>();
     private TasksAdapter tasksAdapter;
-    public int pid, qtd, contratId, idContrat, MedQtd, taskId;
+    public int pid, qtd, contratId, idContrat, MedQtd, taskId, taskDoneId;
+    public boolean tarefaRealizada;
     public Time tStart, tEnd;
     public Spinner spnTasks;
 
@@ -241,11 +243,14 @@ public class Calendario extends AppCompatActivity {
                                 MedName = tasksResponseData.get(i).NomeMedicamento;
                                 HexaColor = tasksResponseData.get(i).CorHexa;
                                 dataTask = tasksResponseData.get(i).Data;
+                                taskDoneId = tasksResponseData.get(i).TarefaRealizadaId;
+                                tarefaRealizada = tasksResponseData.get(i).TarefaRealizada;
 
                                 dataTask = dataTask.substring(0, 10);
 
                                 tStart = Time.valueOf(TimeStart);
                                 tEnd = Time.valueOf(TimeEnd);
+
 
                                 ajustarListTasks();
 
@@ -363,7 +368,7 @@ public class Calendario extends AppCompatActivity {
     }
 
     public void ajustarListTasks(){
-        taskData.add(new Tasks(taskId, Title, tStart, tEnd, TaskComment, MedQtd, MedName, HexaColor, dataTask));
+        taskData.add(new Tasks(taskId, Title, tStart, tEnd, TaskComment, MedQtd, MedName, HexaColor, dataTask, taskDoneId, tarefaRealizada));
         if(taskData.size() == 1) {
             popularListTasks();
         }
@@ -379,6 +384,7 @@ public class Calendario extends AppCompatActivity {
 
     public void popularListTasks(){
         tasksAdapter = new TasksAdapter(this, taskData);
+        tasksAdapter.notifyDataSetChanged();
         taskList.setAdapter(tasksAdapter);
     }
 }
