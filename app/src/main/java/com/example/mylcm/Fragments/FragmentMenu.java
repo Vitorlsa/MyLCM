@@ -147,6 +147,7 @@ public class FragmentMenu extends Fragment {
         btnBeneficiario.setEnabled(true);
         btnContratos.setEnabled(true);
         btnMedicamentos.setEnabled(true);
+        btnMedicos.setEnabled(true);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
