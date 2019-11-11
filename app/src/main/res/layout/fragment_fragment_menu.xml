@@ -28,6 +28,14 @@
             android:background="@drawable/card_android_medicamentos"/>
 
         <Button
+            android:id="@+id/btn_Medicos"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/card_android_medicos"/>
+
+        <Button
             android:id="@+id/btn_Beneficiario"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -42,14 +50,6 @@
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/card_android_contratos"/>
-        
-        <Button
-            android:id="@+id/btn_Medicos"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginHorizontal="5dp"
-            android:background="@drawable/card_android_medicos"/>
 
     </LinearLayout>
 </ScrollView>

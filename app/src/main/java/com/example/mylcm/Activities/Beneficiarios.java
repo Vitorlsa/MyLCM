@@ -27,7 +27,7 @@ public class Beneficiarios extends AppCompatActivity {
 
     ImageButton backBtn;
     ListView listBenef;
-    public static  int pid, qtd, benefId;
+    public static  int pid, qtd, benefId, idContrato;
     public static String NameBenef, NameContract;
     public static String IniDate, EndDate;
     ArrayList<Beneficiario> benefData = new ArrayList<>();
@@ -96,6 +96,7 @@ public class Beneficiarios extends AppCompatActivity {
                                 IniDate = benefResponseData.get(i).DataInicio;
                                 EndDate = benefResponseData.get(i).DataFim;
                                 benefId = benefResponseData.get(i).BeneficiarioId;
+                                idContrato = benefResponseData.get(i).Id;
 
                                 popularListaBenef();
 
@@ -129,7 +130,7 @@ public class Beneficiarios extends AppCompatActivity {
 
     public void popularListaBenef(){
 
-        benefData.add(new Beneficiario(NameBenef, NameContract, benefId));
+        benefData.add(new Beneficiario(NameBenef, NameContract, benefId, idContrato));
         benefs = new BenefAdapter(this, benefData);
         listBenef.setAdapter(benefs);
 

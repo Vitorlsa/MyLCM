@@ -72,9 +72,11 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
 
             Button done = (Button) listItem.findViewById(R.id.tasksDone);
             done.setEnabled(false);
+            done.setBackgroundColor(Color.LTGRAY);
 
             Button notDone = (Button) listItem.findViewById(R.id.tasksNotDone);
             notDone.setEnabled(false);
+            notDone.setBackgroundColor(Color.LTGRAY);
 
             notifyDataSetChanged();
         } else if(presenteTask.getTaskDoneId() !=0 && !presenteTask.isTarefaRealizada()){
@@ -85,9 +87,11 @@ public class TasksAdapter extends ArrayAdapter<Tasks> {
 
             Button done = (Button) listItem.findViewById(R.id.tasksDone);
             done.setEnabled(false);
+            done.setBackgroundColor(Color.LTGRAY);
 
             Button notDone = (Button) listItem.findViewById(R.id.tasksNotDone);
             notDone.setEnabled(false);
+            notDone.setBackgroundColor(Color.LTGRAY);
 
             notifyDataSetChanged();
         }

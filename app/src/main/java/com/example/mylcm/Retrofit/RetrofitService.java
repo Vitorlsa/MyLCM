@@ -3,6 +3,7 @@ package com.example.mylcm.Retrofit;
 import com.example.mylcm.Retrofit.Benef.BenefMedDTO;
 import com.example.mylcm.Retrofit.Benef.DadosBenefResponse;
 import com.example.mylcm.Retrofit.Contract.BenefDTO;
+import com.example.mylcm.Retrofit.Contract.CancelContractDTO;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.Contract.DadosContratosResponse;
 import com.example.mylcm.Retrofit.Contract.SolicitacaoDTO;
@@ -65,4 +66,7 @@ public interface RetrofitService {
 
     @POST("api/beneficiario/listarmedico")
     Call<ArrayList<MedicosBenefDTO>> getMedicos(@Body ContractDTO idBenef);
+
+    @POST("api/contrato/encerrarcontratoprestador")
+    Call<CancelContractDTO> setContractCancel(@Body CancelContractDTO idContrato);
 }

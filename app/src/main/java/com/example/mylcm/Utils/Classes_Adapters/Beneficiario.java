@@ -7,11 +7,13 @@ public class Beneficiario {
     private String NomeBeneficiario;
     private String NomeContratante;
     private int BenefId;
+    private int ContratoId;
 
-    public Beneficiario(String nomeBeneficiario, String nomeContratante, int benefId) {
+    public Beneficiario(String nomeBeneficiario, String nomeContratante, int benefId, int contratoId) {
         NomeBeneficiario = nomeBeneficiario;
         NomeContratante = nomeContratante;
         BenefId = benefId;
+        ContratoId = contratoId;
     }
 
     public String getNomeBeneficiario() {
@@ -36,5 +38,13 @@ public class Beneficiario {
 
     public void setBenefId(int benefId) {
         BenefId = benefId;
+    }
+
+    public int getContratoId() {
+        return ContratoId;
+    }
+
+    public void setContratoId(int contratoId) {
+        ContratoId = contratoId;
     }
 }

@@ -19,13 +19,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mylcm.Activities.Beneficiarios;
 import com.example.mylcm.R;
 import com.example.mylcm.Retrofit.Benef.DadosBenefResponse;
 import com.example.mylcm.Retrofit.Connect;
+import com.example.mylcm.Retrofit.Contract.BenefDTO;
+import com.example.mylcm.Retrofit.Contract.CancelContractDTO;
 import com.example.mylcm.Retrofit.Contract.ContractDTO;
 import com.example.mylcm.Retrofit.Profile.ProfileDTO;
 import com.example.mylcm.Retrofit.RetrofitService;
@@ -44,15 +48,23 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
 
     private Context sContext;
     private List<Beneficiario> benefData = new ArrayList<>();
-    private Dialog benefModal;
-    private int idBenef, sexo;
-    String nomeBenef, dataNascimento, telefone, cep, estado, rua, bairro, numero, complemento;
+    private Dialog benefModal, avalContrat;
+    private int idBenef, sexo, idContrato;
+    private double rating;
+    EditText comment;
+    RatingBar aval;
+    String nomeBenef, dataNascimento, telefone, cep, estado, rua, bairro, numero, complemento, avalComment;
     ArrayList<Integer> condicoes = new ArrayList<>();
 
     public BenefAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Beneficiario> list){
         super(context, 0, list);
         sContext = context;
         benefData = list;
+        avalContrat = new Dialog(sContext);
+        avalContrat.setCancelable(true);
+        avalContrat.setContentView(R.layout.contrato_aval);
+        avalContrat.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        comment = (EditText) avalContrat.findViewById(R.id.avalComentario);
     }
 
     @NonNull
@@ -109,13 +121,32 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       dialogInterface.dismiss();
+                       idContrato = presenteBeneficiario.getContratoId();
+
+                       aval = (RatingBar) avalContrat.findViewById(R.id.rate);
+                       aval.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                           @Override
+                           public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
+                           }
+                       });
+                       avalContrat.findViewById(R.id.btnSend).setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View view) {
+                               avalContrat.dismiss();
+                               rating = aval.getRating();
+                               avalComment = comment.getText().toString();
+                               retrofitCancelarContrato(idContrato, avalComment, rating);
+                           }
+                       });
+
+                       avalContrat.show();
                    }
                });
                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       dialogInterface.dismiss();
+                        dialogInterface.dismiss();
                    }
                });
 
@@ -319,5 +350,28 @@ public class BenefAdapter extends ArrayAdapter<Beneficiario> {
     public void popularCidadeModal(String cityModal){
         TextView city = (TextView) benefModal.findViewById(R.id.BenefCity);
         city.setText(cityModal);
+    }
+
+    public void retrofitCancelarContrato(int idContrato, String Comentario, double Rating){
+
+        RetrofitService service = Connect.createService(RetrofitService.class);
+
+        final CancelContractDTO cancel = new CancelContractDTO(idContrato, Comentario, Rating);
+
+        Call<CancelContractDTO> call = service.setContractCancel(cancel);
+
+        call.enqueue(new Callback<CancelContractDTO>() {
+            @Override
+            public void onResponse(Call<CancelContractDTO> call, Response<CancelContractDTO> response) {
+                if (response.isSuccessful()){
+                    //Toast.makeText(getActivity().getApplicationContext(),"Dados salvos com sucesso!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(sContext.getApplicationContext(),"Obrigado!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
