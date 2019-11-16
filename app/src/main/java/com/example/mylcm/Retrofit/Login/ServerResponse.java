@@ -13,12 +13,15 @@ public class ServerResponse implements Serializable {
     private String Email;
     @SerializedName("imagem")
     private String Imagem;
+    @SerializedName("ratingUsuario")
+    private double RatingUsuario;
 
-    public ServerResponse(int id, String nome, String email, String imagem) {
+    public ServerResponse(int id, String nome, String email, String imagem, double ratingUsuario) {
         Id = id;
         Nome = nome;
         Email = email;
         Imagem = imagem;
+        RatingUsuario = ratingUsuario;
     }
 
     public int getID() {
@@ -51,5 +54,13 @@ public class ServerResponse implements Serializable {
 
     public void setImagem(String imagem) {
         this.Imagem = imagem;
+    }
+
+    public double getRatingUsuario() {
+        return RatingUsuario;
+    }
+
+    public void setRatingUsuario(double ratingUsuario) {
+        RatingUsuario = ratingUsuario;
     }
 }

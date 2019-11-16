@@ -94,6 +94,9 @@ public class NavDrawerMenu extends AppCompatActivity
 
         SharedPreferences profPics = getSharedPreferences("profPic", 0);
         String profPict = profPics.getString("profPic", "");
+
+        SharedPreferences ratingUsr = getSharedPreferences("rating", 0);
+        String ratingUser = ratingUsr.getString("rating", "");
         //--Finaliza os sharedPrefs.
 
         //Transformo a string de base64 em bitmap.
@@ -107,10 +110,12 @@ public class NavDrawerMenu extends AppCompatActivity
         CircleImageView profPic = (CircleImageView) header.findViewById(R.id.profPic);
         TextView nome = (TextView) header.findViewById(R.id.tvName);
         TextView email = (TextView) header.findViewById(R.id.tvEmail);
+        TextView rating = (TextView) header.findViewById(R.id.tvRating);
         //Insere os dados na header
         profPic.setImageBitmap(decodedByte);
         nome.setText(nameUser);
         email.setText(emailUser);
+        rating.setText(ratingUser);
     }
 
     public Boolean exit = false;

@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
     public static String userName, userEmail, userProfPic;
     TextView cadastrar, esqueci;
     public static int pid;
+    public double ratingUser;
     EditText userID, userPWD;
     Button btnLogin;
     //ServerResponse resposta = new ServerResponse();
@@ -150,6 +151,7 @@ public class Login extends AppCompatActivity {
                             userName = serverResponseData.getNome();
                             userEmail = serverResponseData.getEmail();
                             userProfPic = serverResponseData.getImagem();
+                            ratingUser = serverResponseData.getRatingUsuario();
                             pid = serverResponseData.getID();
 
                             //Salva o ID do usuário em um shared preferences
@@ -182,6 +184,12 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putBoolean("isLogged", true);
                             editor.commit();
+
+                            //Salva o rating do usuário em um shared preferences
+                            SharedPreferences ratingUsr = getSharedPreferences("rating", 0);
+                            SharedPreferences.Editor rating_editor = ratingUsr.edit();
+                            rating_editor.putString("rating", String.valueOf(ratingUser));
+                            rating_editor.commit();
 
                             //progress.dismiss();
                             canLogin();
