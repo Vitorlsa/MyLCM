@@ -59,7 +59,7 @@ public class Calendario extends AppCompatActivity {
     ArrayList<Tasks> taskData = new ArrayList<>();
     ArrayList<StringWithTag> benefNames = new ArrayList<>();
     private TasksAdapter tasksAdapter;
-    public int pid, qtd, contratId, idContrat, MedQtd, taskId, taskDoneId;
+    public int pid, qtd, contratId, idContrat, MedQtd, taskId, taskDoneId, count;
     public boolean tarefaRealizada;
     public Time tStart, tEnd;
     public Spinner spnTasks;
@@ -373,13 +373,24 @@ public class Calendario extends AppCompatActivity {
             popularListTasks();
         }
         else if(taskData.size() > 1) {
+            count = taskData.size();
+            for(int j = 0; j < count-1; j++){
+                for(int i = 0; i < taskData.size()-1; i++){
+                    if(taskData.get(i).getTimeStart().after(taskData.get(i+1).getTimeStart())){
+                        Collections.swap(taskData, i, i+1);
+                    }
+                }
+            }
+            popularListTasks();
+        }
+        /*else if(taskData.size() > 1) {
             for(int i = 0; i < taskData.size()-1; i++){
                 if(taskData.get(i).getTimeStart().after(taskData.get(i+1).getTimeStart())){
                     Collections.swap(taskData, i, i+1);
                 }
             }
             popularListTasks();
-        }
+        }*/
     }
 
     public void popularListTasks(){
